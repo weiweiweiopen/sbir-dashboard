@@ -10,8 +10,16 @@
 - `data/public/budget.csv` — 簽約版預算科目
 - `data/public/monthly-plan.csv` — 月度預估支出與實支狀態
 - `data/public/actual-expenses.csv` — 可公開的實支流水；目前尚無正式登錄
+
+- `data/public/materials.csv` — 消耗性器材及原材料細項
+- `data/public/equipment-use.csv` — 研發設備使用費細項
+- `data/public/equipment-maintenance.csv` — 研發設備維護費細項
 - `docs/public-transparency.md` — 公開／不公開資料邊界
 
 ## Privacy
 
 個人薪資、Simpany 明細、投保資料、銀行帳戶、政府系統截圖與登入憑證不進入 public repo。
+
+## LLM wiki
+
+- `llm-wiki/` — DSSC-PUF strategy, IP landscape, research landscape, defensive firewall, and exported Google Doc baseline.

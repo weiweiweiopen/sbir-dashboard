@@ -1,0 +1,292 @@
+﻿# SBIR 第一階段 KPI：DSSC-PUF 智財檢索與產品策略分析（表格補齊版）
+版本：2026-05-16 表格補齊版
+主要來源：/Users/shihweichieh/Documents/Projects/SBIR2026/簽約文件4:22/計劃書與相關附件422_ok_ok.pdf 內「智財分析」「智慧財產檢索與整理」「預定查核點說明」「PO 意見回覆」。
+補查來源：Google Patents / Justia / NASA technology transfer 等公開資料。
+注意：本文件為 SBIR 執行與簡報整理用途，不構成正式法律意見；若要作為專利申請或 FTO（freedom-to-operate）判斷，仍應由專利師進一步檢索與出具正式意見。
+________________
+0. 第一階段 KPI 對應
+查核點
+	工作項目
+	預訂完成時間
+	KPI
+	目前完成度
+	風險判斷
+	補強建議
+	A
+	專利調查與產品策略研判
+	115.05.30
+	找出 3–8 篇國內外 Material PUF 相關文獻整理
+	已有 7 筆可整理為 Material PUF / 光學 PUF / 光電 PUF / 透明光學 / MLA 相關資料
+	低～中
+	表格化即可，注意區分「論文」與「專利」
+	A
+	專利調查與產品策略研判
+	115.05.30
+	找出 1–3 件相關國際專利摘要分析
+	已補 4 件公開專利／專利申請案作摘要分析
+	中
+	後續正式送件前，建議由專利師再跑一次 FTO / claim chart
+	A
+	產品策略研判
+	115.05.30
+	將智財檢索轉成產品與專利布局判斷
+	已整理 DSSC-PUF 差異化與申請方向
+	中
+	專利主張應收斂到「圖案化 DSSC + I–V 特徵重構 + 身份註冊/驗證 + 事件紀錄」
+	________________
+A-1. Material PUF / 光電 PUF 相關文獻整理表
+編號
+	文獻／技術名稱
+	出版號 / DOI / 來源
+	技術類型
+	PUF 熵源 / 讀取方式
+	是否自供電
+	與本案關聯
+	本案差異化
+	初步風險
+	L1
+	Designing Physical Unclonable Functions From Optically Active Materials
+	DOI: 10.1002/adma.202502059
+	光學活性材料 PUF
+	光學標籤、基板與製程造成的隨機光學回應
+	否 / 未必
+	直接支持「材料微結構可作 PUF」的科學合理性
+	本案不是單純光學標籤，而是 DSSC 光伏材料、圖案化光敏層與 I–V 曲線特徵
+	中：會壓縮「光學材料 PUF」的大範圍新穎性
+	L2
+	Energy Harvesting and Sensor Based Hardware Security Primitives for Cyber-Physical Systems
+	DOI: 10.13023/ETD.2021.019
+	能量採集 / 太陽能 PUF
+	多片商品級單晶矽太陽能電池之差異
+	是 / 能量採集
+	與本案同屬「太陽能 × PUF」
+	本案使用圖案化 DSSC，不是商品級矽晶太陽能板；強調光敏層製程差異與曲線特徵重構
+	中～高：太陽能 PUF 方向已有先例，需做明確區隔
+	L3
+	A Self-Powered Optoelectronic In-Sensor PUF Based on Halide Perovskites
+	DOI: 10.1021/acsaelm.5c01870
+	自供電光電 PUF
+	鈣鈦礦材料內部光生載流子動力學隨機性
+	是
+	與本案最接近：光電材料、自供電、PUF、環境穩定度
+	本案材料為 DSSC，強調透明圖案化、I–V 特徵、能源事件紀錄與身份錨定
+	高：需避免主張「自供電光電 PUF」本身為本案獨創
+	L4
+	Ranging and Light-Field Imaging with Transparent Photodetectors
+	DOI: 10.1038/s41566-019-0567-3
+	透明光偵測 / 光場成像
+	透明 photodetector 進行光場成像與測距
+	否 / 非光伏主軸
+	與「透明裝置」「透明光場」概念接近
+	本案是 DSSC 光伏材料身份驗證，不是透明相機或測距感測器
+	中：若未來做透明光學讀取介面，需避開具體成像架構
+	L5
+	An Integrated Imaging Sensor for Aberration-Corrected 3D Photography
+	DOI: 10.1038/s41586-022-05306-8
+	整合式光學感測陣列
+	CMOS / 光學陣列
+	否
+	可作光場 / 3D imaging 背景
+	本案不以 CMOS 3D imaging 為核心，僅可能作讀取參考
+	低：目前非核心風險
+	L6
+	Photoresist Microlens Arrays Fabricated by Nanoimprint Technique to Improve Photoelectric Conversion Efficiency of Solar Cells
+	DOI: 10.3390/coatings12121812
+	微透鏡陣列 / 太陽能效率提升
+	MLA 改變光路、提升光電轉換效率
+	是 / 太陽能元件相關
+	可作 MLA × DSSC 光學結構參考
+	本案目的不是提升效率，而是身份熵源、讀取穩定性與事件簽章
+	低～中：若採用特定 MLA 製程需再查專利
+	L7
+	Advanced lensless light-field imaging systems
+	US20190188875A1 / US10546382B2
+	無鏡頭光場成像系統
+	散光陣列與感測結構
+	否
+	與無鏡頭 / 光場讀取有間接關聯
+	本案不主張 lensless camera；可用來說明「相關但非同一技術問題」
+	中：若原型使用相似 lensless light-field 架構需避讓
+	A-1 小結
+目前資料已足以支撐「3–8 篇國內外 Material PUF 相關文獻整理」。但其中 L7 是專利案、L4/L5/L6 偏光學或太陽能結構，不應全部混稱為 Material PUF；建議在簡報中明確分為：
+1. 核心 Material / optoelectronic PUF：L1、L2、L3
+2. 光學讀取與透明裝置參考：L4、L5、L7
+3. DSSC / 太陽能光學結構參考：L6
+________________
+A-2. 國際專利／公開案摘要分析表
+目的：補足第一階段 KPI「找出 1–3 件相關國際專利摘要分析」。此處先列 4 件，正式送件可取其中 3 件作主表，另 1 件作補充。
+編號
+	專利公開號 / 專利號
+	名稱
+	申請人 / 權利人
+	技術領域
+	主要內容摘要
+	與本案重疊處
+	本案迴避 / 差異化策略
+	初步風險
+	P1
+	US20190188875A1 / US10546382B2
+	Advanced lensless light-field imaging systems for enabling a wide range of entirely new applications
+	NRI R&D Patent Licensing LLC
+	無鏡頭光場成像
+	使用 lensless / light-field imaging 結構，透過光學陣列與感測器取得影像或空間資訊
+	若本案使用透明光場或無鏡頭讀取，概念上相鄰
+	本案核心不是成像系統，而是 DSSC-PUF 材料身份；避免使用其特定光學陣列、散光結構與成像 claim
+	中
+	P2
+	US20210036874A1 / US11206146B2
+	Architecture for generating physically unclonable function response
+	University of Kentucky Research Foundation
+	電路 / 裝置差異型 PUF
+	以多個 device 的製造差異產生 PUF response，包含 voltage output、summation value、microcontroller 等架構
+	與本案同屬「由物理差異產生 PUF response」
+	本案熵源為 DSSC 光敏層、TiO₂ 多孔結構、染料分布與 I–V 曲線；不是一般電路 device pair summation architecture
+	中
+	P3
+	US20250167996A1
+	Optical physically unclonable function device
+	TTP PLC
+	光學 PUF
+	由多條 optical fibres、耦合介質與光源產生 optical PUF response
+	與本案的「光學回應可作輔助身份讀取」有重疊
+	本案不以 optical fibre network 為 PUF 介質；光學特徵僅作 DSSC 材料身份輔助，主讀取為 I–V 曲線與光伏特徵
+	中
+	P4
+	WO2018126029A2
+	Blockchains for securing IoT devices
+	Intel Corp
+	IoT 安全 / 區塊鏈
+	以區塊鏈、trusted reliability engine、trust anchor、authenticator、key manager 等元件保護 IoT device / network
+	與本案後段「IoT 裝置身份錨定 / 區塊鏈紀錄」相鄰
+	本案不主張一般 IoT blockchain security；區塊鏈只是紀錄 panel ID / measurement event hash 的外部索引，材料真實性由 DSSC-PUF 量測提供
+	低～中
+	A-2 可直接放進簡報的結論
+本案初步智財檢索顯示，既有技術分別覆蓋以下領域：
+1. 光學 / 無鏡頭成像：如 US20190188875A1，重點在 light-field imaging，不涉及 DSSC 或 PUF。
+2. 一般 PUF response 架構：如 US20210036874A1，重點在 device pair / voltage output / summation value，與本案 DSSC 材料熵源不同。
+3. 光學 PUF：如 US20250167996A1，重點在 optical fibres 與光路耦合，與本案圖案化 DSSC 光敏層不同。
+4. IoT blockchain security：如 WO2018126029A2，重點在 IoT 網路安全與信任管理，與本案材料事件身份錨定不同。
+因此，本案較穩健的專利化空間不在「PUF」「光學 PUF」「區塊鏈 IoT 安全」任一大概念本身，而在：
+以圖案化 DSSC 光敏層作為材料型 PUF 熵源，透過 I–V 曲線特徵重構裝置身份，並將量測事件轉為可紀錄、可錨定的 Material Event Signature。
+________________
+A-3. 產品策略與專利佈局表
+策略項目
+	第一階段應完成的說法
+	可驗收證據
+	專利佈局意義
+	風險控制
+	核心產品定位
+	DSSC-PUF 示範原型與材料身份驗證流程
+	樣本照片、I–V 曲線、panel ID、量測流程圖
+	將產品從「藝術太陽能板」提升為「材料身份驗證元件」
+	不宣稱商業級安全，只宣稱 POC / Phase 1 可行性
+	材料熵源
+	TiO₂ 多孔結構、染料吸附分布、圖案化製程差異形成裝置特徵
+	顯微 / 製程照片、不同樣本曲線差異、同樣本重測資料
+	可作發明核心之一：圖案化 DSSC 作 PUF 熵源
+	避免說所有 DSSC 都天然可作安全 PUF
+	讀取方式
+	在指定光照條件下量測 I–V 曲線並萃取特徵
+	Voc、Isc、FF、Vmpp、Impp、Rs、Rsh、曲線形狀特徵
+	可作方法 claim：量測 → 特徵萃取 → 身份比對
+	需處理光照敏感造成的不穩定
+	穩定重構
+	同一 DSSC 在不同光照條件下身份重構一致率 ≥ 90%
+	四種光照條件測試資料
+	可主張「多光照條件下穩定身份重構流程」
+	KPI 要有數據，不要只交報告
+	裝置分辨
+	不同 DSSC 在同一光照條件下身份特徵分辨率 ≥ 80%
+	混淆矩陣、距離分布、分類結果
+	可主張「裝置間可區分性」
+	若數據不足，先用 POC 語氣
+	身份註冊
+	建立 panel ID 與 I–V 指紋模型
+	註冊資料表、模型版本、時間戳
+	專利可包含 registration protocol
+	避免把 panel ID 當成秘密；秘密在物理特徵與驗證流程
+	身份驗證
+	後續量測可與既有模板比對
+	驗證成功率 ≥ 95% 或階段性測試結果
+	專利可包含 verification protocol
+	若現階段未達 95%，需標示為預期規格 / 待測
+	能源事件紀錄
+	記錄時間戳、panel ID、光照條件、I–V 特徵與估算發電資訊
+	event log / CSV / demo UI
+	形成 Material Event Signature 主軸
+	不要宣稱等同正式 REC 或法定能源憑證
+	區塊鏈 / 外部錨定
+	將事件 hash 或 panel identity anchor 到外部帳本
+	測試交易、hash record、流程圖
+	可作 dependent claim / 系統整合
+	區塊鏈只是不可竄改索引，不保證材料真實性
+	專利申請
+	2026 年完成 1 件發明專利申請
+	專利草案、檢索表、專利師會議紀錄
+	建議名稱：基於圖案化 DSSC 之 PUF 生成、身份驗證與能源事件紀錄方法
+	正式申請前需 FTO 與 claim 避讓
+	________________
+A-4. FTO / 侵權風險初判表
+技術區塊
+	相關先例
+	風險等級
+	風險說明
+	建議處理
+	光學材料 PUF
+	L1、P3
+	中
+	光學材料與光學 PUF 已有先例
+	本案以 DSSC 電性 I–V 為主，光學回應為輔助
+	太陽能 / 光電 PUF
+	L2、L3
+	中～高
+	solar / optoelectronic / self-powered PUF 已有文獻
+	主張 DSSC 圖案化製程、I–V 特徵重構、能源事件紀錄的組合
+	無鏡頭 / 光場讀取
+	L4、L5、P1
+	中
+	若後續採用 lensless / light-field 架構，可能踩到具體光學 claim
+	Phase 1 先不要把 light-field 作為核心專利主張
+	微透鏡 / 太陽能效率提升
+	L6
+	低～中
+	MLA 提升效率已有研究與專利可能
+	若使用 MLA，定位為輔助光學結構，不作主要創新
+	一般 PUF 電路架構
+	P2
+	中
+	PUF response architecture 已有大量專利
+	本案避免 claim 一般 device-pair PUF，限定 DSSC 材料與量測流程
+	IoT 區塊鏈安全
+	P4
+	低～中
+	區塊鏈保護 IoT 裝置已有大型公司布局
+	本案把鏈上資料限制為事件 hash / identity anchor，不主張一般 IoT trust engine
+	________________
+A-5. 本案專利申請方向草案
+項目
+	建議內容
+	建議專利名稱
+	一種基於圖案化染料敏化太陽能電池之物理不可克隆函數生成、身份驗證與能源事件紀錄方法
+	核心發明問題
+	光伏器件受光照條件影響，訊號不穩定；既有方案缺乏將材料微差異轉成可重複身份驗證與事件紀錄的完整流程
+	核心技術手段
+	圖案化 DSSC 光敏層 + 多光照條件 I–V 量測 + 特徵向量萃取 + panel ID 註冊 + 身份驗證 + 事件紀錄 / hash 錨定
+	可主張的新穎組合
+	DSSC 圖案化材料熵源、I–V 曲線身份重構、能源事件簽章、外部帳本錨定
+	不宜主張
+	所有太陽能 PUF、所有光學 PUF、所有區塊鏈 IoT 身份驗證、DSSC 作為萬能安全根
+	第一階段交付語氣
+	Prototype / POC / validation target；不過度承諾商業級安全
+	________________
+A-6. PO 意見回覆可用文字（修正版）
+本案已就材料型 PUF、光伏 PUF、透明光偵測、微透鏡太陽能結構與 IoT 身份錨定等方向進行初步智財檢索。既有文獻與專利多集中於光學標籤、矽晶／鈣鈦礦光電 PUF、透明光偵測器、太陽能效率提升或一般 IoT 區塊鏈安全；本案核心則為以圖案化 DSSC 光敏層作為材料熵源，並以 I–V 曲線特徵重構裝置身份，進一步形成能源事件紀錄與身份錨定流程。初步判斷本案與既有技術仍具可區隔性；後續將於專利申請前委託專利專業進行完整 FTO 檢索與請求項避讓設計。
+________________
+給 Abao 的判斷
+這版已經把第一階段 KPI 需要看的三種表格補齊：
+1. Material PUF / 光電 PUF 文獻整理表
+2. 國際專利／公開案摘要分析表
+3. 產品策略與專利佈局表
+最需要注意的是：我們不要把「太陽能 PUF」或「光學 PUF」講成自己發明的。比較安全、也比較有 Wise Mouse 特色的主軸是：
+圖案化 DSSC 材料事件簽章：以 DSSC 的材料微差異與 I–V 曲線作為 PUF 身份來源，建立可註冊、可驗證、可記錄能源事件的原型流程。
+這個說法比較能同時通過 SBIR KPI、專利風險、以及未來產品敘事三件事。

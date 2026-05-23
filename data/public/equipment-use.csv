@@ -1,0 +1,7 @@
+type,equipment,asset_code,purchase_amount_kntd,book_value_kntd,sets,remaining_or_useful_years,monthly_use_kntd,months,total_kntd,public_note
+existing,自動溫控玻璃窯,M001,50,20,1,3,0.556,6,3.336,"DSSC 製程加熱"
+existing,示波器,M004,60,24,1,3,0.667,6,4.002,"量測與訊號觀察"
+existing,405nm 雷射振鏡掃描系統,M005,50,20,1,3,0.556,6,3.336,"圖案化與光學製程"
+new,熱壓封裝電池機,M007,12,,1,6,0.167,6,1.002,"電池封裝"
+new,三目顯微鏡（含500×）,M009,18,,1,6,0.25,6,1.5,"樣本觀察"
+new,電子負載,M010,20,,1,6,0.278,6,1.668,"I-V / 負載量測"
