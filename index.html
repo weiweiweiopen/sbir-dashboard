@@ -7,104 +7,102 @@
   <style>
     :root {
       color-scheme: light dark;
-      --bg: #f5f5f7;
+      --bg: #f6f3f0;
       --surface: rgba(255,255,255,.72);
-      --surface-2: rgba(255,255,255,.46);
-      --text: #1d1d1f;
-      --muted: #6e6e73;
-      --line: rgba(0,0,0,.11);
-      --a: #8b5cf6;
-      --b: #f05a7e;
-      --shadow: 0 18px 48px rgba(0,0,0,.08);
-      --radius: 18px;
+      --surface-soft: rgba(255,255,255,.48);
+      --text: #1f2328;
+      --muted: #70757d;
+      --line: rgba(31,35,40,.12);
+      --accent: #8b5cf6;
+      --accent-2: #f05a7e;
+      --shadow: 0 20px 60px rgba(36,28,45,.10);
+      --radius: 22px;
+      --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Noto Sans TC", system-ui, sans-serif;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #101014;
-        --surface: rgba(29,29,34,.76);
-        --surface-2: rgba(255,255,255,.055);
+        --bg: #111114;
+        --surface: rgba(30,31,36,.76);
+        --surface-soft: rgba(255,255,255,.06);
         --text: #f5f5f7;
-        --muted: #a1a1a6;
-        --line: rgba(255,255,255,.13);
-        --shadow: 0 18px 48px rgba(0,0,0,.34);
+        --muted: #aaaab1;
+        --line: rgba(255,255,255,.14);
+        --shadow: 0 20px 60px rgba(0,0,0,.36);
       }
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Noto Sans TC", system-ui, sans-serif;
+      font-family: var(--font);
+      font-size: 18px;
       background:
-        radial-gradient(circle at 18% 0%, rgba(139,92,246,.15), transparent 30%),
-        radial-gradient(circle at 82% 6%, rgba(240,90,126,.13), transparent 32%),
+        radial-gradient(circle at 16% 0%, rgba(139,92,246,.13), transparent 32%),
+        radial-gradient(circle at 86% 10%, rgba(240,90,126,.11), transparent 32%),
         var(--bg);
       min-height: 100vh;
     }
-    .wrap { max-width: 1240px; margin: 0 auto; padding: 26px 18px 44px; }
-    header { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 18px; }
-    h1, h2, h3, p { margin: 0; }
-    h1 { font-size:22.1px; font-weight: 650; letter-spacing: -.01em; }
-    .sub, .muted { color: var(--muted); }
-    .sub { font-size:16.9px; margin-top: 3px; }
-    .chip { border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); border-radius: 999px; padding: 7px 10px; font-size:15.6px; white-space: nowrap; }
-    .grid { display: grid; gap: 12px; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 28px 16px 40px; }
+    header { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 16px; }
+    h1, h2, p { margin: 0; }
+    h1 { font-size: clamp(24px, 4vw, 34px); letter-spacing: -.04em; font-weight: 720; }
+    .meta { color: var(--muted); font-size: 16px; margin-top: 4px; }
+    .controls { display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+    .seg, select {
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: var(--surface);
+      border-radius: 999px;
+      padding: 10px 13px;
+      font: inherit;
+      font-size: 17px;
+      backdrop-filter: blur(18px);
+    }
+    .seg { display:flex; gap:4px; padding:4px; }
+    .seg button { border:0; border-radius:999px; padding:7px 11px; background:transparent; color:var(--muted); font:inherit; font-size:16px; cursor:pointer; }
+    .seg button.active { color:#fff; background:linear-gradient(135deg,var(--accent),var(--accent-2)); }
     .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(18px); }
-    .section { padding: 18px; }
-    .head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:14px; }
-    .head h2 { font-size:19.5px; font-weight: 650; }
-    .head p { color: var(--muted); font-size:15.6px; margin-top: 3px; line-height: 1.45; }
-    .chart-wrap { position: relative; }
-    svg { width:100%; height:280px; display:block; overflow:visible; }
-    .axis { stroke: var(--line); stroke-width: 1; }
-    .axis-label { fill: var(--muted); font-size:14.3px; font-weight: 560; }
-    .planned { fill:none; stroke:url(#grad); stroke-width:3.5; stroke-linecap:round; stroke-linejoin:round; }
-    .actual { fill:none; stroke:var(--muted); stroke-width:2.5; stroke-dasharray:6 7; opacity:.72; }
-    .node { fill: var(--surface); stroke: var(--b); stroke-width:3; cursor:pointer; }
+    .panel { padding: 20px; }
+    .toolbar { display:flex; justify-content:space-between; align-items:center; gap:14px; margin-bottom: 12px; flex-wrap:wrap; }
+    .current { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
+    .current h2 { font-size: clamp(24px, 4vw, 34px); letter-spacing:-.04em; font-weight:720; }
+    .current .sum { color: var(--muted); font-size:18px; font-variant-numeric:tabular-nums; }
+    .chart-wrap { position:relative; padding-top:6px; }
+    svg { width:100%; height:360px; display:block; overflow:visible; }
+    .grid { stroke: var(--line); stroke-width:1; }
+    .axis-label { fill: var(--muted); font-size: 16px; font-weight: 620; }
+    .line { fill:none; stroke:url(#grad); stroke-width:5; stroke-linecap:round; stroke-linejoin:round; }
+    .actual-line { fill:none; stroke:var(--muted); stroke-width:3.5; stroke-dasharray:8 8; opacity:.65; }
+    .node { fill: var(--surface); stroke: var(--accent-2); stroke-width:4; cursor:pointer; }
     .hit { fill: transparent; cursor:pointer; }
-    .pt:hover .node { r: 7; }
-    .tip { position:absolute; opacity:0; pointer-events:none; min-width:230px; transform:translate(-50%,-112%); border:1px solid color-mix(in srgb, var(--line) 45%, transparent); background:color-mix(in srgb, var(--surface) 25%, transparent); border-radius:14px; padding:12px 13px; box-shadow:none; backdrop-filter:blur(10px); font-size:20.3px; }
+    .pt:hover .node { r:10; }
+    .tip { position:absolute; opacity:0; pointer-events:none; min-width:280px; transform:translate(-50%,-112%); border:1px solid color-mix(in srgb,var(--line) 50%,transparent); background:color-mix(in srgb,var(--surface) 25%,transparent); border-radius:18px; padding:15px 16px; backdrop-filter:blur(12px); font-size:18px; z-index:5; }
     .tip.show { opacity:1; }
-    .tip.below { transform: translate(-50%, 18px); }
-    .tip .m { color:var(--muted); font-weight:650; margin-bottom:7px; font-size:20.3px; }
-    .tip .r { display:flex; justify-content:space-between; gap:14px; margin-top:5px; }
-    .tip .r span { color: var(--muted); }
-    .tip .pct { color: var(--muted); font-weight: 560; margin-left: 6px; }
-    .tabs { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:12px; }
-    button { font: inherit; }
-    .tab { border:1px solid var(--line); background:var(--surface-2); color:var(--muted); border-radius:999px; padding:7px 10px; font-size:15.6px; cursor:pointer; }
-    .tab.active { color:white; border-color:transparent; background:linear-gradient(135deg,var(--a),var(--b)); }
-    .panel { display:none; overflow:auto; }
-    .panel.active { display:block; }
-    table { width:auto; max-width:100%; border-collapse:collapse; min-width:0; }
-    th, td { padding:10px 10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; font-size:16.9px; line-height:1.4; }
-    th { color:var(--muted); font-size:14.3px; font-weight:650; background:var(--surface-2); }
-    td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+    .tip.below { transform:translate(-50%,18px); }
+    .tip .m { color:var(--muted); font-weight:700; margin-bottom:8px; }
+    .tip .r { display:flex; justify-content:space-between; gap:20px; margin-top:6px; }
+    .tip span { color:var(--muted); }
+    .tip strong { font-variant-numeric:tabular-nums; }
+    .tip .pct { color:var(--muted); font-weight:560; margin-left:7px; }
+    .table-card { margin-top:14px; padding: 0; overflow:hidden; }
+    .table-scroll { overflow:auto; }
+    table { width:100%; border-collapse:collapse; table-layout:auto; }
+    th, td { padding: 14px 15px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; font-size:17px; line-height:1.45; }
+    th { color:var(--muted); font-size:15px; font-weight:680; background:var(--surface-soft); white-space:nowrap; }
+    td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
     tr:last-child td { border-bottom:0; }
-    .money { font-weight:650; }
-    .links { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
-    a.link { color:var(--text); text-decoration:none; border:1px solid var(--line); background:var(--surface-2); border-radius:999px; padding:7px 10px; font-size:15.6px; }
-    footer { color:var(--muted); font-size:15.6px; margin-top:16px; line-height:1.6; }
-    @media (max-width: 900px) { header { align-items:flex-start; flex-direction:column; } }
-    @media (max-width: 620px) {
-      .wrap { padding:18px 10px 32px; }
-      .section { padding:14px; }
-      svg { height:240px; }
-      .tip {
-        position: fixed;
-        left: 12px !important;
-        right: 12px;
-        top: auto !important;
-        bottom: 12px;
-        transform: none;
-        width: auto;
-        z-index: 20;
-        pointer-events: none;
-        background: color-mix(in srgb, var(--surface) 25%, transparent);
-        border-color: color-mix(in srgb, var(--line) 45%, transparent);
-        box-shadow: none;
-        backdrop-filter: blur(10px);
-        font-size:20.3px;
-      }
+    .money { font-weight:720; }
+    @media (max-width: 760px) {
+      body { font-size: 18px; }
+      .wrap { padding: 18px 10px 30px; }
+      header { align-items:flex-start; flex-direction:column; }
+      .controls { justify-content:flex-start; width:100%; }
+      select { width:100%; border-radius:16px; }
+      .panel { padding:15px; }
+      svg { height:310px; }
+      .axis-label { font-size:15px; }
+      th, td { font-size:16px; padding:12px 12px; }
+      .tip { position:fixed; left:12px !important; right:12px; bottom:12px; top:auto !important; transform:none; width:auto; min-width:0; font-size:18px; }
     }
   </style>
 </head>
@@ -112,146 +110,90 @@
   <div class="wrap">
     <header>
       <div>
-        <h1>SBIR 1Z1141068</h1>
-        <p class="sub">加密光伏光場鏡片 · Phase 1 · 115/05/01–115/10/31</p>
+        <h1 data-i18n="title">SBIR 1Z1141068</h1>
+        <p class="meta" data-i18n="meta">加密光伏光場鏡片 · 115/05–115/10</p>
       </div>
-      <div class="chip">資料版本 2026/05/23</div>
+      <div class="controls">
+        <select id="viewSelect" aria-label="資料類型"></select>
+        <div class="seg" aria-label="language"><button id="zhBtn" class="active">中</button><button id="enBtn">EN</button></div>
+      </div>
     </header>
 
-    <section class="card section" style="margin-top:12px">
-      <div class="head"><div><h2>月度預估 / 實支</h2><p>移動到節點查看數值。</p></div><div class="chip">May–Oct 2026</div></div>
+    <section class="card panel">
+      <div class="toolbar">
+        <div class="current"><h2 id="viewTitle"></h2><span class="sum" id="viewSum"></span></div>
+      </div>
       <div class="chart-wrap" id="chartWrap">
-        <svg viewBox="0 0 900 280" aria-label="月度預估與實支折線圖">
-          <defs><linearGradient id="grad" x1="0" x2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#f05a7e"/></linearGradient></defs>
-          <line class="axis" x1="58" y1="38" x2="860" y2="38"/><line class="axis" x1="58" y1="98" x2="860" y2="98"/><line class="axis" x1="58" y1="158" x2="860" y2="158"/><line class="axis" x1="58" y1="218" x2="860" y2="218"/>
-          <text class="axis-label" x="16" y="42">175k</text><text class="axis-label" x="16" y="102">125k</text><text class="axis-label" x="24" y="162">75k</text><text class="axis-label" x="32" y="222">0</text>
-          <path class="planned" d="M70 38 L228 98 L386 68 L544 104 L702 134 L860 134"/>
-          <path class="actual" d="M70 218 L228 218 L386 218 L544 218 L702 218 L860 218"/>
-          <g class="pt" data-month="2026-05" data-subsidy="82,895" data-self="92,105" data-personnel="95,000" data-materials="60,000" data-equipment="15,000" data-maintenance="5,000" data-planned="175,000" data-actual="0" data-cum="175,000"><circle class="node" cx="70" cy="38" r="5"/><circle class="hit" cx="70" cy="38" r="24"/><text class="axis-label" x="47" y="255">May</text></g>
-          <g class="pt" data-month="2026-06" data-subsidy="59,211" data-self="65,789" data-personnel="95,000" data-materials="30,000" data-equipment="0" data-maintenance="0" data-planned="125,000" data-actual="0" data-cum="300,000"><circle class="node" cx="228" cy="98" r="5"/><circle class="hit" cx="228" cy="98" r="24"/><text class="axis-label" x="206" y="255">Jun</text></g>
-          <g class="pt" data-month="2026-07" data-subsidy="71,053" data-self="78,947" data-personnel="120,000" data-materials="30,000" data-equipment="0" data-maintenance="0" data-planned="150,000" data-actual="0" data-cum="450,000"><circle class="node" cx="386" cy="68" r="5"/><circle class="hit" cx="386" cy="68" r="24"/><text class="axis-label" x="367" y="255">Jul</text></g>
-          <g class="pt" data-month="2026-08" data-subsidy="56,842" data-self="63,158" data-personnel="120,000" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="120,000" data-actual="0" data-cum="570,000"><circle class="node" cx="544" cy="104" r="5"/><circle class="hit" cx="544" cy="104" r="24"/><text class="axis-label" x="521" y="255">Aug</text></g>
-          <g class="pt" data-month="2026-09" data-subsidy="45,000" data-self="50,000" data-personnel="95,000" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="95,000" data-actual="0" data-cum="665,000"><circle class="node" cx="702" cy="134" r="5"/><circle class="hit" cx="702" cy="134" r="24"/><text class="axis-label" x="681" y="255">Sep</text></g>
-          <g class="pt" data-month="2026-10" data-subsidy="45,000" data-self="50,000" data-personnel="95,000" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="95,000" data-actual="0" data-cum="760,000"><circle class="node" cx="860" cy="134" r="5"/><circle class="hit" cx="860" cy="134" r="24"/><text class="axis-label" x="839" y="255">Oct</text></g>
-        </svg>
+        <svg id="chart" viewBox="0 0 900 360" aria-label="monthly chart"></svg>
         <div class="tip" id="tip"></div>
       </div>
     </section>
 
-    <section class="card section" style="margin-top:12px">
-      <div class="head"><div><h2>明細</h2></div></div>
-      <div class="tabs">
-        <button class="tab active" data-tab="budget">預算明細</button>
-        <button class="tab" data-tab="monthly">月度</button>
-        <button class="tab" data-tab="personnel">人事</button>
-        <button class="tab" data-tab="materials">材料</button>
-        <button class="tab" data-tab="equipment">設備使用</button>
-        <button class="tab" data-tab="maintenance">設備維護</button>
-        <button class="tab" data-tab="actual">實支</button>
-        <button class="tab" data-tab="public">公開邊界</button>
-      </div>
-
-      <div class="panel active" data-panel="budget">
-        <table><thead><tr><th>預算明細</th><th class="num">補助</th><th class="num">自籌</th><th class="num">合計</th></tr></thead><tbody>
-          <tr><td>研發人員</td><td class="num">280,000</td><td class="num">290,000</td><td class="num money">570,000</td></tr>
-          <tr><td>顧問</td><td class="num">14,000</td><td class="num">36,000</td><td class="num money">50,000</td></tr>
-          <tr><td>消耗性器材及原材料費</td><td class="num">57,000</td><td class="num">63,000</td><td class="num money">120,000</td></tr>
-          <tr><td>研發設備使用費</td><td class="num">7,000</td><td class="num">8,000</td><td class="num money">15,000</td></tr>
-          <tr><td>研發設備維護費</td><td class="num">2,000</td><td class="num">3,000</td><td class="num money">5,000</td></tr>
-          <tr><td>技術移轉及委託費</td><td class="num">0</td><td class="num">0</td><td class="num money">0</td></tr>
-          <tr><td>國內差旅費</td><td class="num">0</td><td class="num">0</td><td class="num money">0</td></tr>
-          <tr><td><strong>合計</strong></td><td class="num money">360,000</td><td class="num money">400,000</td><td class="num money">760,000</td></tr>
-        </tbody></table><div class="links"><a class="link" href="data/public/budget.csv">budget.csv</a></div>
-      </div>
-      <div class="panel" data-panel="monthly">
-        <table><thead><tr><th>月份</th><th class="num">預估</th><th class="num">實支</th><th class="num">累計預估</th><th>用途</th></tr></thead><tbody>
-          <tr><td>2026-05</td><td class="num money">175,000</td><td class="num">0</td><td class="num">175,000</td><td>人事、首批材料、設備使用與維護</td></tr>
-          <tr><td>2026-06</td><td class="num money">125,000</td><td class="num">0</td><td class="num">300,000</td><td>樣本製作、材料補採購、人事</td></tr>
-          <tr><td>2026-07</td><td class="num money">150,000</td><td class="num">0</td><td class="num">450,000</td><td>I-V 建模、資料庫、材料補採購、顧問第 1 期</td></tr>
-          <tr><td>2026-08</td><td class="num money">120,000</td><td class="num">0</td><td class="num">570,000</td><td>PUF 測試、顧問第 2 期、人事</td></tr>
-          <tr><td>2026-09</td><td class="num money">95,000</td><td class="num">0</td><td class="num">665,000</td><td>挑戰/回應流程測試、資料整理、人事</td></tr>
-          <tr><td>2026-10</td><td class="num money">95,000</td><td class="num">0</td><td class="num">760,000</td><td>期末整理、驗證、結案資料</td></tr>
-        </tbody></table><div class="links"><a class="link" href="data/public/monthly-plan.csv">monthly-plan.csv</a></div>
-      </div>
-      <div class="panel" data-panel="personnel">
-        <table><thead><tr><th>角色</th><th>職級</th><th class="num">月薪概算</th><th class="num">人月</th><th class="num">概算</th></tr></thead><tbody>
-          <tr><td>計畫主持人</td><td>計畫主持人</td><td class="num">50,000</td><td class="num">6</td><td class="num money">300,000</td></tr>
-          <tr><td>待聘研發人員</td><td>助理研究員級</td><td class="num">45,000</td><td class="num">6</td><td class="num money">270,000</td></tr>
-          <tr><td>顧問</td><td>顧問</td><td class="num">25,000</td><td class="num">2</td><td class="num money">50,000</td></tr>
-        </tbody></table>
-      </div>
-      <div class="panel" data-panel="materials">
-        <table><thead><tr><th>項目</th><th>單位</th><th class="num">數量</th><th class="num">單價千元</th><th class="num">合計千元</th></tr></thead><tbody>
-          <tr><td>Surlyn film 60um 熱封沙林膜</td><td>張</td><td class="num">5</td><td class="num">3</td><td class="num money">15</td></tr>
-          <tr><td>TiO2 paste 18NR-T 二氧化鈦漿料</td><td>100g</td><td class="num">1</td><td class="num">5</td><td class="num money">5</td></tr>
-          <tr><td>Pt paste PT-1 鉑漿料</td><td>100g</td><td class="num">1</td><td class="num">3.4</td><td class="num money">3.4</td></tr>
-          <tr><td>二氧化鈦阻檔層漿料</td><td>100g</td><td class="num">1</td><td class="num">4.6</td><td class="num money">4.6</td></tr>
-          <tr><td>N719 染料</td><td>1g</td><td class="num">1</td><td class="num">7</td><td class="num money">7</td></tr>
-          <tr><td>EL-HSE 電解液</td><td>50ml</td><td class="num">5</td><td class="num">2.6</td><td class="num money">13</td></tr>
-          <tr><td>zibra tube 班馬條 100x3x5mm 0.2 ohm</td><td>條</td><td class="num">16</td><td class="num">0.25</td><td class="num money">4</td></tr>
-          <tr><td>FTO glass 20x20mm TEC15</td><td>100片</td><td class="num">1</td><td class="num">3</td><td class="num money">3</td></tr>
-          <tr><td>FTO glass 60x60mm TEC15</td><td>50片</td><td class="num">1</td><td class="num">3</td><td class="num money">3</td></tr>
-          <tr><td>FTO glass 104x147x1.6mm TEC15</td><td>50片</td><td class="num">1</td><td class="num">6</td><td class="num money">6</td></tr>
-          <tr><td>D149 染料</td><td>500mg</td><td class="num">1</td><td class="num">21</td><td class="num money">21</td></tr>
-          <tr><td>導電銀漿 耐熱500ºC</td><td>500g</td><td class="num">1</td><td class="num">30</td><td class="num money">30</td></tr>
-          <tr><td>染料溶劑</td><td>1L</td><td class="num">1</td><td class="num">5</td><td class="num money">5</td></tr>
-        </tbody></table><div class="links"><a class="link" href="data/public/materials.csv">materials.csv</a></div>
-      </div>
-      <div class="panel" data-panel="equipment">
-        <table><thead><tr><th>類型</th><th>設備</th><th>財產編號</th><th class="num">月使用費千元</th><th class="num">月數</th><th class="num">使用費千元</th></tr></thead><tbody>
-          <tr><td>已有</td><td>自動溫控玻璃窯</td><td>M001</td><td class="num">0.556</td><td class="num">6</td><td class="num money">3.336</td></tr>
-          <tr><td>已有</td><td>示波器</td><td>M004</td><td class="num">0.667</td><td class="num">6</td><td class="num money">4.002</td></tr>
-          <tr><td>已有</td><td>405nm 雷射振鏡掃描系統</td><td>M005</td><td class="num">0.556</td><td class="num">6</td><td class="num money">3.336</td></tr>
-          <tr><td>新增</td><td>熱壓封裝電池機</td><td>M007</td><td class="num">0.167</td><td class="num">6</td><td class="num money">1.002</td></tr>
-          <tr><td>新增</td><td>三目顯微鏡（含500×）</td><td>M009</td><td class="num">0.250</td><td class="num">6</td><td class="num money">1.500</td></tr>
-          <tr><td>新增</td><td>電子負載</td><td>M010</td><td class="num">0.278</td><td class="num">6</td><td class="num money">1.668</td></tr>
-        </tbody></table><div class="links"><a class="link" href="data/public/equipment-use.csv">equipment-use.csv</a></div>
-      </div>
-      <div class="panel" data-panel="maintenance">
-        <table><thead><tr><th>設備</th><th>財產編號</th><th class="num">原購置金額千元</th><th class="num">套數</th><th class="num">維護費千元</th></tr></thead><tbody>
-          <tr><td>示波器年度校正</td><td>M004</td><td class="num">60</td><td class="num">1</td><td class="num money">2</td></tr>
-          <tr><td>自動溫控玻璃窯（內腔65x45x10cm）</td><td>M001</td><td class="num">10.5</td><td class="num">1</td><td class="num money">3</td></tr>
-        </tbody></table><div class="links"><a class="link" href="data/public/equipment-maintenance.csv">equipment-maintenance.csv</a></div>
-      </div>
-      <div class="panel" data-panel="actual"><p class="muted">目前尚無正式實支流水。</p><div class="links"><a class="link" href="data/public/actual-expenses.csv">actual-expenses.csv</a></div></div>
-      <div class="panel" data-panel="public"><p class="muted">公開專案級預算、月度規劃、去識別化實支與研究摘要。不公開個人薪資細節、身分證字號、地址、電話、Email、銀行帳戶、登入截圖、cookie、token、合約影本與內部憑證。</p><div class="links"><a class="link" href="docs/public-transparency.md">public-transparency.md</a><a class="link" href="data/public/project.json">project.json</a></div></div>
+    <section class="card table-card">
+      <div class="table-scroll"><table id="detailTable"></table></div>
     </section>
   </div>
-  <script>
-    const wrap = document.getElementById('chartWrap'), tip = document.getElementById('tip');
-    document.querySelectorAll('.pt').forEach(pt => {
-      pt.addEventListener('mousemove', e => {
-        const r = wrap.getBoundingClientRect();
-        const total = 760000;
-        const n = value => Number(String(value || '0').replace(/,/g, ''));
-        const fmt = value => `${value} <span class="pct">${(n(value) / total * 100).toFixed(1)}%</span>`;
-        tip.innerHTML = `<div class="m">${pt.dataset.month}</div><div class="r"><span>預估</span><strong>${fmt(pt.dataset.planned)}</strong></div><div class="r"><span>人事</span><strong>${fmt(pt.dataset.personnel)}</strong></div><div class="r"><span>材料</span><strong>${fmt(pt.dataset.materials)}</strong></div><div class="r"><span>設備使用</span><strong>${fmt(pt.dataset.equipment)}</strong></div><div class="r"><span>設備維護</span><strong>${fmt(pt.dataset.maintenance)}</strong></div><div class="r"><span>補助款</span><strong>${fmt(pt.dataset.subsidy)}</strong></div><div class="r"><span>自籌款</span><strong>${fmt(pt.dataset.self)}</strong></div><div class="r"><span>實支</span><strong>${fmt(pt.dataset.actual)}</strong></div><div class="r"><span>累計預估</span><strong>${fmt(pt.dataset.cum)}</strong></div>`;
-        const mobile = window.matchMedia('(max-width: 620px)').matches;
-        tip.classList.remove('below');
-        tip.classList.add('show');
-        if (!mobile) {
-          const localX = e.clientX - r.left;
-          const localY = e.clientY - r.top;
-          const tipWidth = tip.offsetWidth || 260;
-          const tipHeight = tip.offsetHeight || 220;
-          const left = Math.min(Math.max(localX, tipWidth / 2 + 8), r.width - tipWidth / 2 - 8);
-          const shouldOpenBelow = localY - tipHeight - 24 < 0;
-          tip.classList.toggle('below', shouldOpenBelow);
-          tip.style.left = `${left}px`;
-          tip.style.top = `${localY}px`;
-        } else {
-          tip.style.left = '';
-          tip.style.top = '';
-        }
-      });
-      pt.addEventListener('mouseleave', () => { if (!window.matchMedia('(max-width: 620px)').matches) tip.classList.remove('show'); });
-      pt.addEventListener('click', e => { e.preventDefault(); pt.dispatchEvent(new MouseEvent('mousemove', {clientX:e.clientX, clientY:e.clientY, bubbles:true})); });
-    });
-    document.addEventListener('click', e => { if (!e.target.closest('.pt') && !e.target.closest('.tip')) tip.classList.remove('show'); });
-    document.querySelectorAll('.tab').forEach(btn => btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b === btn));
-      document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.dataset.panel === btn.dataset.tab));
-    }));
-  </script>
+
+<script>
+const TOTAL = 760000;
+const langPack = {
+  zh: {
+    title:'SBIR 1Z1141068', meta:'加密光伏光場鏡片 · 115/05–115/10', total:'總額', actual:'實支', pct:'佔全案',
+    month:'月份', amount:'金額', cumulative:'累計', note:'說明', subsidy:'補助款', self:'自籌款', item:'項目', unit:'單位', qty:'數量', unitPrice:'單價', totalAmount:'合計', role:'角色', months:'月數', category:'類別', empty:'目前尚無正式實支流水。',
+    views: { monthly:'月度預估 / 實支', budget:'預算明細', personnel:'人事', materials:'材料', equipment:'設備使用', maintenance:'設備維護', actual:'實支' },
+    months: ['五月','六月','七月','八月','九月','十月']
+  },
+  en: {
+    title:'SBIR 1Z1141068', meta:'Encrypted Photovoltaic Light-field Lens · May–Oct 2026', total:'Total', actual:'Actual', pct:'of plan',
+    month:'Month', amount:'Amount', cumulative:'Cumulative', note:'Note', subsidy:'Subsidy', self:'Self-funded', item:'Item', unit:'Unit', qty:'Qty', unitPrice:'Unit price', totalAmount:'Total', role:'Role', months:'Months', category:'Category', empty:'No formal actual expenses recorded.',
+    views: { monthly:'Monthly Plan / Actual', budget:'Budget Detail', personnel:'Personnel', materials:'Materials', equipment:'Equipment Use', maintenance:'Maintenance', actual:'Actual Expenses' },
+    months: ['May','June','July','August','September','October']
+  }
+};
+const monthly = [
+  {key:'2026-05', planned:175000, actual:0, cumulative:175000, personnel:95000, materials:60000, equipment:15000, maintenance:5000, subsidy:82895, self:92105, note:'人事、首批材料、設備使用與維護'},
+  {key:'2026-06', planned:125000, actual:0, cumulative:300000, personnel:95000, materials:30000, equipment:0, maintenance:0, subsidy:59211, self:65789, note:'樣本製作、材料補採購、人事'},
+  {key:'2026-07', planned:150000, actual:0, cumulative:450000, personnel:120000, materials:30000, equipment:0, maintenance:0, subsidy:71053, self:78947, note:'I-V 建模、資料庫、材料補採購、顧問第 1 期'},
+  {key:'2026-08', planned:120000, actual:0, cumulative:570000, personnel:120000, materials:0, equipment:0, maintenance:0, subsidy:56842, self:63158, note:'PUF 測試、顧問第 2 期、人事'},
+  {key:'2026-09', planned:95000, actual:0, cumulative:665000, personnel:95000, materials:0, equipment:0, maintenance:0, subsidy:45000, self:50000, note:'挑戰/回應流程測試、資料整理、人事'},
+  {key:'2026-10', planned:95000, actual:0, cumulative:760000, personnel:95000, materials:0, equipment:0, maintenance:0, subsidy:45000, self:50000, note:'期末整理、驗證、結案資料'}
+];
+const budget = [
+  ['研發人員',280000,290000,570000], ['顧問',14000,36000,50000], ['消耗性器材及原材料費',57000,63000,120000], ['研發設備使用費',7000,8000,15000], ['研發設備維護費',2000,3000,5000], ['技術移轉及委託費',0,0,0], ['國內差旅費',0,0,0], ['合計',360000,400000,760000]
+];
+const personnel = [['計畫主持人','計畫主持人',50000,6,300000],['待聘研發人員','助理研究員級',45000,6,270000],['顧問','顧問',25000,2,50000]];
+const materials = [['Surlyn film 60um 熱封沙林膜','張',5,3000,15000],['TiO2 paste 18NR-T 二氧化鈦漿料','100g',1,5000,5000],['Pt paste PT-1 鉑漿料','100g',1,3400,3400],['二氧化鈦阻檔層漿料','100g',1,4600,4600],['N719 染料','1g',1,7000,7000],['EL-HSE 電解液','50ml',5,2600,13000],['zibra tube 班馬條 100x3x5mm 0.2 ohm','條',16,250,4000],['FTO glass 20x20mm TEC15','100片',1,3000,3000],['FTO glass 60x60mm TEC15','50片',1,3000,3000],['FTO glass 104x147x1.6mm TEC15','50片',1,6000,6000],['D149 染料','500mg',1,21000,21000],['導電銀漿 耐熱500ºC','500g',1,30000,30000],['染料溶劑','1L',1,5000,5000]];
+const equipment = [['已有','自動溫控玻璃窯','M001',556,6,3336],['已有','示波器','M004',667,6,4002],['已有','405nm 雷射振鏡掃描系統','M005',556,6,3336],['新增','熱壓封裝電池機','M007',167,6,1002],['新增','三目顯微鏡（含500×）','M009',250,6,1500],['新增','電子負載','M010',278,6,1668]];
+const maintenance = [['示波器年度校正','M004',60000,1,2000],['自動溫控玻璃窯（內腔65x45x10cm）','M001',10500,1,3000]];
+const viewMap = {
+  monthly:{field:'planned', rows:()=>monthly.map((m,i)=>[L.months[i],m.planned,m.actual,m.cumulative,m.note])},
+  budget:{field:'planned', rows:()=>budget}, personnel:{field:'personnel', rows:()=>personnel}, materials:{field:'materials', rows:()=>materials}, equipment:{field:'equipment', rows:()=>equipment}, maintenance:{field:'maintenance', rows:()=>maintenance}, actual:{field:'actual', rows:()=>[]}
+};
+let lang='zh', view='monthly';
+const fmt=n=>Number(n).toLocaleString(lang==='zh'?'zh-TW':'en-US');
+const pct=n=>(Number(n)/TOTAL*100).toFixed(1)+'%';
+const Lget=()=>langPack[lang];
+function initControls(){ const sel=document.getElementById('viewSelect'); sel.innerHTML=Object.keys(viewMap).map(k=>`<option value="${k}">${Lget().views[k]}</option>`).join(''); sel.value=view; sel.onchange=e=>{view=e.target.value; render();}; zhBtn.onclick=()=>{lang='zh'; zhBtn.classList.add('active'); enBtn.classList.remove('active'); render();}; enBtn.onclick=()=>{lang='en'; enBtn.classList.add('active'); zhBtn.classList.remove('active'); render();}; }
+function valueFor(m){ return view==='budget' ? m.planned : (m[viewMap[view].field] ?? 0); }
+function renderChart(){
+  const svg=document.getElementById('chart'), L=Lget();
+  const vals=monthly.map(valueFor), max=Math.max(175000, ...vals, 1);
+  const x=i=>70+i*(790/5), y=v=>245-(v/max)*190;
+  const path=vals.map((v,i)=>`${i?'L':'M'}${x(i)} ${y(v)}`).join(' ');
+  const actual=monthly.map((m,i)=>`${i?'L':'M'}${x(i)} ${y(m.actual)}`).join(' ');
+  svg.innerHTML=`<defs><linearGradient id="grad" x1="0" x2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#f05a7e"/></linearGradient></defs>
+  ${[0,.33,.66,1].map(t=>`<line class="grid" x1="58" y1="${55+t*190}" x2="860" y2="${55+t*190}"/>`).join('')}
+  <text class="axis-label" x="14" y="60">${fmt(max)}</text><text class="axis-label" x="30" y="249">0</text>
+  <path class="line" d="${path}"/><path class="actual-line" d="${actual}"/>
+  ${monthly.map((m,i)=>`<g class="pt" data-i="${i}"><circle class="node" cx="${x(i)}" cy="${y(vals[i])}" r="7"/><circle class="hit" cx="${x(i)}" cy="${y(vals[i])}" r="30"/><text class="axis-label" x="${x(i)-26}" y="322">${L.months[i]}</text></g>`).join('')}`;
+  document.querySelectorAll('.pt').forEach(pt=>{pt.addEventListener('mousemove',showTip);pt.addEventListener('click',showTip);pt.addEventListener('mouseleave',()=>{if(!matchMedia('(max-width:760px)').matches) tip.classList.remove('show')});});
+}
+function showTip(e){ const i=+e.currentTarget.dataset.i, m=monthly[i], L=Lget(), val=valueFor(m), wrap=document.getElementById('chartWrap'), r=wrap.getBoundingClientRect(); tip.innerHTML=`<div class="m">${L.months[i]}</div><div class="r"><span>${L.amount}</span><strong>${fmt(val)} <span class="pct">${pct(val)}</span></strong></div><div class="r"><span>${L.subsidy}</span><strong>${fmt(m.subsidy)} <span class="pct">${pct(m.subsidy)}</span></strong></div><div class="r"><span>${L.self}</span><strong>${fmt(m.self)} <span class="pct">${pct(m.self)}</span></strong></div><div class="r"><span>${L.actual}</span><strong>${fmt(m.actual)} <span class="pct">${pct(m.actual)}</span></strong></div>`; tip.classList.remove('below'); tip.classList.add('show'); if(matchMedia('(max-width:760px)').matches){tip.style.left='';tip.style.top='';return;} const localX=e.clientX-r.left, localY=e.clientY-r.top, tw=tip.offsetWidth||300, th=tip.offsetHeight||190; tip.style.left=`${Math.min(Math.max(localX,tw/2+8),r.width-tw/2-8)}px`; tip.style.top=`${localY}px`; tip.classList.toggle('below', localY-th-24<0); }
+function table(headers, rows){ detailTable.innerHTML=`<thead><tr>${headers.map((h,i)=>`<th class="${i&&i!==headers.length-1?'num':''}">${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,i)=>`<td class="${i&&typeof c==='number'?'num money':''}">${typeof c==='number'?fmt(c):c}</td>`).join('')}</tr>`).join('')}</tbody>`; }
+function renderTable(){ const L=Lget(); if(view==='monthly') table([L.month,L.amount,L.actual,L.cumulative,L.note], viewMap.monthly.rows()); else if(view==='budget') table([L.item,L.subsidy,L.self,L.totalAmount], budget); else if(view==='personnel') table([L.item,L.role,L.amount,L.months,L.totalAmount], personnel); else if(view==='materials') table([L.item,L.unit,L.qty,L.unitPrice,L.totalAmount], materials); else if(view==='equipment') table([L.category,L.item,'ID',L.amount,L.months,L.totalAmount], equipment); else if(view==='maintenance') table([L.item,'ID',L.amount,L.qty,L.totalAmount], maintenance); else detailTable.innerHTML=`<tbody><tr><td>${L.empty}</td></tr></tbody>`; }
+function render(){ document.documentElement.lang=lang==='zh'?'zh-Hant':'en'; document.querySelector('[data-i18n="title"]').textContent=Lget().title; document.querySelector('[data-i18n="meta"]').textContent=Lget().meta; initControls(); const total=monthly.reduce((a,m)=>a+valueFor(m),0); viewTitle.textContent=Lget().views[view]; viewSum.textContent=`${Lget().total} ${fmt(total)}`; renderChart(); renderTable(); }
+initControls(); render();
+document.addEventListener('click',e=>{if(!e.target.closest('.pt')&&!e.target.closest('.tip')) tip.classList.remove('show')});
+</script>
 </body>
 </html>
