@@ -1,0 +1,29 @@
+# SBIR 1Z1141068 LLM Wiki
+
+This repository contains a public administrative dashboard and a strategy-oriented LLM wiki for the DSSC-PUF SBIR project.
+
+## Read first
+
+- /llm-wiki/index.md
+- /llm-wiki/executive-brief.md
+- /llm-wiki/strategy-map.md
+- /llm-wiki/ip-landscape.md
+- /llm-wiki/research-landscape.md
+- /llm-wiki/defensive-firewall.md
+- /llm-wiki/claim-roadmap.md
+- /llm-wiki/search-playbook.md
+- /llm-wiki/sources.md
+
+## Public data
+
+- /data/public/project.json
+- /data/public/budget.csv
+- /data/public/monthly-plan.csv
+- /data/public/materials.csv
+- /data/public/equipment-use.csv
+- /data/public/equipment-maintenance.csv
+- /data/public/actual-expenses.csv
+
+## Boundaries
+
+Use this repo for public, project-level reasoning. Do not infer or request private payroll, personal identifiers, bank data, credentials, login screenshots, or unfiled patent-enabling secrets.

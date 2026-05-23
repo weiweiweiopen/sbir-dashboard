@@ -1,19 +1,40 @@
 # Research Landscape
 
-## Reference clusters
+## Technical clusters
 
-| Cluster | References from baseline | Implication |
+| Cluster | What exists | Strategic implication |
 |---|---|---|
-| Optical / material PUF | optically active material PUF; optical PUF patents | material microstructure as identity source is plausible but crowded |
-| Solar / optoelectronic PUF | energy harvesting and sensor-based primitives; perovskite self-powered PUF | self-powered PUF is not unique; DSSC patterning and I-V reconstruction must carry novelty |
-| Transparent photodetectors / light-field | transparent photodetector and lensless light-field work | useful for future interface but not Phase 1 core claim |
-| Micro-lens / solar efficiency | MLA and photovoltaic efficiency literature | auxiliary efficiency layer, not primary invention |
-| Blockchain / IoT trust | Intel IoT blockchain references | use as external audit trail only |
+| Material PUF | random microstructure, optical scattering, material tags | supports scientific plausibility; weakens broad novelty |
+| Solar / energy-harvesting PUF | using photovoltaic or energy-harvesting components as entropy source | makes "solar PUF" crowded; DSSC specificity matters |
+| Optoelectronic / perovskite PUF | self-powered photonic/optoelectronic identity primitives | close conceptual neighbor; differentiate via DSSC chemistry and patterning |
+| Transparent photodetectors / light-field | transparent sensors and light-field reconstruction | useful for future interface; risky as core patent path |
+| Micro-lens / optical enhancement | MLA and optical structures improve solar performance | keep as implementation optimization |
+| IoT blockchain security | device trust anchors, keys, distributed logs | use only as audit infrastructure |
 
-## Experimental priorities
+## Required experimental evidence
 
-1. produce multiple DSSC samples with controlled but naturally varied fabrication;
-2. measure I-V curves under fixed illumination states;
-3. compute intra-device repeatability and inter-device distance;
-4. define thresholding strategy;
-5. log event hash and panel ID without claiming statutory energy certificate status.
+| Evidence | Purpose | Suggested output |
+|---|---|---|
+| repeated I-V curves per sample | intra-device stability | CSV + plotted curves |
+| multiple samples under same condition | inter-device separability | distance matrix / confusion matrix |
+| multiple illumination states | robustness | pass/fail table by condition |
+| feature-vector definition | reproducible analysis | notebook or script |
+| registration / verification demo | system story | panel template + verification result |
+| event log schema | administrative value | JSON/CSV event signature |
+
+## Baseline metrics to define
+
+- intra-device distance distribution;
+- inter-device distance distribution;
+- equal error rate or operating threshold;
+- verification success rate by illumination condition;
+- degradation / drift after repeated measurement;
+- false accept / false reject in POC language.
+
+## Suggested LLM tasks
+
+- generate literature query expansions;
+- convert papers into claim-pressure notes;
+- draft experiment protocols;
+- produce FTO question lists for counsel;
+- maintain table of known prior art and boundary language.

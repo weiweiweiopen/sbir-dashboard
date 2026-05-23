@@ -2,42 +2,58 @@
 
 ## Narrative firewall
 
-Do not claim:
+Never claim:
 
-- "we invented PUF";
-- "we invented optical PUF";
-- "we invented solar PUF";
-- "blockchain guarantees physical authenticity";
-- "this is already a formal renewable-energy certificate".
+- we invented PUF;
+- we invented optical PUF;
+- we invented solar PUF;
+- blockchain guarantees physical authenticity;
+- light-field imaging is the invention center;
+- this is a statutory REC or government-grade energy certificate;
+- all DSSCs naturally become secure identity devices.
 
 Claim instead:
 
 - patterned DSSC material identity;
 - I-V signature reconstruction under defined conditions;
 - registration / verification workflow;
-- material event signature for auditability.
+- material event signature;
+- optional tamper-evident event anchoring.
 
 ## Patent firewall
 
-- Avoid light-field / lensless imaging claims unless counsel clears them.
-- Avoid generic PUF response architecture claims.
-- Avoid optical-fibre PUF language.
-- Avoid generic IoT blockchain trust-engine architecture.
-- Keep dependent claims optional and implementation-specific.
+| Risk zone | Keep out | Safer formulation |
+|---|---|---|
+| optical PUF | fibre network / general optical PUF | DSSC I-V identity, optional optical auxiliary signal |
+| solar PUF | all photovoltaic cells as PUF | patterned DSSC under controlled readout |
+| PUF architecture | generic device-pair summation | feature extraction from DSSC I-V curves |
+| light-field | lensless imaging architecture | future visualization / readout accessory only |
+| blockchain IoT | trust engine, key manager, network security | event hash anchor outside core material proof |
 
-## Public repo firewall
+## Public information firewall
 
-Allowed:
+Public repo can include:
 
-- public budget categories;
-- project-level research summaries;
-- patent publication numbers and public links;
-- non-confidential strategy notes.
+- project-level budget;
+- public patent numbers and summaries;
+- public research citations;
+- non-confidential experiment plans;
+- abstract claim strategy.
 
-Not allowed:
+Public repo must not include:
 
-- personal identifiers;
-- private payroll details;
-- login screenshots;
-- bank data;
-- unfiled patent claim drafts with enabling secret details beyond the public SBIR scope.
+- personal IDs, phone, address, payroll details;
+- login screenshots, cookies, tokens;
+- bank / invoice images;
+- unfiled enabling claim drafts with manufacturing secrets beyond the public SBIR disclosure;
+- private contract terms.
+
+## LLM firewall
+
+When an LLM reads this repo, it should:
+
+1. use `llms.txt` first;
+2. cite source pages before making strategic claims;
+3. preserve uncertainty when search is incomplete;
+4. separate public strategy from patent legal opinion;
+5. avoid inventing patent status or claim scope.

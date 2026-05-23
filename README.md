@@ -23,3 +23,7 @@
 ## LLM wiki
 
 - `llm-wiki/` — DSSC-PUF strategy, IP landscape, research landscape, defensive firewall, and exported Google Doc baseline.
+
+## Agent / LLM entrypoint
+
+- `llms.txt` — concise machine-readable entrypoint for the public dashboard and LLM wiki.
