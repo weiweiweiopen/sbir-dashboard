@@ -67,16 +67,17 @@
     .current { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
     .current h2 { font-size: clamp(24px, 4vw, 34px); letter-spacing:-.04em; font-weight:720; }
     .current .sum { color: var(--muted); font-size:18px; font-variant-numeric:tabular-nums; }
-    .chart-wrap { position:relative; padding-top:6px; }
-    svg { width:100%; height:360px; display:block; overflow:visible; }
+    .chart-wrap { position:relative; padding-top:6px; overflow:visible; z-index:10; }
+    svg { width:100%; height:390px; display:block; overflow:visible; }
     .grid { stroke: var(--line); stroke-width:1; }
-    .axis-label { fill: var(--muted); font-size: 16px; font-weight: 620; }
+    .axis-label { fill: var(--muted); font-size: 18px; font-weight: 700; }
+    .axis-title { fill: var(--text); font-size: 17px; font-weight: 720; }
     .line { fill:none; stroke:url(#grad); stroke-width:5; stroke-linecap:round; stroke-linejoin:round; }
     .actual-line { fill:none; stroke:var(--muted); stroke-width:3.5; stroke-dasharray:8 8; opacity:.65; }
     .node { fill: var(--surface); stroke: var(--accent-2); stroke-width:4; cursor:pointer; }
     .hit { fill: transparent; cursor:pointer; }
     .pt:hover .node { r:10; }
-    .tip { position:absolute; opacity:0; pointer-events:none; min-width:330px; transform:translate(-50%,-112%); border:1px solid color-mix(in srgb,var(--line) 50%,transparent); background:color-mix(in srgb,var(--surface) 12.5%,transparent); border-radius:18px; padding:15px 16px; backdrop-filter:blur(8px); font-size:18px; z-index:5; }
+    .tip { position:absolute; opacity:0; pointer-events:none; min-width:330px; transform:translate(-50%,-112%); border:1px solid color-mix(in srgb,var(--line) 50%,transparent); background:color-mix(in srgb,var(--surface) 12.5%,transparent); border-radius:18px; padding:15px 16px; backdrop-filter:blur(8px); font-size:18px; z-index:9999; }
     .tip.show { opacity:1; }
     .tip.below { transform:translate(-50%,18px); }
     .tip .m { color:var(--muted); font-weight:700; margin-bottom:8px; }
@@ -84,14 +85,6 @@
     .tip span { color:var(--muted); }
     .tip strong { font-variant-numeric:tabular-nums; }
     .tip .pct { color:var(--muted); font-weight:560; margin-left:7px; }
-    .table-card { margin-top:14px; padding: 0; overflow:hidden; }
-    .table-scroll { overflow:auto; }
-    table { width:100%; border-collapse:collapse; table-layout:auto; }
-    th, td { padding: 14px 15px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; font-size:17px; line-height:1.45; }
-    th { color:var(--muted); font-size:15px; font-weight:680; background:var(--surface-soft); white-space:nowrap; }
-    td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
-    tr:last-child td { border-bottom:0; }
-    .money { font-weight:720; }
     @media (max-width: 760px) {
       body { font-size: 18px; }
       .wrap { padding: 18px 10px 30px; }
@@ -100,9 +93,9 @@
       select { width:100%; border-radius:16px; }
       .panel { padding:15px; }
       svg { height:310px; }
-      .axis-label { font-size:15px; }
+      .axis-label { font-size:17px; }
       th, td { font-size:16px; padding:12px 12px; }
-      .tip { position:absolute; right:auto; bottom:auto; width:auto; min-width:280px; max-width:calc(100vw - 24px); font-size:18px; transform:translate(-50%,-112%); }
+      .tip { position:absolute; right:auto; bottom:auto; width:auto; min-width:280px; max-width:calc(100vw - 24px); max-height:70vh; overflow:auto; font-size:18px; transform:translate(-50%,-112%); }
       .tip.below { transform:translate(-50%,18px); }
     }
   </style>
@@ -130,9 +123,6 @@
       </div>
     </section>
 
-    <section class="card table-card">
-      <div class="table-scroll"><table id="detailTable"></table></div>
-    </section>
   </div>
 
 <script>
@@ -199,13 +189,13 @@ function renderChart(){
   const actual=monthly.map((m,i)=>`${i?'L':'M'}${x(i)} ${y(m.actual)}`).join(' ');
   svg.innerHTML=`<defs><linearGradient id="grad" x1="0" x2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#f05a7e"/></linearGradient></defs>
   ${[0,.33,.66,1].map(t=>`<line class="grid" x1="58" y1="${55+t*190}" x2="860" y2="${55+t*190}"/>`).join('')}
-  <text class="axis-label" x="14" y="60">${fmt(max)}</text><text class="axis-label" x="30" y="249">0</text>
+  <text class="axis-label axis-title" x="14" y="28">NTD</text><text class="axis-label" x="14" y="60">${fmt(max)}</text><text class="axis-label" x="30" y="249">0</text><text class="axis-label axis-title" x="790" y="350">${lang==='zh'?'月份':'Month'}</text>
   <path class="line" d="${path}"/><path class="actual-line" d="${actual}"/>
   ${monthly.map((m,i)=>`<g class="pt" data-i="${i}"><circle class="node" cx="${x(i)}" cy="${y(vals[i])}" r="${i===selectedMonth?10:7}"/><circle class="hit" cx="${x(i)}" cy="${y(vals[i])}" r="34"/><text class="axis-label" x="${x(i)-26}" y="322">${L.months[i]}</text></g>`).join('')}`;
   document.querySelectorAll('.pt').forEach(pt=>{
-    pt.addEventListener('mousemove',e=>{selectedMonth=+pt.dataset.i; showTip(e); renderTable(); monthSelect.value=selectedMonth;});
-    pt.addEventListener('click',e=>{selectedMonth=+pt.dataset.i; showTip(e); renderTable(); monthSelect.value=selectedMonth;});
-    pt.addEventListener('touchstart',e=>{selectedMonth=+pt.dataset.i; const t=e.touches[0]; showTipAt(selectedMonth,t.clientX,t.clientY); renderTable(); monthSelect.value=selectedMonth;},{passive:true});
+    pt.addEventListener('mousemove',e=>{selectedMonth=+pt.dataset.i; showTip(e); monthSelect.value=selectedMonth;});
+    pt.addEventListener('click',e=>{selectedMonth=+pt.dataset.i; showTip(e); monthSelect.value=selectedMonth;});
+    pt.addEventListener('touchstart',e=>{selectedMonth=+pt.dataset.i; const t=e.touches[0]; showTipAt(selectedMonth,t.clientX,t.clientY); monthSelect.value=selectedMonth;},{passive:true});
     pt.addEventListener('touchmove',e=>{const t=e.touches[0]; showTipAt(+pt.dataset.i,t.clientX,t.clientY);},{passive:true});
     pt.addEventListener('touchend',()=>tip.classList.remove('show'));
     pt.addEventListener('mouseleave',()=>{if(!matchMedia('(max-width:760px)').matches) tip.classList.remove('show')});
@@ -225,10 +215,6 @@ function placeTip(clientX, clientY){
 function showTip(e){ showTipAt(+e.currentTarget.dataset.i, e.clientX, e.clientY); }
 function showTipAt(i, clientX, clientY){ tip.innerHTML=tipHTML(i); tip.classList.add('show'); placeTip(clientX, clientY); }
 function showTipForIndex(i){ const node=document.querySelector(`.pt[data-i="${i}"] .node`); if(!node) return; const r=node.getBoundingClientRect(); showTipAt(i,r.left+r.width/2,r.top+r.height/2); }
-function renderTable(){
-  const L=Lget(), m=monthly[selectedMonth];
-  detailTable.innerHTML=`<thead><tr><th>${L.month}</th><th class="num">${L.amount}</th><th class="num">${L.pct}</th></tr></thead><tbody>${rowsForMonth(m).map(r=>`<tr><td>${r[0]}</td><td class="num money">${fmt(r[1])}</td><td class="num">${r[2]}</td></tr>`).join('')}</tbody>`;
-}
 function render(){
   document.documentElement.lang=lang==='zh'?'zh-Hant':'en';
   document.querySelector('[data-i18n="title"]').textContent=Lget().title;
@@ -238,7 +224,6 @@ function render(){
   viewTitle.textContent=Lget().months[selectedMonth];
   viewSum.textContent=`${Lget().views.monthly} ${fmt(m.planned)}`;
   renderChart();
-  renderTable();
 }
 initControls(); render();
 document.addEventListener('click',e=>{if(!e.target.closest('.pt')&&!e.target.closest('.tip')) tip.classList.remove('show')});
