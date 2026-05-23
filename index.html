@@ -8,8 +8,6 @@
     :root {
       --bg: #0f1419;
       --panel: #171d24;
-      --panel-2: #1d2630;
-      --card: #f7f2e8;
       --ink: #17202a;
       --muted: #71808f;
       --line: rgba(255,255,255,.12);
@@ -22,7 +20,6 @@
       --shadow: 0 24px 80px rgba(0,0,0,.32);
       --radius: 22px;
     }
-
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -34,15 +31,14 @@
         linear-gradient(135deg, #0d1218 0%, #101820 50%, #14110d 100%);
       min-height: 100vh;
     }
-
     .shell { max-width: 1280px; margin: 0 auto; padding: 28px 20px 44px; }
     .topbar { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 22px; }
     .brand { display: flex; gap: 14px; align-items: center; }
     .mark { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--teal), var(--gold)); display: grid; place-items: center; color: #0f1419; font-weight: 900; }
     .brand h1 { font-size: 18px; margin: 0; letter-spacing: .02em; }
     .brand p { margin: 3px 0 0; color: #a8b4c0; font-size: 13px; }
-    .pill { border: 1px solid var(--line); color: #d9e2ea; padding: 9px 12px; border-radius: 999px; font-size: 13px; background: rgba(255,255,255,.05); }
-
+    .pill, .detail-link { border: 1px solid var(--line); color: #d9e2ea; padding: 9px 12px; border-radius: 999px; font-size: 13px; background: rgba(255,255,255,.05); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+    .detail-link:hover { border-color: rgba(217,170,79,.8); color: #fff; }
     .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; margin-bottom: 18px; }
     .panel { background: rgba(23,29,36,.86); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(16px); }
     .hero-main { padding: 30px; position: relative; overflow: hidden; }
@@ -53,7 +49,6 @@
     .hero-copy { color: #b8c3cf; font-size: 16px; line-height: 1.75; max-width: 760px; }
     .hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
     .tag { border-radius: 999px; padding: 8px 11px; font-size: 12px; font-weight: 700; background: rgba(255,255,255,.07); color: #dce5ee; border: 1px solid rgba(255,255,255,.08); }
-
     .fund-card { padding: 24px; display: grid; gap: 18px; }
     .fund-top { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
     .amount { font-size: clamp(34px, 4vw, 54px); line-height:1; font-weight: 900; letter-spacing: -.04em; color: #fff; }
@@ -61,7 +56,6 @@
     .meter { height: 14px; background: rgba(255,255,255,.09); border-radius:999px; overflow:hidden; }
     .meter span { display:block; height:100%; width:23.03%; background: linear-gradient(90deg, var(--teal), var(--gold)); border-radius:inherit; }
     .fund-note { color:#b8c3cf; line-height:1.65; font-size:14px; }
-
     .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom:18px; }
     .metric { padding: 20px; }
     .metric .label { color:#a8b4c0; font-size:13px; margin-bottom:10px; }
@@ -71,14 +65,12 @@
     .metric.gold { border-top: 4px solid var(--gold); }
     .metric.green { border-top: 4px solid var(--green); }
     .metric.blue { border-top: 4px solid var(--blue); }
-
     .main { display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; }
     .stack { display:grid; gap:18px; }
     .section { padding: 22px; }
     .section-head { display:flex; justify-content:space-between; gap:14px; align-items:end; margin-bottom:18px; }
     .section-head h2 { font-size:22px; letter-spacing:-.02em; }
     .section-head .hint { color:#93a2b2; font-size:13px; }
-
     table { width:100%; border-collapse: collapse; overflow:hidden; border-radius:16px; }
     th, td { padding: 12px 13px; border-bottom: 1px solid rgba(255,255,255,.08); text-align:left; vertical-align:top; }
     th { color:#c9d4df; font-size:12px; text-transform:uppercase; letter-spacing:.08em; background:rgba(255,255,255,.05); }
@@ -87,30 +79,33 @@
     tr:last-child td { border-bottom:0; }
     .money { font-weight:900; color:#fff; }
     .muted { color:#93a2b2; }
-
     .timeline { display:grid; gap:12px; }
     .mile { display:grid; grid-template-columns: 72px 1fr auto; gap:14px; align-items:center; padding:14px; border-radius:16px; background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.07); }
     .month { color:var(--gold); font-weight:900; }
     .mile strong { display:block; margin-bottom:4px; }
     .mile p { color:#a8b4c0; font-size:13px; line-height:1.5; }
     .pct { font-weight:900; color:#fff; }
-
     .risk { display:grid; gap:12px; }
     .risk-item { display:grid; grid-template-columns: 10px 1fr; gap:12px; padding:14px; border-radius:16px; background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.07); }
     .dot { width:10px; height:10px; border-radius:50%; margin-top:6px; }
     .dot.red { background:var(--red); } .dot.gold{background:var(--gold);} .dot.green{background:var(--green);}
     .risk-item strong { display:block; margin-bottom:5px; }
     .risk-item p { color:#a8b4c0; line-height:1.55; font-size:13px; }
-
     .paper { background: var(--paper); color: var(--ink); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
     .paper h2 { color: var(--ink); }
     .paper .hint, .paper .muted { color: #637180; }
     .paper table th { background:#efe7d8; color:#637180; border-bottom:1px solid #ded2bf; }
     .paper table td { color:var(--ink); border-bottom:1px solid #eadfce; }
     .paper .money { color: var(--ink); }
-
+    .tabs { margin-top: 18px; }
+    .tabbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 14px; }
+    .tab-btn { cursor:pointer; border:1px solid rgba(255,255,255,.16); color:#d9e2ea; background:rgba(255,255,255,.05); border-radius:999px; padding:10px 14px; font-weight:800; font-size:13px; }
+    .tab-btn.active { background:linear-gradient(135deg, var(--teal), var(--gold)); color:#0f1419; border-color:transparent; }
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
+    .empty { padding:18px; border-radius:16px; background:#efe7d8; color:#637180; line-height:1.65; }
     .footer { margin-top:20px; color:#93a2b2; font-size:13px; line-height:1.65; }
-
+    code { color:#f5d28f; }
     @media (max-width: 980px) { .hero, .main, .grid-4 { grid-template-columns: 1fr; } }
     @media (max-width: 640px) { .shell{padding:18px 12px 30px;} .topbar{align-items:flex-start; flex-direction:column;} .mile{grid-template-columns:1fr;} th,td{padding:10px 8px; font-size:13px;} }
   </style>
@@ -131,72 +126,103 @@
     <section class="hero">
       <div class="panel hero-main">
         <div class="kicker">Project Finance Command Room</div>
-        <h2 class="hero-title">第一個月要先撥 NT$175,000</h2>
-        <p class="hero-copy">這不是一般展示型儀表板，而是給金主、會計與專案執行者共同看的 SBIR 作戰室：先看 5 月啟動款，再追蹤整體 760,000 元預算如何分月投入、如何對應查核點與核銷風險。</p>
+        <h2 class="hero-title">五月預估支出 NT$175,000</h2>
+        <p class="hero-copy">本頁整理 SBIR 專案目前的預算、預支、實支與查核點狀態。上方只呈現決策摘要，完整明細集中在下方標籤頁，避免同一組資料在頁面中重複出現或互相矛盾。</p>
         <div class="hero-actions">
-          <span class="tag">總經費 NT$760,000</span>
-          <span class="tag">補助款 NT$360,000</span>
-          <span class="tag">自籌款 NT$400,000</span>
-          <span class="tag">執行期 2026/05–2026/10</span>
+          <a class="detail-link" href="#details" data-jump="may">看五月明細</a>
+          <a class="detail-link" href="#details" data-jump="budget">看簽約版預算表</a>
+          <a class="detail-link" href="#details" data-jump="advance">看預支明細</a>
+          <a class="detail-link" href="#details" data-jump="actual">看實支明細</a>
         </div>
       </div>
 
       <aside class="panel fund-card">
         <div class="fund-top">
           <div>
-            <div class="kicker">May Funding Request</div>
+            <div class="kicker">May Estimated Expense</div>
             <div class="amount">175,000<small>佔全案 23.0%</small></div>
           </div>
-          <span class="pill">啟動款</span>
+          <span class="pill">預估支出</span>
         </div>
         <div class="meter"><span></span></div>
-        <p class="fund-note">5 月集中支付：本人與待聘研發人員投入、DSSC 首批材料、研發設備使用費與維護費。此金額可作為對金主的第一期撥款請求基準。</p>
+        <p class="fund-note">五月包含：5 月人事投入、DSSC 首批材料、研發設備使用費與維護費。顧問費目前排在 7–8 月。</p>
       </aside>
     </section>
 
     <section class="grid-4">
-      <article class="panel metric teal"><div class="label">5月人事投入</div><div class="value">95,000</div><div class="hint">主持人 50,000 + 待聘研發 45,000；待 Simpany 實發數確認後可替換。</div></article>
-      <article class="panel metric gold"><div class="label">5月材料採購</div><div class="value">60,000</div><div class="hint">DSSC 首批材料與樣本製作所需耗材。</div></article>
-      <article class="panel metric green"><div class="label">5月設備相關</div><div class="value">20,000</div><div class="hint">研發設備使用 15,000 + 維護 5,000，已全部挪到 5 月。</div></article>
-      <article class="panel metric blue"><div class="label">月度排程檢核</div><div class="value">OK</div><div class="hint">6 個月排程合計 NT$760,000，對齊最後簽約版。</div></article>
+      <article class="panel metric teal"><div class="label">總經費</div><div class="value">760,000</div><div class="hint">最後簽約版：補助 360,000，自籌 400,000。</div></article>
+      <article class="panel metric gold"><div class="label">五月預估支出</div><div class="value">175,000</div><div class="hint">人事 95,000、材料 60,000、設備相關 20,000。</div></article>
+      <article class="panel metric green"><div class="label">目前實支登錄</div><div class="value">0</div><div class="hint">Google Sheet 實支明細目前尚未登錄正式支出。</div></article>
+      <article class="panel metric blue"><div class="label">排程檢核</div><div class="value">OK</div><div class="hint">月度預支排程合計 760,000，對齊簽約版。</div></article>
     </section>
 
     <main class="main">
       <div class="stack">
-        <section class="paper">
+        <section id="details" class="paper tabs">
           <div class="section-head">
-            <div><h2>5月啟動款專業明細</h2><p class="hint">給金主看的第一個月撥款依據</p></div>
+            <div><h2>專案財務明細</h2><p class="hint">點選標籤查看，不在同頁重複攤開</p></div>
             <div class="hint">NTD</div>
           </div>
-          <table>
-            <thead><tr><th>項目</th><th>用途說明</th><th class="num">金額</th></tr></thead>
-            <tbody>
-              <tr><td>計畫主持人人事費</td><td>5 月研發、專案管理、DSSC-PUF 技術整合</td><td class="num money">50,000</td></tr>
-              <tr><td>待聘研發人員薪資</td><td>5 月實驗、資料集、區塊鏈/控制程式支援</td><td class="num money">45,000</td></tr>
-              <tr><td>消耗性器材及原材料費</td><td>DSSC 首批材料採購，支援待測樣本製作</td><td class="num money">60,000</td></tr>
-              <tr><td>研發設備使用費</td><td>實驗與量測設備使用，5 月一次編列</td><td class="num money">15,000</td></tr>
-              <tr><td>研發設備維護費</td><td>設備維護與測試前整備，5 月一次編列</td><td class="num money">5,000</td></tr>
-              <tr><td><strong>5月需撥付合計</strong></td><td class="muted">顧問費暫排 7–8 月，本月不列</td><td class="num money">175,000</td></tr>
-            </tbody>
-          </table>
-        </section>
-
-        <section class="panel section">
-          <div class="section-head">
-            <div><h2>月度資金需求</h2><p class="hint">從啟動到結案的現金流排程</p></div>
-            <div class="hint">合計 760,000</div>
+          <div class="tabbar" role="tablist">
+            <button class="tab-btn active" data-tab="may">五月預估支出</button>
+            <button class="tab-btn" data-tab="budget">簽約版預算表</button>
+            <button class="tab-btn" data-tab="advance">預支明細</button>
+            <button class="tab-btn" data-tab="actual">實支明細</button>
           </div>
-          <table>
-            <thead><tr><th>月份</th><th>主要用途</th><th class="num">月需撥付</th><th class="num">累計</th></tr></thead>
-            <tbody>
-              <tr><td>2026-05</td><td>啟動、人事、首批材料、設備使用與維護</td><td class="num money">175,000</td><td class="num">175,000</td></tr>
-              <tr><td>2026-06</td><td>待測樣本製作、材料補採購、人事</td><td class="num money">125,000</td><td class="num">300,000</td></tr>
-              <tr><td>2026-07</td><td>I–V 建模、資料庫建構、材料補採購、顧問第1期</td><td class="num money">150,000</td><td class="num">450,000</td></tr>
-              <tr><td>2026-08</td><td>PUF 測試、顧問第2期、人事</td><td class="num money">120,000</td><td class="num">570,000</td></tr>
-              <tr><td>2026-09</td><td>挑戰/回應流程測試、資料整理、人事</td><td class="num money">95,000</td><td class="num">665,000</td></tr>
-              <tr><td>2026-10</td><td>原型驗證、結案文件、查核點整理、人事</td><td class="num money">95,000</td><td class="num">760,000</td></tr>
-            </tbody>
-          </table>
+
+          <div class="tab-panel active" data-panel="may">
+            <table>
+              <thead><tr><th>項目</th><th>用途說明</th><th class="num">金額</th></tr></thead>
+              <tbody>
+                <tr><td>計畫主持人人事費</td><td>5 月研發、專案管理、DSSC-PUF 技術整合</td><td class="num money">50,000</td></tr>
+                <tr><td>待聘研發人員薪資</td><td>5 月實驗、資料集、區塊鏈/控制程式支援</td><td class="num money">45,000</td></tr>
+                <tr><td>消耗性器材及原材料費</td><td>DSSC 首批材料採購，支援待測樣本製作</td><td class="num money">60,000</td></tr>
+                <tr><td>研發設備使用費</td><td>實驗與量測設備使用，5 月一次編列</td><td class="num money">15,000</td></tr>
+                <tr><td>研發設備維護費</td><td>設備維護與測試前整備，5 月一次編列</td><td class="num money">5,000</td></tr>
+                <tr><td><strong>五月預估支出合計</strong></td><td class="muted">顧問費暫排 7–8 月，本月不列</td><td class="num money">175,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tab-panel" data-panel="budget">
+            <table>
+              <thead><tr><th>會計科目</th><th class="num">政府補助款</th><th class="num">公司自籌款</th><th class="num">合計</th><th>備註</th></tr></thead>
+              <tbody>
+                <tr><td>人事費－研發人員</td><td class="num">280,000</td><td class="num">290,000</td><td class="num money">570,000</td><td>施惟捷 + 待聘研發人員</td></tr>
+                <tr><td>人事費－顧問</td><td class="num">14,000</td><td class="num">36,000</td><td class="num money">50,000</td><td>Edmond Jordan</td></tr>
+                <tr><td>人事費小計</td><td class="num">294,000</td><td class="num">326,000</td><td class="num money">620,000</td><td></td></tr>
+                <tr><td>消耗性器材及原材料費</td><td class="num">57,000</td><td class="num">63,000</td><td class="num money">120,000</td><td>DSSC 材料</td></tr>
+                <tr><td>研發設備使用費</td><td class="num">7,000</td><td class="num">8,000</td><td class="num money">15,000</td><td></td></tr>
+                <tr><td>研發設備維護費</td><td class="num">2,000</td><td class="num">3,000</td><td class="num money">5,000</td><td></td></tr>
+                <tr><td>技術移轉及委託費</td><td class="num">0</td><td class="num">0</td><td class="num money">0</td><td></td></tr>
+                <tr><td>國內差旅費</td><td class="num">0</td><td class="num">0</td><td class="num money">0</td><td></td></tr>
+                <tr><td><strong>合計</strong></td><td class="num money">360,000</td><td class="num money">400,000</td><td class="num money">760,000</td><td>政府 47.4%；自籌 52.6%</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tab-panel" data-panel="advance">
+            <table>
+              <thead><tr><th>月份</th><th>預支/預估用途</th><th class="num">預支金額</th><th class="num">累計</th></tr></thead>
+              <tbody>
+                <tr><td>2026-05</td><td>人事、首批材料、設備使用與維護</td><td class="num money">175,000</td><td class="num">175,000</td></tr>
+                <tr><td>2026-06</td><td>待測樣本製作、材料補採購、人事</td><td class="num money">125,000</td><td class="num">300,000</td></tr>
+                <tr><td>2026-07</td><td>I–V 建模、資料庫建構、材料補採購、顧問第1期</td><td class="num money">150,000</td><td class="num">450,000</td></tr>
+                <tr><td>2026-08</td><td>PUF 測試、顧問第2期、人事</td><td class="num money">120,000</td><td class="num">570,000</td></tr>
+                <tr><td>2026-09</td><td>挑戰/回應流程測試、資料整理、人事</td><td class="num money">95,000</td><td class="num">665,000</td></tr>
+                <tr><td>2026-10</td><td>原型驗證、結案文件、查核點整理、人事</td><td class="num money">95,000</td><td class="num">760,000</td></tr>
+                <tr><td><strong>合計</strong></td><td class="muted">對齊最後簽約版總經費</td><td class="num money">760,000</td><td class="num money">760,000</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="tab-panel" data-panel="actual">
+            <div class="empty">目前 Google Sheet「月度實支」尚未登錄正式支出。等發票、薪資轉帳、顧問請款或材料付款資料進來後，這裡應改成逐筆列示：交易日期、會計科目、支出項目、供應商/收款人、含稅金額、經費來源、付款狀態與憑證連結。</div>
+            <table style="margin-top:14px;">
+              <thead><tr><th>交易日期</th><th>會計科目</th><th>支出項目</th><th>供應商/收款人</th><th class="num">含稅金額</th><th>狀態</th></tr></thead>
+              <tbody><tr><td colspan="6" class="muted">尚無實支資料</td></tr></tbody>
+            </table>
+          </div>
         </section>
       </div>
 
@@ -217,19 +243,32 @@
 
         <section class="panel section">
           <div class="section-head">
-            <div><h2>核銷與管理風險</h2><p class="hint">現在最需要先卡住的事</p></div>
+            <div><h2>待確認事項</h2><p class="hint">避免預估、預支、實支混淆</p></div>
             <div class="hint">Ops</div>
           </div>
           <div class="risk">
-            <div class="risk-item"><span class="dot red"></span><div><strong>Simpany 實發薪資尚未確認</strong><p>目前儀表板用簽約版編列額：主持人 50,000、待聘 45,000。若勞健保扣款後實發不同，需以薪資清冊/轉帳紀錄更新。</p></div></div>
+            <div class="risk-item"><span class="dot red"></span><div><strong>Simpany 實發薪資尚未確認</strong><p>目前使用簽約版編列額：主持人 50,000、待聘 45,000。若勞健保扣款後實發不同，需以薪資清冊/轉帳紀錄更新。</p></div></div>
             <div class="risk-item"><span class="dot gold"></span><div><strong>5月設備費已集中</strong><p>研發設備使用費 15,000 與維護費 5,000 已全部挪至 5 月，需保存計算依據、使用紀錄與付款憑證。</p></div></div>
-            <div class="risk-item"><span class="dot green"></span><div><strong>月度排程對齊簽約版</strong><p>目前 6 個月合計 760,000，與最後簽約版總預算一致。</p></div></div>
+            <div class="risk-item"><span class="dot green"></span><div><strong>實支目前為 0</strong><p>本頁不把預估支出當成實支；實支明細需等付款與憑證資料登錄後再更新。</p></div></div>
           </div>
         </section>
       </div>
     </main>
 
-    <p class="footer">下一步建議：把 Google Sheet 當外部備份，repo 內建立 <code>data/budget.yml</code>、<code>data/monthly-plan.csv</code>、<code>data/actual-expenses.csv</code>，再由資料自動產生本頁，避免手改 HTML 或試算表公式。</p>
+    <p class="footer">下一步建議：把 Google Sheet 當外部備份，repo 內建立 <code>data/budget.yml</code>、<code>data/monthly-plan.csv</code>、<code>data/actual-expenses.csv</code>，再由資料自動產生本頁。</p>
   </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.tab-panel');
+    function activateTab(name) {
+      buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === name));
+      panels.forEach(panel => panel.classList.toggle('active', panel.dataset.panel === name));
+    }
+    buttons.forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab)));
+    document.querySelectorAll('[data-jump]').forEach(link => {
+      link.addEventListener('click', () => activateTab(link.dataset.jump));
+    });
+  </script>
 </body>
 </html>
