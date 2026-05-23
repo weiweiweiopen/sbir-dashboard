@@ -62,11 +62,12 @@
     .node { fill: var(--surface); stroke: var(--b); stroke-width:3; cursor:pointer; }
     .hit { fill: transparent; cursor:pointer; }
     .pt:hover .node { r: 7; }
-    .tip { position:absolute; opacity:0; pointer-events:none; min-width:178px; transform:translate(-50%,-112%); border:1px solid var(--line); background:var(--surface); border-radius:14px; padding:10px 11px; box-shadow:var(--shadow); backdrop-filter:blur(18px); font-size:12px; }
+    .tip { position:absolute; opacity:0; pointer-events:none; min-width:230px; transform:translate(-50%,-112%); border:1px solid color-mix(in srgb, var(--line) 45%, transparent); background:color-mix(in srgb, var(--surface) 20%, transparent); border-radius:14px; padding:12px 13px; box-shadow:none; backdrop-filter:blur(10px); font-size:15.6px; }
     .tip.show { opacity:1; }
-    .tip .m { color:var(--muted); font-weight:650; margin-bottom:6px; }
-    .tip .r { display:flex; justify-content:space-between; gap:14px; margin-top:4px; }
+    .tip .m { color:var(--muted); font-weight:650; margin-bottom:7px; font-size:15.6px; }
+    .tip .r { display:flex; justify-content:space-between; gap:14px; margin-top:5px; }
     .tip .r span { color: var(--muted); }
+    .tip .pct { color: var(--muted); font-weight: 560; margin-left: 6px; }
     .tabs { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:12px; }
     button { font: inherit; }
     .tab { border:1px solid var(--line); background:var(--surface-2); color:var(--muted); border-radius:999px; padding:7px 10px; font-size:12px; cursor:pointer; }
@@ -101,6 +102,7 @@
         border-color: color-mix(in srgb, var(--line) 45%, transparent);
         box-shadow: none;
         backdrop-filter: blur(10px);
+        font-size: 15.6px;
       }
     }
   </style>
@@ -124,12 +126,12 @@
           <text class="axis-label" x="16" y="42">175k</text><text class="axis-label" x="16" y="102">125k</text><text class="axis-label" x="24" y="162">75k</text><text class="axis-label" x="32" y="222">0</text>
           <path class="planned" d="M70 38 L228 98 L386 68 L544 104 L702 134 L860 134"/>
           <path class="actual" d="M70 218 L228 218 L386 218 L544 218 L702 218 L860 218"/>
-          <g class="pt" data-month="2026-05" data-personnel="95,000" data-materials="60,000" data-equipment="15,000" data-maintenance="5,000" data-planned="175,000" data-actual="0" data-cum="175,000"><circle class="node" cx="70" cy="38" r="5"/><circle class="hit" cx="70" cy="38" r="24"/><text class="axis-label" x="47" y="255">May</text></g>
-          <g class="pt" data-month="2026-06" data-personnel="95,000" data-materials="30,000" data-equipment="0" data-maintenance="0" data-planned="125,000" data-actual="0" data-cum="300,000"><circle class="node" cx="228" cy="98" r="5"/><circle class="hit" cx="228" cy="98" r="24"/><text class="axis-label" x="206" y="255">Jun</text></g>
-          <g class="pt" data-month="2026-07" data-personnel="120,000" data-materials="30,000" data-equipment="0" data-maintenance="0" data-planned="150,000" data-actual="0" data-cum="450,000"><circle class="node" cx="386" cy="68" r="5"/><circle class="hit" cx="386" cy="68" r="24"/><text class="axis-label" x="367" y="255">Jul</text></g>
-          <g class="pt" data-month="2026-08" data-personnel="120,000" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="120,000" data-actual="0" data-cum="570,000"><circle class="node" cx="544" cy="104" r="5"/><circle class="hit" cx="544" cy="104" r="24"/><text class="axis-label" x="521" y="255">Aug</text></g>
-          <g class="pt" data-month="2026-09" data-personnel="95,000" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="95,000" data-actual="0" data-cum="665,000"><circle class="node" cx="702" cy="134" r="5"/><circle class="hit" cx="702" cy="134" r="24"/><text class="axis-label" x="681" y="255">Sep</text></g>
-          <g class="pt" data-month="2026-10" data-personnel="95,000" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="95,000" data-actual="0" data-cum="760,000"><circle class="node" cx="860" cy="134" r="5"/><circle class="hit" cx="860" cy="134" r="24"/><text class="axis-label" x="839" y="255">Oct</text></g>
+          <g class="pt" data-month="2026-05" data-subsidy="82,895" data-self="92,105" data-personnel="95,000" data-materials="60,000" data-equipment="15,000" data-maintenance="5,000" data-planned="175,000" data-actual="0" data-cum="175,000"><circle class="node" cx="70" cy="38" r="5"/><circle class="hit" cx="70" cy="38" r="24"/><text class="axis-label" x="47" y="255">May</text></g>
+          <g class="pt" data-month="2026-06" data-subsidy="59,211" data-self="65,789" data-personnel="95,000" data-materials="30,000" data-equipment="0" data-maintenance="0" data-planned="125,000" data-actual="0" data-cum="300,000"><circle class="node" cx="228" cy="98" r="5"/><circle class="hit" cx="228" cy="98" r="24"/><text class="axis-label" x="206" y="255">Jun</text></g>
+          <g class="pt" data-month="2026-07" data-subsidy="71,053" data-self="78,947" data-personnel="120,000" data-materials="30,000" data-equipment="0" data-maintenance="0" data-planned="150,000" data-actual="0" data-cum="450,000"><circle class="node" cx="386" cy="68" r="5"/><circle class="hit" cx="386" cy="68" r="24"/><text class="axis-label" x="367" y="255">Jul</text></g>
+          <g class="pt" data-month="2026-08" data-subsidy="56,842" data-self="63,158" data-personnel="120,000" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="120,000" data-actual="0" data-cum="570,000"><circle class="node" cx="544" cy="104" r="5"/><circle class="hit" cx="544" cy="104" r="24"/><text class="axis-label" x="521" y="255">Aug</text></g>
+          <g class="pt" data-month="2026-09" data-subsidy="45,000" data-self="50,000" data-personnel="95,000" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="95,000" data-actual="0" data-cum="665,000"><circle class="node" cx="702" cy="134" r="5"/><circle class="hit" cx="702" cy="134" r="24"/><text class="axis-label" x="681" y="255">Sep</text></g>
+          <g class="pt" data-month="2026-10" data-subsidy="45,000" data-self="50,000" data-personnel="95,000" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="95,000" data-actual="0" data-cum="760,000"><circle class="node" cx="860" cy="134" r="5"/><circle class="hit" cx="860" cy="134" r="24"/><text class="axis-label" x="839" y="255">Oct</text></g>
         </svg>
         <div class="tip" id="tip"></div>
       </div>
@@ -220,7 +222,10 @@
     document.querySelectorAll('.pt').forEach(pt => {
       pt.addEventListener('mousemove', e => {
         const r = wrap.getBoundingClientRect();
-        tip.innerHTML = `<div class="m">${pt.dataset.month}</div><div class="r"><span>預估</span><strong>${pt.dataset.planned}</strong></div><div class="r"><span>人事</span><strong>${pt.dataset.personnel}</strong></div><div class="r"><span>材料</span><strong>${pt.dataset.materials}</strong></div><div class="r"><span>設備使用</span><strong>${pt.dataset.equipment}</strong></div><div class="r"><span>設備維護</span><strong>${pt.dataset.maintenance}</strong></div><div class="r"><span>實支</span><strong>${pt.dataset.actual}</strong></div><div class="r"><span>累計預估</span><strong>${pt.dataset.cum}</strong></div>`;
+        const total = 760000;
+        const n = value => Number(String(value || '0').replace(/,/g, ''));
+        const fmt = value => `${value} <span class="pct">${(n(value) / total * 100).toFixed(1)}%</span>`;
+        tip.innerHTML = `<div class="m">${pt.dataset.month}</div><div class="r"><span>預估</span><strong>${fmt(pt.dataset.planned)}</strong></div><div class="r"><span>人事</span><strong>${fmt(pt.dataset.personnel)}</strong></div><div class="r"><span>材料</span><strong>${fmt(pt.dataset.materials)}</strong></div><div class="r"><span>設備使用</span><strong>${fmt(pt.dataset.equipment)}</strong></div><div class="r"><span>設備維護</span><strong>${fmt(pt.dataset.maintenance)}</strong></div><div class="r"><span>補助款</span><strong>${fmt(pt.dataset.subsidy)}</strong></div><div class="r"><span>自籌款</span><strong>${fmt(pt.dataset.self)}</strong></div><div class="r"><span>實支</span><strong>${fmt(pt.dataset.actual)}</strong></div><div class="r"><span>累計預估</span><strong>${fmt(pt.dataset.cum)}</strong></div>`;
         const mobile = window.matchMedia('(max-width: 620px)').matches;
         tip.style.left = mobile ? '' : `${Math.min(Math.max(e.clientX-r.left, 100), r.width-100)}px`;
         tip.style.top = mobile ? '' : `${Math.max(e.clientY-r.top, 80)}px`;
