@@ -48,24 +48,11 @@
     .sub { font-size: 13px; margin-top: 3px; }
     .chip { border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); border-radius: 999px; padding: 7px 10px; font-size: 12px; white-space: nowrap; }
     .grid { display: grid; gap: 12px; }
-    .top { grid-template-columns: 1.05fr .95fr; }
-    .cards { grid-template-columns: repeat(4, 1fr); }
     .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(18px); }
     .section { padding: 18px; }
     .head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:14px; }
     .head h2 { font-size: 15px; font-weight: 650; }
     .head p { color: var(--muted); font-size: 12px; margin-top: 3px; line-height: 1.45; }
-    .kv { display:grid; grid-template-columns: 128px 1fr; gap: 9px 14px; font-size: 14px; }
-    .kv .k { color: var(--muted); }
-    .metrics { display:grid; grid-template-columns: repeat(2,1fr); gap:10px; }
-    .metric { padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); }
-    .metric .label { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
-    .metric .value { font-size: 23px; font-weight: 680; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
-    .mini { padding: 12px; }
-    .mini .label { color: var(--muted); font-size: 12px; margin-bottom: 7px; }
-    .mini .value { font-size: 20px; font-weight: 680; font-variant-numeric: tabular-nums; }
-    .bar { height: 8px; border-radius: 999px; background: var(--surface-2); border:1px solid var(--line); overflow:hidden; margin-top:10px; }
-    .bar span { display:block; height:100%; background:linear-gradient(90deg,var(--a),var(--b)); }
     .chart-wrap { position: relative; }
     svg { width:100%; height:280px; display:block; overflow:visible; }
     .axis { stroke: var(--line); stroke-width: 1; }
@@ -79,6 +66,7 @@
     .tip.show { opacity:1; }
     .tip .m { color:var(--muted); font-weight:650; margin-bottom:6px; }
     .tip .r { display:flex; justify-content:space-between; gap:14px; margin-top:4px; }
+    .tip .r span { color: var(--muted); }
     .tabs { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:12px; }
     button { font: inherit; }
     .tab { border:1px solid var(--line); background:var(--surface-2); color:var(--muted); border-radius:999px; padding:7px 10px; font-size:12px; cursor:pointer; }
@@ -94,8 +82,13 @@
     .links { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
     a.link { color:var(--text); text-decoration:none; border:1px solid var(--line); background:var(--surface-2); border-radius:999px; padding:7px 10px; font-size:12px; }
     footer { color:var(--muted); font-size:12px; margin-top:16px; line-height:1.6; }
-    @media (max-width: 900px) { .top, .cards { grid-template-columns:1fr; } header { align-items:flex-start; flex-direction:column; } }
-    @media (max-width: 620px) { .wrap { padding:18px 10px 32px; } .section { padding:14px; } .kv { grid-template-columns: 1fr; } svg { height:240px; } }
+    @media (max-width: 900px) { header { align-items:flex-start; flex-direction:column; } }
+    @media (max-width: 620px) {
+      .wrap { padding:18px 10px 32px; }
+      .section { padding:14px; }
+      svg { height:240px; }
+      .tip { position: fixed; left: 12px !important; right: 12px; top: auto !important; bottom: 12px; transform: none; width: auto; z-index: 20; }
+    }
   </style>
 </head>
 <body>
@@ -108,35 +101,6 @@
       <div class="chip">資料版本 2026/05/23</div>
     </header>
 
-    <section class="grid top">
-      <div class="card section">
-        <div class="head"><div><h2>專案狀態</h2><p>公開行政資訊；不含個資與內部憑證。</p></div></div>
-        <div class="kv">
-          <div class="k">公司</div><div>智慧鼠文化有限公司</div>
-          <div class="k">計畫期間</div><div>6 個月</div>
-          <div class="k">領域</div><div>電子</div>
-          <div class="k">最新狀態</div><div>簽約版預算已建檔；實支尚未登錄。</div>
-          <div class="k">知識庫</div><div><a class="link" href="llm-wiki/index.md">llm-wiki</a> <a class="link" href="llms.txt">llms.txt</a></div>
-        </div>
-      </div>
-      <div class="card section">
-        <div class="head"><div><h2>經費狀態</h2><p>單位：NTD。</p></div></div>
-        <div class="metrics">
-          <div class="metric"><div class="label">總經費</div><div class="value">760,000</div></div>
-          <div class="metric"><div class="label">已登錄實支</div><div class="value">0</div></div>
-          <div class="metric"><div class="label">政府補助</div><div class="value">360,000</div></div>
-          <div class="metric"><div class="label">公司自籌</div><div class="value">400,000</div></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="grid cards" style="margin-top:12px">
-      <div class="card mini"><div class="label">人事費</div><div class="value">620,000</div><div class="bar"><span style="width:81.6%"></span></div></div>
-      <div class="card mini"><div class="label">材料費</div><div class="value">120,000</div><div class="bar"><span style="width:15.8%"></span></div></div>
-      <div class="card mini"><div class="label">設備使用</div><div class="value">15,000</div><div class="bar"><span style="width:2%"></span></div></div>
-      <div class="card mini"><div class="label">設備維護</div><div class="value">5,000</div><div class="bar"><span style="width:.7%"></span></div></div>
-    </section>
-
     <section class="card section" style="margin-top:12px">
       <div class="head"><div><h2>月度預估 / 實支</h2><p>移動到節點查看數值。</p></div><div class="chip">May–Oct 2026</div></div>
       <div class="chart-wrap" id="chartWrap">
@@ -146,12 +110,12 @@
           <text class="axis-label" x="16" y="42">175k</text><text class="axis-label" x="16" y="102">125k</text><text class="axis-label" x="24" y="162">75k</text><text class="axis-label" x="32" y="222">0</text>
           <path class="planned" d="M70 38 L228 98 L386 68 L544 104 L702 134 L860 134"/>
           <path class="actual" d="M70 218 L228 218 L386 218 L544 218 L702 218 L860 218"/>
-          <g class="pt" data-month="2026-05" data-planned="175,000" data-actual="0" data-cum="175,000"><circle class="node" cx="70" cy="38" r="5"/><circle class="hit" cx="70" cy="38" r="24"/><text class="axis-label" x="47" y="255">May</text></g>
-          <g class="pt" data-month="2026-06" data-planned="125,000" data-actual="0" data-cum="300,000"><circle class="node" cx="228" cy="98" r="5"/><circle class="hit" cx="228" cy="98" r="24"/><text class="axis-label" x="206" y="255">Jun</text></g>
-          <g class="pt" data-month="2026-07" data-planned="150,000" data-actual="0" data-cum="450,000"><circle class="node" cx="386" cy="68" r="5"/><circle class="hit" cx="386" cy="68" r="24"/><text class="axis-label" x="367" y="255">Jul</text></g>
-          <g class="pt" data-month="2026-08" data-planned="120,000" data-actual="0" data-cum="570,000"><circle class="node" cx="544" cy="104" r="5"/><circle class="hit" cx="544" cy="104" r="24"/><text class="axis-label" x="521" y="255">Aug</text></g>
-          <g class="pt" data-month="2026-09" data-planned="95,000" data-actual="0" data-cum="665,000"><circle class="node" cx="702" cy="134" r="5"/><circle class="hit" cx="702" cy="134" r="24"/><text class="axis-label" x="681" y="255">Sep</text></g>
-          <g class="pt" data-month="2026-10" data-planned="95,000" data-actual="0" data-cum="760,000"><circle class="node" cx="860" cy="134" r="5"/><circle class="hit" cx="860" cy="134" r="24"/><text class="axis-label" x="839" y="255">Oct</text></g>
+          <g class="pt" data-month="2026-05" data-personnel="95,000" data-materials="60,000" data-equipment="15,000" data-maintenance="5,000" data-planned="175,000" data-actual="0" data-cum="175,000"><circle class="node" cx="70" cy="38" r="5"/><circle class="hit" cx="70" cy="38" r="24"/><text class="axis-label" x="47" y="255">May</text></g>
+          <g class="pt" data-month="2026-06" data-personnel="95,000" data-materials="30,000" data-equipment="0" data-maintenance="0" data-planned="125,000" data-actual="0" data-cum="300,000"><circle class="node" cx="228" cy="98" r="5"/><circle class="hit" cx="228" cy="98" r="24"/><text class="axis-label" x="206" y="255">Jun</text></g>
+          <g class="pt" data-month="2026-07" data-personnel="120,000" data-materials="30,000" data-equipment="0" data-maintenance="0" data-planned="150,000" data-actual="0" data-cum="450,000"><circle class="node" cx="386" cy="68" r="5"/><circle class="hit" cx="386" cy="68" r="24"/><text class="axis-label" x="367" y="255">Jul</text></g>
+          <g class="pt" data-month="2026-08" data-personnel="120,000" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="120,000" data-actual="0" data-cum="570,000"><circle class="node" cx="544" cy="104" r="5"/><circle class="hit" cx="544" cy="104" r="24"/><text class="axis-label" x="521" y="255">Aug</text></g>
+          <g class="pt" data-month="2026-09" data-personnel="95,000" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="95,000" data-actual="0" data-cum="665,000"><circle class="node" cx="702" cy="134" r="5"/><circle class="hit" cx="702" cy="134" r="24"/><text class="axis-label" x="681" y="255">Sep</text></g>
+          <g class="pt" data-month="2026-10" data-personnel="95,000" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="95,000" data-actual="0" data-cum="760,000"><circle class="node" cx="860" cy="134" r="5"/><circle class="hit" cx="860" cy="134" r="24"/><text class="axis-label" x="839" y="255">Oct</text></g>
         </svg>
         <div class="tip" id="tip"></div>
       </div>
@@ -235,18 +199,23 @@
       <div class="panel" data-panel="actual"><p class="muted">目前尚無正式實支流水。</p><div class="links"><a class="link" href="data/public/actual-expenses.csv">actual-expenses.csv</a></div></div>
       <div class="panel" data-panel="public"><p class="muted">公開專案級預算、月度規劃、去識別化實支與研究摘要。不公開個人薪資細節、身分證字號、地址、電話、Email、銀行帳戶、登入截圖、cookie、token、合約影本與內部憑證。</p><div class="links"><a class="link" href="docs/public-transparency.md">public-transparency.md</a><a class="link" href="data/public/project.json">project.json</a></div></div>
     </section>
-    <footer>Source: 計劃資料表422(ignore) 擷取之公開可揭露欄位；Google Doc 智財分析已整理至 llm-wiki。</footer>
+    <footer>Source: 計劃資料表422(ignore) 擷取之公開可揭露欄位。<a class="link" href="llm-wiki/index.md">llm-wiki</a> <a class="link" href="llms.txt">llms.txt</a></footer>
   </div>
   <script>
     const wrap = document.getElementById('chartWrap'), tip = document.getElementById('tip');
     document.querySelectorAll('.pt').forEach(pt => {
       pt.addEventListener('mousemove', e => {
         const r = wrap.getBoundingClientRect();
-        tip.innerHTML = `<div class="m">${pt.dataset.month}</div><div class="r"><span>預估</span><strong>${pt.dataset.planned}</strong></div><div class="r"><span>實支</span><strong>${pt.dataset.actual}</strong></div><div class="r"><span>累計</span><strong>${pt.dataset.cum}</strong></div>`;
-        tip.style.left = `${e.clientX-r.left}px`; tip.style.top = `${e.clientY-r.top}px`; tip.classList.add('show');
+        tip.innerHTML = `<div class="m">${pt.dataset.month}</div><div class="r"><span>預估</span><strong>${pt.dataset.planned}</strong></div><div class="r"><span>人事</span><strong>${pt.dataset.personnel}</strong></div><div class="r"><span>材料</span><strong>${pt.dataset.materials}</strong></div><div class="r"><span>設備使用</span><strong>${pt.dataset.equipment}</strong></div><div class="r"><span>設備維護</span><strong>${pt.dataset.maintenance}</strong></div><div class="r"><span>實支</span><strong>${pt.dataset.actual}</strong></div><div class="r"><span>累計預估</span><strong>${pt.dataset.cum}</strong></div>`;
+        const mobile = window.matchMedia('(max-width: 620px)').matches;
+        tip.style.left = mobile ? '' : `${Math.min(Math.max(e.clientX-r.left, 100), r.width-100)}px`;
+        tip.style.top = mobile ? '' : `${Math.max(e.clientY-r.top, 80)}px`;
+        tip.classList.add('show');
       });
-      pt.addEventListener('mouseleave', () => tip.classList.remove('show'));
+      pt.addEventListener('mouseleave', () => { if (!window.matchMedia('(max-width: 620px)').matches) tip.classList.remove('show'); });
+      pt.addEventListener('click', e => { e.preventDefault(); pt.dispatchEvent(new MouseEvent('mousemove', {clientX:e.clientX, clientY:e.clientY, bubbles:true})); });
     });
+    document.addEventListener('click', e => { if (!e.target.closest('.pt') && !e.target.closest('.tip')) tip.classList.remove('show'); });
     document.querySelectorAll('.tab').forEach(btn => btn.addEventListener('click', () => {
       document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b === btn));
       document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.dataset.panel === btn.dataset.tab));
