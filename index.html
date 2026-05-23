@@ -11,11 +11,10 @@
       --ink: #17202a;
       --muted: #71808f;
       --line: rgba(255,255,255,.12);
-      --gold: #f05a7e;
-      --teal: #8b5cf6;
-      --green: #67b783;
-      --red: #d66a5f;
-      --blue: #7ca7d8;
+      --accent-a: #8b5cf6;
+      --accent-b: #f05a7e;
+      --accent-soft: rgba(139,92,246,.16);
+      --accent-warm: rgba(240,90,126,.18);
       --paper: #fbf7ef;
       --shadow: 0 24px 80px rgba(0,0,0,.32);
       --radius: 22px;
@@ -34,7 +33,7 @@
     .shell { max-width: 1280px; margin: 0 auto; padding: 28px 20px 44px; }
     .topbar { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 22px; }
     .brand { display: flex; gap: 14px; align-items: center; }
-    .mark { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--teal), var(--gold)); display: grid; place-items: center; color: #0f1419; font-weight: 900; }
+    .mark { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--accent-a), var(--accent-b)); display: grid; place-items: center; color: #0f1419; font-weight: 900; }
     .brand h1 { font-size: 18px; margin: 0; letter-spacing: .02em; }
     .brand p { margin: 3px 0 0; color: #a8b4c0; font-size: 13px; }
     .pill, .detail-link { border: 1px solid var(--line); color: #d9e2ea; padding: 9px 12px; border-radius: 999px; font-size: 13px; background: rgba(255,255,255,.05); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
@@ -43,7 +42,7 @@
     .panel { background: rgba(23,29,36,.86); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(16px); }
     .hero-main { padding: 30px; position: relative; overflow: hidden; }
     .hero-main::after { content:""; position:absolute; right:-90px; bottom:-110px; width:300px; height:300px; border-radius:50%; background: radial-gradient(circle, rgba(240,90,126,.28), transparent 65%); }
-    .kicker { color: var(--gold); font-weight: 800; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+    .kicker { color: var(--accent-b); font-weight: 800; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
     h2, h3, p { margin: 0; }
     .hero-title { margin: 10px 0 12px; font-size: clamp(34px, 5vw, 64px); line-height: .98; max-width: 720px; letter-spacing: -.04em; }
     .hero-copy { color: #b8c3cf; font-size: 16px; line-height: 1.75; max-width: 760px; }
@@ -54,17 +53,27 @@
     .amount { font-size: clamp(34px, 4vw, 54px); line-height:1; font-weight: 900; letter-spacing: -.04em; color: #fff; }
     .amount small { display:block; margin-top:8px; font-size: 13px; color:#a8b4c0; letter-spacing:0; font-weight:700; }
     .meter { height: 14px; background: rgba(255,255,255,.09); border-radius:999px; overflow:hidden; }
-    .meter span { display:block; height:100%; width:23.03%; background: linear-gradient(90deg, var(--teal), var(--gold)); border-radius:inherit; }
+    .meter span { display:block; height:100%; width:23.03%; background: linear-gradient(90deg, var(--accent-a), var(--accent-b)); border-radius:inherit; }
     .fund-note { color:#b8c3cf; line-height:1.65; font-size:14px; }
     .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom:18px; }
     .metric { padding: 20px; }
     .metric .label { color:#a8b4c0; font-size:13px; margin-bottom:10px; }
     .metric .value { font-size:30px; font-weight:900; letter-spacing:-.03em; }
     .metric .hint { margin-top:8px; color:#93a2b2; font-size:13px; line-height:1.45; }
-    .metric.teal { border-top: 4px solid var(--teal); }
-    .metric.gold { border-top: 4px solid var(--gold); }
-    .metric.green { border-top: 4px solid var(--green); }
-    .metric.blue { border-top: 4px solid var(--blue); }
+    .metric { position: relative; overflow: hidden; }
+    .metric::before { content:""; position:absolute; inset:0 0 auto 0; height:4px; background:linear-gradient(90deg, var(--accent-a), var(--accent-b)); }
+
+    .market-strip { padding: 20px; margin-bottom: 18px; }
+    .market-head { display:flex; justify-content:space-between; gap:12px; align-items:end; margin-bottom:14px; }
+    .market-head h2 { font-size:22px; letter-spacing:-.02em; }
+    .market-head p { color:#93a2b2; font-size:13px; margin-top:4px; }
+    .ticker { display:grid; grid-template-columns: repeat(6, 1fr); gap:10px; }
+    .tick { min-width:0; padding:14px; border-radius:16px; background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.08); }
+    .tick .m { color:#cbd5e1; font-size:12px; font-weight:900; letter-spacing:.08em; }
+    .tick .v { margin-top:8px; font-size:22px; font-weight:950; letter-spacing:-.04em; color:#fff; font-variant-numeric:tabular-nums; }
+    .tick .c { margin-top:4px; color:#93a2b2; font-size:12px; font-variant-numeric:tabular-nums; }
+    .spark { margin-top:10px; height:8px; border-radius:999px; background:rgba(255,255,255,.10); overflow:hidden; }
+    .spark span { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, var(--accent-a), var(--accent-b)); }
     .main { display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; }
     .stack { display:grid; gap:18px; }
     .section { padding: 22px; }
@@ -81,14 +90,14 @@
     .muted { color:#93a2b2; }
     .timeline { display:grid; gap:12px; }
     .mile { display:grid; grid-template-columns: 72px 1fr auto; gap:14px; align-items:center; padding:14px; border-radius:16px; background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.07); }
-    .month { color:var(--gold); font-weight:900; }
+    .month { color:var(--accent-b); font-weight:900; }
     .mile strong { display:block; margin-bottom:4px; }
     .mile p { color:#a8b4c0; font-size:13px; line-height:1.5; }
     .pct { font-weight:900; color:#fff; }
     .risk { display:grid; gap:12px; }
     .risk-item { display:grid; grid-template-columns: 10px 1fr; gap:12px; padding:14px; border-radius:16px; background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.07); }
     .dot { width:10px; height:10px; border-radius:50%; margin-top:6px; }
-    .dot.red { background:var(--red); } .dot.gold{background:var(--gold);} .dot.green{background:var(--green);}
+    .dot.accent { background: linear-gradient(135deg, var(--accent-a), var(--accent-b)); }
     .risk-item strong { display:block; margin-bottom:5px; }
     .risk-item p { color:#a8b4c0; line-height:1.55; font-size:13px; }
     .paper { background: var(--paper); color: var(--ink); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
@@ -100,14 +109,14 @@
     .tabs { margin-top: 18px; }
     .tabbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 14px; }
     .tab-btn { cursor:pointer; border:1px solid rgba(255,255,255,.16); color:#d9e2ea; background:rgba(255,255,255,.05); border-radius:999px; padding:10px 14px; font-weight:800; font-size:13px; }
-    .tab-btn.active { background:linear-gradient(135deg, var(--teal), var(--gold)); color:#0f1419; border-color:transparent; }
+    .tab-btn.active { background:linear-gradient(135deg, var(--accent-a), var(--accent-b)); color:#0f1419; border-color:transparent; }
     .tab-panel { display:none; }
     .tab-panel.active { display:block; }
     .empty { padding:18px; border-radius:16px; background:#efe7d8; color:#637180; line-height:1.65; }
     .footer { margin-top:20px; color:#93a2b2; font-size:13px; line-height:1.65; }
     code { color:#f5d28f; }
-    @media (max-width: 980px) { .hero, .main, .grid-4 { grid-template-columns: 1fr; } }
-    @media (max-width: 640px) { .shell{padding:18px 12px 30px;} .topbar{align-items:flex-start; flex-direction:column;} .mile{grid-template-columns:1fr;} th,td{padding:10px 8px; font-size:13px;} }
+    @media (max-width: 980px) { .hero, .main, .grid-4 { grid-template-columns: 1fr; } .ticker { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 640px) { .shell{padding:18px 12px 30px;} .topbar{align-items:flex-start; flex-direction:column;} .mile{grid-template-columns:1fr;} .ticker{grid-template-columns:1fr;} th,td{padding:10px 8px; font-size:13px;} }
   </style>
 </head>
 <body>
@@ -128,12 +137,6 @@
         <div class="kicker">Project Finance Command Room</div>
         <h2 class="hero-title">五月預估支出 NT$175,000</h2>
         <p class="hero-copy">本頁整理 SBIR 專案目前的預算、預支、實支與查核點狀態。上方只呈現決策摘要，完整明細集中在下方標籤頁，避免同一組資料在頁面中重複出現或互相矛盾。</p>
-        <div class="hero-actions">
-          <a class="detail-link" href="#details" data-jump="may">看五月明細</a>
-          <a class="detail-link" href="#details" data-jump="budget">看簽約版預算表</a>
-          <a class="detail-link" href="#details" data-jump="advance">看預支明細</a>
-          <a class="detail-link" href="#details" data-jump="actual">看實支明細</a>
-        </div>
       </div>
 
       <aside class="panel fund-card">
@@ -150,10 +153,25 @@
     </section>
 
     <section class="grid-4">
-      <article class="panel metric teal"><div class="label">總經費</div><div class="value">760,000</div><div class="hint">最後簽約版：補助 360,000，自籌 400,000。</div></article>
-      <article class="panel metric gold"><div class="label">五月預估支出</div><div class="value">175,000</div><div class="hint">人事 95,000、材料 60,000、設備相關 20,000。</div></article>
-      <article class="panel metric green"><div class="label">目前實支登錄</div><div class="value">0</div><div class="hint">Google Sheet 實支明細目前尚未登錄正式支出。</div></article>
-      <article class="panel metric blue"><div class="label">排程檢核</div><div class="value">OK</div><div class="hint">月度預支排程合計 760,000，對齊簽約版。</div></article>
+      <article class="panel metric"><div class="label">總經費</div><div class="value">760,000</div><div class="hint">最後簽約版：補助 360,000，自籌 400,000。</div></article>
+      <article class="panel metric"><div class="label">五月預估支出</div><div class="value">175,000</div><div class="hint">人事 95,000、材料 60,000、設備相關 20,000。</div></article>
+      <article class="panel metric"><div class="label">目前實支登錄</div><div class="value">0</div><div class="hint">Google Sheet 實支明細目前尚未登錄正式支出。</div></article>
+      <article class="panel metric"><div class="label">排程檢核</div><div class="value">OK</div><div class="hint">月度預支排程合計 760,000，對齊簽約版。</div></article>
+    </section>
+
+    <section class="panel market-strip">
+      <div class="market-head">
+        <div><h2>月度預估支出走勢</h2><p>像行情表一樣看每月資金需求與累計投入；完整表格仍放在下方「預支明細」。</p></div>
+        <div class="pill">May–Oct 2026</div>
+      </div>
+      <div class="ticker">
+        <div class="tick"><div class="m">2026-05</div><div class="v">175,000</div><div class="c">累計 175,000</div><div class="spark"><span style="width:100%"></span></div></div>
+        <div class="tick"><div class="m">2026-06</div><div class="v">125,000</div><div class="c">累計 300,000</div><div class="spark"><span style="width:71%"></span></div></div>
+        <div class="tick"><div class="m">2026-07</div><div class="v">150,000</div><div class="c">累計 450,000</div><div class="spark"><span style="width:86%"></span></div></div>
+        <div class="tick"><div class="m">2026-08</div><div class="v">120,000</div><div class="c">累計 570,000</div><div class="spark"><span style="width:69%"></span></div></div>
+        <div class="tick"><div class="m">2026-09</div><div class="v">95,000</div><div class="c">累計 665,000</div><div class="spark"><span style="width:54%"></span></div></div>
+        <div class="tick"><div class="m">2026-10</div><div class="v">95,000</div><div class="c">累計 760,000</div><div class="spark"><span style="width:54%"></span></div></div>
+      </div>
     </section>
 
     <main class="main">
@@ -247,9 +265,9 @@
             <div class="hint">Ops</div>
           </div>
           <div class="risk">
-            <div class="risk-item"><span class="dot red"></span><div><strong>Simpany 實發薪資尚未確認</strong><p>目前使用簽約版編列額：主持人 50,000、待聘 45,000。若勞健保扣款後實發不同，需以薪資清冊/轉帳紀錄更新。</p></div></div>
-            <div class="risk-item"><span class="dot gold"></span><div><strong>5月設備費已集中</strong><p>研發設備使用費 15,000 與維護費 5,000 已全部挪至 5 月，需保存計算依據、使用紀錄與付款憑證。</p></div></div>
-            <div class="risk-item"><span class="dot green"></span><div><strong>實支目前為 0</strong><p>本頁不把預估支出當成實支；實支明細需等付款與憑證資料登錄後再更新。</p></div></div>
+            <div class="risk-item"><span class="dot accent"></span><div><strong>Simpany 實發薪資尚未確認</strong><p>目前使用簽約版編列額：主持人 50,000、待聘 45,000。若勞健保扣款後實發不同，需以薪資清冊/轉帳紀錄更新。</p></div></div>
+            <div class="risk-item"><span class="dot accent"></span><div><strong>5月設備費已集中</strong><p>研發設備使用費 15,000 與維護費 5,000 已全部挪至 5 月，需保存計算依據、使用紀錄與付款憑證。</p></div></div>
+            <div class="risk-item"><span class="dot accent"></span><div><strong>實支目前為 0</strong><p>本頁不把預估支出當成實支；實支明細需等付款與憑證資料登錄後再更新。</p></div></div>
           </div>
         </section>
       </div>
