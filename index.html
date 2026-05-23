@@ -90,13 +90,25 @@
     .market-head { display:flex; justify-content:space-between; gap:12px; align-items:end; margin-bottom:14px; }
     .market-head h2 { font-size:22px; letter-spacing:-.02em; }
     .market-head p { color:var(--muted); font-size:13px; margin-top:4px; }
-    .ticker { display:grid; grid-template-columns: repeat(6, 1fr); gap:10px; }
-    .tick { min-width:0; padding:14px; border-radius:16px; background:var(--panel-subtle); border:1px solid var(--panel-border); }
-    .tick .m { color:var(--muted); font-size:12px; font-weight:900; letter-spacing:.08em; }
-    .tick .v { margin-top:8px; font-size:22px; font-weight:950; letter-spacing:-.04em; color:var(--panel-text); font-variant-numeric:tabular-nums; }
-    .tick .c { margin-top:4px; color:var(--muted); font-size:12px; font-variant-numeric:tabular-nums; }
-    .spark { margin-top:10px; height:8px; border-radius:999px; background:var(--table-head); overflow:hidden; }
-    .spark span { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg, var(--accent-a), var(--accent-b)); }
+    .line-chart-wrap { position: relative; padding: 8px 4px 0; }
+    .line-chart { width: 100%; height: 300px; display:block; overflow: visible; }
+    .axis, .grid-line { stroke: var(--table-line); stroke-width: 1; }
+    .axis-label { fill: var(--muted); font-size: 12px; font-weight: 700; }
+    .line-estimated { fill: none; stroke: url(#lineGradient); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .line-actual { fill: none; stroke: var(--muted); stroke-width: 3; stroke-dasharray: 7 7; stroke-linecap: round; opacity: .8; }
+    .node { fill: var(--panel-bg); stroke: var(--accent-b); stroke-width: 4; cursor: pointer; transition: r .15s ease, filter .15s ease; }
+    .node.actual { stroke: var(--muted); }
+    .node-hit { fill: transparent; cursor: pointer; }
+    .node-group:hover .node { r: 8; filter: drop-shadow(0 0 10px rgba(240,90,126,.45)); }
+    .chart-legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:13px; margin-top:8px; }
+    .legend-key { display:inline-flex; align-items:center; gap:7px; }
+    .legend-swatch { width:22px; height:4px; border-radius:999px; background:linear-gradient(90deg, var(--accent-a), var(--accent-b)); }
+    .legend-swatch.actual { background:var(--muted); opacity:.8; }
+    .tooltip { position:absolute; min-width:190px; pointer-events:none; opacity:0; transform:translate(-50%, -110%); padding:12px 13px; border-radius:14px; background:var(--panel-bg); border:1px solid var(--panel-border); color:var(--panel-text); box-shadow:var(--shadow); backdrop-filter: blur(16px); transition:opacity .12s ease; z-index:5; }
+    .tooltip.show { opacity:1; }
+    .tooltip .m { font-size:12px; color:var(--muted); font-weight:900; letter-spacing:.08em; margin-bottom:8px; }
+    .tooltip .row { display:flex; justify-content:space-between; gap:16px; font-size:13px; margin-top:5px; }
+    .tooltip strong { font-variant-numeric:tabular-nums; }
     .main { display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; }
     .stack { display:grid; gap:18px; }
     .section { padding: 22px; }
@@ -138,8 +150,8 @@
     .empty { padding:18px; border-radius:16px; background:var(--panel-subtle); color:var(--muted); line-height:1.65; border:1px solid var(--panel-border); }
     .footer { margin-top:20px; color:var(--muted); font-size:13px; line-height:1.65; }
     code { color:var(--accent-b); }
-    @media (max-width: 980px) { .hero, .main, .grid-4 { grid-template-columns: 1fr; } .ticker { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 640px) { .shell{padding:18px 12px 30px;} .topbar{align-items:flex-start; flex-direction:column;} .mile{grid-template-columns:1fr;} .ticker{grid-template-columns:1fr;} th,td{padding:10px 8px; font-size:13px;} }
+    @media (max-width: 980px) { .hero, .main, .grid-4 { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) { .shell{padding:18px 12px 30px;} .topbar{align-items:flex-start; flex-direction:column;} .mile{grid-template-columns:1fr;} th,td{padding:10px 8px; font-size:13px;} .line-chart{height:250px;} }
   </style>
 </head>
 <body>
@@ -187,13 +199,37 @@
         <div><h2>月度預估支出走勢</h2><p>像行情表一樣看每月資金需求與累計投入；完整表格仍放在下方「預支明細」。</p></div>
         <div class="pill">May–Oct 2026</div>
       </div>
-      <div class="ticker">
-        <div class="tick"><div class="m">2026-05</div><div class="v">175,000</div><div class="c">累計 175,000</div><div class="spark"><span style="width:100%"></span></div></div>
-        <div class="tick"><div class="m">2026-06</div><div class="v">125,000</div><div class="c">累計 300,000</div><div class="spark"><span style="width:71%"></span></div></div>
-        <div class="tick"><div class="m">2026-07</div><div class="v">150,000</div><div class="c">累計 450,000</div><div class="spark"><span style="width:86%"></span></div></div>
-        <div class="tick"><div class="m">2026-08</div><div class="v">120,000</div><div class="c">累計 570,000</div><div class="spark"><span style="width:69%"></span></div></div>
-        <div class="tick"><div class="m">2026-09</div><div class="v">95,000</div><div class="c">累計 665,000</div><div class="spark"><span style="width:54%"></span></div></div>
-        <div class="tick"><div class="m">2026-10</div><div class="v">95,000</div><div class="c">累計 760,000</div><div class="spark"><span style="width:54%"></span></div></div>
+      <div class="line-chart-wrap" id="monthlyChartWrap">
+        <svg class="line-chart" viewBox="0 0 900 300" role="img" aria-label="月度預估支出與實際支出折線圖">
+          <defs>
+            <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#8b5cf6"></stop>
+              <stop offset="100%" stop-color="#f05a7e"></stop>
+            </linearGradient>
+          </defs>
+          <line class="grid-line" x1="60" y1="40" x2="860" y2="40"></line>
+          <line class="grid-line" x1="60" y1="105" x2="860" y2="105"></line>
+          <line class="grid-line" x1="60" y1="170" x2="860" y2="170"></line>
+          <line class="grid-line" x1="60" y1="235" x2="860" y2="235"></line>
+          <line class="axis" x1="60" y1="235" x2="860" y2="235"></line>
+          <text class="axis-label" x="18" y="44">175k</text>
+          <text class="axis-label" x="18" y="109">125k</text>
+          <text class="axis-label" x="24" y="174">75k</text>
+          <text class="axis-label" x="32" y="239">0</text>
+          <path class="line-estimated" d="M 70 40 L 228 105 L 386 72.5 L 544 111.5 L 702 144 L 860 144"></path>
+          <path class="line-actual" d="M 70 235 L 228 235 L 386 235 L 544 235 L 702 235 L 860 235"></path>
+          <g class="node-group" data-month="2026-05" data-estimated="175,000" data-actual="0" data-cumulative="175,000"><circle class="node" cx="70" cy="40" r="6"></circle><circle class="node-hit" cx="70" cy="40" r="24"></circle><text class="axis-label" x="45" y="268">May</text></g>
+          <g class="node-group" data-month="2026-06" data-estimated="125,000" data-actual="0" data-cumulative="300,000"><circle class="node" cx="228" cy="105" r="6"></circle><circle class="node-hit" cx="228" cy="105" r="24"></circle><text class="axis-label" x="205" y="268">Jun</text></g>
+          <g class="node-group" data-month="2026-07" data-estimated="150,000" data-actual="0" data-cumulative="450,000"><circle class="node" cx="386" cy="72.5" r="6"></circle><circle class="node-hit" cx="386" cy="72.5" r="24"></circle><text class="axis-label" x="366" y="268">Jul</text></g>
+          <g class="node-group" data-month="2026-08" data-estimated="120,000" data-actual="0" data-cumulative="570,000"><circle class="node" cx="544" cy="111.5" r="6"></circle><circle class="node-hit" cx="544" cy="111.5" r="24"></circle><text class="axis-label" x="520" y="268">Aug</text></g>
+          <g class="node-group" data-month="2026-09" data-estimated="95,000" data-actual="0" data-cumulative="665,000"><circle class="node" cx="702" cy="144" r="6"></circle><circle class="node-hit" cx="702" cy="144" r="24"></circle><text class="axis-label" x="680" y="268">Sep</text></g>
+          <g class="node-group" data-month="2026-10" data-estimated="95,000" data-actual="0" data-cumulative="760,000"><circle class="node" cx="860" cy="144" r="6"></circle><circle class="node-hit" cx="860" cy="144" r="24"></circle><text class="axis-label" x="838" y="268">Oct</text></g>
+        </svg>
+        <div class="tooltip" id="chartTooltip"></div>
+        <div class="chart-legend">
+          <span class="legend-key"><span class="legend-swatch"></span>預估支出</span>
+          <span class="legend-key"><span class="legend-swatch actual"></span>實際支出（目前尚未登錄）</span>
+        </div>
       </div>
     </section>
 
@@ -307,6 +343,25 @@
       panels.forEach(panel => panel.classList.toggle('active', panel.dataset.panel === name));
     }
     buttons.forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab)));
+
+    const chartWrap = document.getElementById('monthlyChartWrap');
+    const tooltip = document.getElementById('chartTooltip');
+    document.querySelectorAll('.node-group').forEach(node => {
+      node.addEventListener('mousemove', event => {
+        const rect = chartWrap.getBoundingClientRect();
+        tooltip.innerHTML = `
+          <div class="m">${node.dataset.month}</div>
+          <div class="row"><span>預估支出</span><strong>NT$ ${node.dataset.estimated}</strong></div>
+          <div class="row"><span>實際支出</span><strong>NT$ ${node.dataset.actual}</strong></div>
+          <div class="row"><span>累計預估</span><strong>NT$ ${node.dataset.cumulative}</strong></div>
+        `;
+        tooltip.style.left = `${event.clientX - rect.left}px`;
+        tooltip.style.top = `${event.clientY - rect.top}px`;
+        tooltip.classList.add('show');
+      });
+      node.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+      node.addEventListener('focus', () => tooltip.classList.add('show'));
+    });
   </script>
 </body>
 </html>
