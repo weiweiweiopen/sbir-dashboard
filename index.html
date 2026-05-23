@@ -76,7 +76,7 @@
     .node { fill: var(--surface); stroke: var(--accent-2); stroke-width:4; cursor:pointer; }
     .hit { fill: transparent; cursor:pointer; }
     .pt:hover .node { r:10; }
-    .tip { position:absolute; opacity:0; pointer-events:none; min-width:280px; transform:translate(-50%,-112%); border:1px solid color-mix(in srgb,var(--line) 50%,transparent); background:color-mix(in srgb,var(--surface) 25%,transparent); border-radius:18px; padding:15px 16px; backdrop-filter:blur(12px); font-size:18px; z-index:5; }
+    .tip { position:absolute; opacity:0; pointer-events:none; min-width:330px; transform:translate(-50%,-112%); border:1px solid color-mix(in srgb,var(--line) 50%,transparent); background:color-mix(in srgb,var(--surface) 12.5%,transparent); border-radius:18px; padding:15px 16px; backdrop-filter:blur(8px); font-size:18px; z-index:5; }
     .tip.show { opacity:1; }
     .tip.below { transform:translate(-50%,18px); }
     .tip .m { color:var(--muted); font-weight:700; margin-bottom:8px; }
@@ -102,7 +102,8 @@
       svg { height:310px; }
       .axis-label { font-size:15px; }
       th, td { font-size:16px; padding:12px 12px; }
-      .tip { position:fixed; left:12px !important; right:12px; bottom:12px; top:auto !important; transform:none; width:auto; min-width:0; font-size:18px; }
+      .tip { position:absolute; right:auto; bottom:auto; width:auto; min-width:280px; max-width:calc(100vw - 24px); font-size:18px; transform:translate(-50%,-112%); }
+      .tip.below { transform:translate(-50%,18px); }
     }
   </style>
 </head>
@@ -114,7 +115,7 @@
         <p class="meta" data-i18n="meta">加密光伏光場鏡片 · 115/05–115/10</p>
       </div>
       <div class="controls">
-        <select id="viewSelect" aria-label="資料類型"></select>
+        <select id="monthSelect" aria-label="月份"></select>
         <div class="seg" aria-label="language"><button id="zhBtn" class="active">中</button><button id="enBtn">EN</button></div>
       </div>
     </header>
@@ -165,19 +166,34 @@ const personnel = [['計畫主持人','計畫主持人',50000,6,300000],['待聘
 const materials = [['Surlyn film 60um 熱封沙林膜','張',5,3000,15000],['TiO2 paste 18NR-T 二氧化鈦漿料','100g',1,5000,5000],['Pt paste PT-1 鉑漿料','100g',1,3400,3400],['二氧化鈦阻檔層漿料','100g',1,4600,4600],['N719 染料','1g',1,7000,7000],['EL-HSE 電解液','50ml',5,2600,13000],['zibra tube 班馬條 100x3x5mm 0.2 ohm','條',16,250,4000],['FTO glass 20x20mm TEC15','100片',1,3000,3000],['FTO glass 60x60mm TEC15','50片',1,3000,3000],['FTO glass 104x147x1.6mm TEC15','50片',1,6000,6000],['D149 染料','500mg',1,21000,21000],['導電銀漿 耐熱500ºC','500g',1,30000,30000],['染料溶劑','1L',1,5000,5000]];
 const equipment = [['已有','自動溫控玻璃窯','M001',556,6,3336],['已有','示波器','M004',667,6,4002],['已有','405nm 雷射振鏡掃描系統','M005',556,6,3336],['新增','熱壓封裝電池機','M007',167,6,1002],['新增','三目顯微鏡（含500×）','M009',250,6,1500],['新增','電子負載','M010',278,6,1668]];
 const maintenance = [['示波器年度校正','M004',60000,1,2000],['自動溫控玻璃窯（內腔65x45x10cm）','M001',10500,1,3000]];
-const viewMap = {
-  monthly:{field:'planned', rows:()=>monthly.map((m,i)=>[L.months[i],m.planned,m.actual,m.cumulative,m.note])},
-  budget:{field:'planned', rows:()=>budget}, personnel:{field:'personnel', rows:()=>personnel}, materials:{field:'materials', rows:()=>materials}, equipment:{field:'equipment', rows:()=>equipment}, maintenance:{field:'maintenance', rows:()=>maintenance}, actual:{field:'actual', rows:()=>[]}
-};
-let lang='zh', view='monthly';
+let lang='zh', selectedMonth=0;
+const Lget=()=>langPack[lang];
 const fmt=n=>Number(n).toLocaleString(lang==='zh'?'zh-TW':'en-US');
 const pct=n=>(Number(n)/TOTAL*100).toFixed(1)+'%';
-const Lget=()=>langPack[lang];
-function initControls(){ const sel=document.getElementById('viewSelect'); sel.innerHTML=Object.keys(viewMap).map(k=>`<option value="${k}">${Lget().views[k]}</option>`).join(''); sel.value=view; sel.onchange=e=>{view=e.target.value; render();}; zhBtn.onclick=()=>{lang='zh'; zhBtn.classList.add('active'); enBtn.classList.remove('active'); render();}; enBtn.onclick=()=>{lang='en'; enBtn.classList.add('active'); zhBtn.classList.remove('active'); render();}; }
-function valueFor(m){ return view==='budget' ? m.planned : (m[viewMap[view].field] ?? 0); }
+function rowsForMonth(m){
+  return [
+    [Lget().views.monthly, m.planned, pct(m.planned)],
+    [Lget().views.personnel, m.personnel, pct(m.personnel)],
+    [Lget().views.materials, m.materials, pct(m.materials)],
+    [Lget().views.equipment, m.equipment, pct(m.equipment)],
+    [Lget().views.maintenance, m.maintenance, pct(m.maintenance)],
+    [Lget().subsidy, m.subsidy, pct(m.subsidy)],
+    [Lget().self, m.self, pct(m.self)],
+    [Lget().actual, m.actual, pct(m.actual)],
+    [Lget().cumulative, m.cumulative, pct(m.cumulative)]
+  ];
+}
+function initControls(){
+  const sel=document.getElementById('monthSelect');
+  sel.innerHTML=monthly.map((m,i)=>`<option value="${i}">${Lget().months[i]}</option>`).join('');
+  sel.value=selectedMonth;
+  sel.onchange=e=>{selectedMonth=Number(e.target.value); render(); setTimeout(()=>showTipForIndex(selectedMonth),0);};
+  zhBtn.onclick=()=>{lang='zh'; zhBtn.classList.add('active'); enBtn.classList.remove('active'); render();};
+  enBtn.onclick=()=>{lang='en'; enBtn.classList.add('active'); zhBtn.classList.remove('active'); render();};
+}
 function renderChart(){
   const svg=document.getElementById('chart'), L=Lget();
-  const vals=monthly.map(valueFor), max=Math.max(175000, ...vals, 1);
+  const vals=monthly.map(m=>m.planned), max=Math.max(175000, ...vals, 1);
   const x=i=>70+i*(790/5), y=v=>245-(v/max)*190;
   const path=vals.map((v,i)=>`${i?'L':'M'}${x(i)} ${y(v)}`).join(' ');
   const actual=monthly.map((m,i)=>`${i?'L':'M'}${x(i)} ${y(m.actual)}`).join(' ');
@@ -185,13 +201,45 @@ function renderChart(){
   ${[0,.33,.66,1].map(t=>`<line class="grid" x1="58" y1="${55+t*190}" x2="860" y2="${55+t*190}"/>`).join('')}
   <text class="axis-label" x="14" y="60">${fmt(max)}</text><text class="axis-label" x="30" y="249">0</text>
   <path class="line" d="${path}"/><path class="actual-line" d="${actual}"/>
-  ${monthly.map((m,i)=>`<g class="pt" data-i="${i}"><circle class="node" cx="${x(i)}" cy="${y(vals[i])}" r="7"/><circle class="hit" cx="${x(i)}" cy="${y(vals[i])}" r="30"/><text class="axis-label" x="${x(i)-26}" y="322">${L.months[i]}</text></g>`).join('')}`;
-  document.querySelectorAll('.pt').forEach(pt=>{pt.addEventListener('mousemove',showTip);pt.addEventListener('click',showTip);pt.addEventListener('mouseleave',()=>{if(!matchMedia('(max-width:760px)').matches) tip.classList.remove('show')});});
+  ${monthly.map((m,i)=>`<g class="pt" data-i="${i}"><circle class="node" cx="${x(i)}" cy="${y(vals[i])}" r="${i===selectedMonth?10:7}"/><circle class="hit" cx="${x(i)}" cy="${y(vals[i])}" r="34"/><text class="axis-label" x="${x(i)-26}" y="322">${L.months[i]}</text></g>`).join('')}`;
+  document.querySelectorAll('.pt').forEach(pt=>{
+    pt.addEventListener('mousemove',e=>{selectedMonth=+pt.dataset.i; showTip(e); renderTable(); monthSelect.value=selectedMonth;});
+    pt.addEventListener('click',e=>{selectedMonth=+pt.dataset.i; showTip(e); renderTable(); monthSelect.value=selectedMonth;});
+    pt.addEventListener('touchstart',e=>{selectedMonth=+pt.dataset.i; const t=e.touches[0]; showTipAt(selectedMonth,t.clientX,t.clientY); renderTable(); monthSelect.value=selectedMonth;},{passive:true});
+    pt.addEventListener('touchmove',e=>{const t=e.touches[0]; showTipAt(+pt.dataset.i,t.clientX,t.clientY);},{passive:true});
+    pt.addEventListener('touchend',()=>tip.classList.remove('show'));
+    pt.addEventListener('mouseleave',()=>{if(!matchMedia('(max-width:760px)').matches) tip.classList.remove('show')});
+  });
 }
-function showTip(e){ const i=+e.currentTarget.dataset.i, m=monthly[i], L=Lget(), val=valueFor(m), wrap=document.getElementById('chartWrap'), r=wrap.getBoundingClientRect(); tip.innerHTML=`<div class="m">${L.months[i]}</div><div class="r"><span>${L.amount}</span><strong>${fmt(val)} <span class="pct">${pct(val)}</span></strong></div><div class="r"><span>${L.subsidy}</span><strong>${fmt(m.subsidy)} <span class="pct">${pct(m.subsidy)}</span></strong></div><div class="r"><span>${L.self}</span><strong>${fmt(m.self)} <span class="pct">${pct(m.self)}</span></strong></div><div class="r"><span>${L.actual}</span><strong>${fmt(m.actual)} <span class="pct">${pct(m.actual)}</span></strong></div>`; tip.classList.remove('below'); tip.classList.add('show'); if(matchMedia('(max-width:760px)').matches){tip.style.left='';tip.style.top='';return;} const localX=e.clientX-r.left, localY=e.clientY-r.top, tw=tip.offsetWidth||300, th=tip.offsetHeight||190; tip.style.left=`${Math.min(Math.max(localX,tw/2+8),r.width-tw/2-8)}px`; tip.style.top=`${localY}px`; tip.classList.toggle('below', localY-th-24<0); }
-function table(headers, rows){ detailTable.innerHTML=`<thead><tr>${headers.map((h,i)=>`<th class="${i&&i!==headers.length-1?'num':''}">${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,i)=>`<td class="${i&&typeof c==='number'?'num money':''}">${typeof c==='number'?fmt(c):c}</td>`).join('')}</tr>`).join('')}</tbody>`; }
-function renderTable(){ const L=Lget(); if(view==='monthly') table([L.month,L.amount,L.actual,L.cumulative,L.note], viewMap.monthly.rows()); else if(view==='budget') table([L.item,L.subsidy,L.self,L.totalAmount], budget); else if(view==='personnel') table([L.item,L.role,L.amount,L.months,L.totalAmount], personnel); else if(view==='materials') table([L.item,L.unit,L.qty,L.unitPrice,L.totalAmount], materials); else if(view==='equipment') table([L.category,L.item,'ID',L.amount,L.months,L.totalAmount], equipment); else if(view==='maintenance') table([L.item,'ID',L.amount,L.qty,L.totalAmount], maintenance); else detailTable.innerHTML=`<tbody><tr><td>${L.empty}</td></tr></tbody>`; }
-function render(){ document.documentElement.lang=lang==='zh'?'zh-Hant':'en'; document.querySelector('[data-i18n="title"]').textContent=Lget().title; document.querySelector('[data-i18n="meta"]').textContent=Lget().meta; initControls(); const total=monthly.reduce((a,m)=>a+valueFor(m),0); viewTitle.textContent=Lget().views[view]; viewSum.textContent=`${Lget().total} ${fmt(total)}`; renderChart(); renderTable(); }
+function tipHTML(i){
+  const m=monthly[i], L=Lget();
+  return `<div class="m">${L.months[i]}</div>` + rowsForMonth(m).map(r=>`<div class="r"><span>${r[0]}</span><strong>${fmt(r[1])} <span class="pct">${r[2]}</span></strong></div>`).join('');
+}
+function placeTip(clientX, clientY){
+  const wrap=document.getElementById('chartWrap'), r=wrap.getBoundingClientRect();
+  const localX=clientX-r.left, localY=clientY-r.top, tw=tip.offsetWidth||330, th=tip.offsetHeight||260;
+  tip.classList.toggle('below', localY-th-24<0);
+  tip.style.left=`${Math.min(Math.max(localX,tw/2+8),r.width-tw/2-8)}px`;
+  tip.style.top=`${localY}px`;
+}
+function showTip(e){ showTipAt(+e.currentTarget.dataset.i, e.clientX, e.clientY); }
+function showTipAt(i, clientX, clientY){ tip.innerHTML=tipHTML(i); tip.classList.add('show'); placeTip(clientX, clientY); }
+function showTipForIndex(i){ const node=document.querySelector(`.pt[data-i="${i}"] .node`); if(!node) return; const r=node.getBoundingClientRect(); showTipAt(i,r.left+r.width/2,r.top+r.height/2); }
+function renderTable(){
+  const L=Lget(), m=monthly[selectedMonth];
+  detailTable.innerHTML=`<thead><tr><th>${L.month}</th><th class="num">${L.amount}</th><th class="num">${L.pct}</th></tr></thead><tbody>${rowsForMonth(m).map(r=>`<tr><td>${r[0]}</td><td class="num money">${fmt(r[1])}</td><td class="num">${r[2]}</td></tr>`).join('')}</tbody>`;
+}
+function render(){
+  document.documentElement.lang=lang==='zh'?'zh-Hant':'en';
+  document.querySelector('[data-i18n="title"]').textContent=Lget().title;
+  document.querySelector('[data-i18n="meta"]').textContent=Lget().meta;
+  initControls();
+  const m=monthly[selectedMonth];
+  viewTitle.textContent=Lget().months[selectedMonth];
+  viewSum.textContent=`${Lget().views.monthly} ${fmt(m.planned)}`;
+  renderChart();
+  renderTable();
+}
 initControls(); render();
 document.addEventListener('click',e=>{if(!e.target.closest('.pt')&&!e.target.closest('.tip')) tip.classList.remove('show')});
 </script>
