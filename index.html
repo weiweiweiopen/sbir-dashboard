@@ -36,8 +36,7 @@
     .mark { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--accent-a), var(--accent-b)); display: grid; place-items: center; color: #0f1419; font-weight: 900; }
     .brand h1 { font-size: 18px; margin: 0; letter-spacing: .02em; }
     .brand p { margin: 3px 0 0; color: #a8b4c0; font-size: 13px; }
-    .pill, .detail-link { border: 1px solid var(--line); color: #d9e2ea; padding: 9px 12px; border-radius: 999px; font-size: 13px; background: rgba(255,255,255,.05); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
-    .detail-link:hover { border-color: rgba(217,170,79,.8); color: #fff; }
+    .pill { border: 1px solid var(--line); color: #d9e2ea; padding: 9px 12px; border-radius: 999px; font-size: 13px; background: rgba(255,255,255,.05); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
     .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; margin-bottom: 18px; }
     .panel { background: rgba(23,29,36,.86); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(16px); }
     .hero-main { padding: 30px; position: relative; overflow: hidden; }
@@ -284,9 +283,6 @@
       panels.forEach(panel => panel.classList.toggle('active', panel.dataset.panel === name));
     }
     buttons.forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab)));
-    document.querySelectorAll('[data-jump]').forEach(link => {
-      link.addEventListener('click', () => activateTab(link.dataset.jump));
-    });
   </script>
 </body>
 </html>
