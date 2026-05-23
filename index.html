@@ -87,7 +87,21 @@
       .wrap { padding:18px 10px 32px; }
       .section { padding:14px; }
       svg { height:240px; }
-      .tip { position: fixed; left: 12px !important; right: 12px; top: auto !important; bottom: 12px; transform: none; width: auto; z-index: 20; }
+      .tip {
+        position: fixed;
+        left: 12px !important;
+        right: 12px;
+        top: auto !important;
+        bottom: 12px;
+        transform: none;
+        width: auto;
+        z-index: 20;
+        pointer-events: none;
+        background: color-mix(in srgb, var(--surface) 20%, transparent);
+        border-color: color-mix(in srgb, var(--line) 45%, transparent);
+        box-shadow: none;
+        backdrop-filter: blur(10px);
+      }
     }
   </style>
 </head>
