@@ -3,365 +3,226 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SBIR 1Z1141068｜智慧鼠專案中控台</title>
+  <title>SBIR 1Z1141068｜公開行政儀表板</title>
   <style>
     :root {
       color-scheme: light dark;
-      --page-text: #17202a;
-      --panel-text: #17202a;
-      --muted: #637180;
-      --bg-main: linear-gradient(135deg, #f8f5fb 0%, #fff6f7 48%, #f3eef8 100%);
-      --bg-orb-a: rgba(139,92,246,.18);
-      --bg-orb-b: rgba(240,90,126,.16);
-      --panel-bg: rgba(255,255,255,.78);
-      --panel-subtle: rgba(255,255,255,.58);
-      --panel-border: rgba(23,32,42,.12);
-      --table-head: rgba(23,32,42,.06);
-      --table-line: rgba(23,32,42,.10);
-      --pill-bg: rgba(23,32,42,.045);
-      --pill-text: #263443;
-      --accent-a: #8b5cf6;
-      --accent-b: #f05a7e;
-      --shadow: 0 24px 80px rgba(33,23,48,.14);
-      --radius: 22px;
+      --bg: #f7f7f9;
+      --surface: rgba(255,255,255,.78);
+      --surface-2: rgba(255,255,255,.48);
+      --text: #17181c;
+      --muted: #6f7480;
+      --line: rgba(23,24,28,.12);
+      --a: #8b5cf6;
+      --b: #f05a7e;
+      --shadow: 0 24px 70px rgba(30,24,45,.10);
+      --radius: 24px;
     }
     @media (prefers-color-scheme: dark) {
       :root {
-        --page-text: #edf2f7;
-        --panel-text: #edf2f7;
-        --muted: #a8b4c0;
-        --bg-main: linear-gradient(135deg, #0d1218 0%, #101820 50%, #14110d 100%);
-        --bg-orb-a: rgba(139,92,246,.24);
-        --bg-orb-b: rgba(240,90,126,.20);
-        --panel-bg: rgba(23,29,36,.86);
-        --panel-subtle: rgba(255,255,255,.055);
-        --panel-border: rgba(255,255,255,.12);
-        --table-head: rgba(255,255,255,.05);
-        --table-line: rgba(255,255,255,.08);
-        --pill-bg: rgba(255,255,255,.05);
-        --pill-text: #d9e2ea;
-        --shadow: 0 24px 80px rgba(0,0,0,.32);
+        --bg: #0d0e13;
+        --surface: rgba(24,26,34,.78);
+        --surface-2: rgba(255,255,255,.055);
+        --text: #f3f5f8;
+        --muted: #a3aab6;
+        --line: rgba(255,255,255,.13);
+        --shadow: 0 24px 70px rgba(0,0,0,.36);
       }
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Inter, "Avenir Next", "Noto Sans TC", system-ui, -apple-system, sans-serif;
-      color: var(--page-text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif;
+      color: var(--text);
       background:
-        radial-gradient(circle at 15% 0%, var(--bg-orb-a), transparent 30%),
-        radial-gradient(circle at 85% 10%, var(--bg-orb-b), transparent 34%),
-        var(--bg-main);
+        radial-gradient(circle at 12% 0%, rgba(139,92,246,.20), transparent 34%),
+        radial-gradient(circle at 88% 8%, rgba(240,90,126,.16), transparent 34%),
+        var(--bg);
       min-height: 100vh;
     }
-    .shell { max-width: 1280px; margin: 0 auto; padding: 28px 20px 44px; }
-    .topbar { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 22px; }
-    .brand { display: flex; gap: 14px; align-items: center; }
-    .mark { width: 44px; height: 44px; border-radius: 14px; background: linear-gradient(135deg, var(--accent-a), var(--accent-b)); display: grid; place-items: center; color: #0f1419; font-weight: 900; }
-    .brand h1 { font-size: 18px; margin: 0; letter-spacing: .02em; }
-    .brand p { margin: 3px 0 0; color: var(--muted); font-size: 13px; }
-    .pill { border: 1px solid var(--panel-border); color: var(--pill-text); padding: 9px 12px; border-radius: 999px; font-size: 13px; background: var(--pill-bg); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
-    .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; margin-bottom: 18px; }
-    .panel { background: var(--panel-bg); color: var(--panel-text); border: 1px solid var(--panel-border); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(16px); }
-    .hero-main { padding: 30px; position: relative; overflow: hidden; }
-    .hero-main::after { content:""; position:absolute; right:-90px; bottom:-110px; width:300px; height:300px; border-radius:50%; background: radial-gradient(circle, rgba(240,90,126,.28), transparent 65%); }
-    .kicker { color: var(--accent-b); font-weight: 800; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
-    h2, h3, p { margin: 0; }
-    .hero-title { margin: 10px 0 12px; font-size: clamp(34px, 5vw, 64px); line-height: .98; max-width: 720px; letter-spacing: -.04em; }
-    .hero-copy { color: var(--muted); font-size: 16px; line-height: 1.75; max-width: 760px; }
-    .hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
-    .tag { border-radius: 999px; padding: 8px 11px; font-size: 12px; font-weight: 700; background: rgba(255,255,255,.07); color: #dce5ee; border: 1px solid rgba(255,255,255,.08); }
-    .fund-card { padding: 24px; display: grid; gap: 18px; }
-    .fund-top { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
-    .amount { font-size: clamp(34px, 4vw, 54px); line-height:1; font-weight: 900; letter-spacing: -.04em; color: var(--panel-text); }
-    .amount small { display:block; margin-top:8px; font-size: 13px; color:var(--muted); letter-spacing:0; font-weight:700; }
-    .meter { height: 14px; background: var(--table-head); border-radius:999px; overflow:hidden; }
-    .meter span { display:block; height:100%; width:23.03%; background: linear-gradient(90deg, var(--accent-a), var(--accent-b)); border-radius:inherit; }
-    .fund-note { color:var(--muted); line-height:1.65; font-size:14px; }
-    .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom:18px; }
-    .metric { padding: 20px; }
-    .metric .label { color:var(--muted); font-size:13px; margin-bottom:10px; }
-    .metric .value { font-size:30px; font-weight:900; letter-spacing:-.03em; }
-    .metric .hint { margin-top:8px; color:var(--muted); font-size:13px; line-height:1.45; }
-    .metric { position: relative; overflow: hidden; }
-    .metric::before { content:""; position:absolute; inset:0 0 auto 0; height:4px; background:linear-gradient(90deg, var(--accent-a), var(--accent-b)); }
-
-    .market-strip { padding: 20px; margin-bottom: 18px; }
-    .market-head { display:flex; justify-content:space-between; gap:12px; align-items:end; margin-bottom:14px; }
-    .market-head h2 { font-size:22px; letter-spacing:-.02em; }
-    .market-head p { color:var(--muted); font-size:13px; margin-top:4px; }
-    .line-chart-wrap { position: relative; padding: 8px 4px 0; }
-    .line-chart { width: 100%; height: 300px; display:block; overflow: visible; }
-    .axis, .grid-line { stroke: var(--table-line); stroke-width: 1; }
-    .axis-label { fill: var(--muted); font-size: 12px; font-weight: 700; }
-    .line-estimated { fill: none; stroke: url(#lineGradient); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
-    .line-actual { fill: none; stroke: var(--muted); stroke-width: 3; stroke-dasharray: 7 7; stroke-linecap: round; opacity: .8; }
-    .node { fill: var(--panel-bg); stroke: var(--accent-b); stroke-width: 4; cursor: pointer; transition: r .15s ease, filter .15s ease; }
-    .node.actual { stroke: var(--muted); }
-    .node-hit { fill: transparent; cursor: pointer; }
-    .node-group:hover .node { r: 8; filter: drop-shadow(0 0 10px rgba(240,90,126,.45)); }
-    .chart-legend { display:flex; gap:14px; flex-wrap:wrap; color:var(--muted); font-size:13px; margin-top:8px; }
-    .legend-key { display:inline-flex; align-items:center; gap:7px; }
-    .legend-swatch { width:22px; height:4px; border-radius:999px; background:linear-gradient(90deg, var(--accent-a), var(--accent-b)); }
-    .legend-swatch.actual { background:var(--muted); opacity:.8; }
-    .tooltip { position:absolute; min-width:190px; pointer-events:none; opacity:0; transform:translate(-50%, -110%); padding:12px 13px; border-radius:14px; background:var(--panel-bg); border:1px solid var(--panel-border); color:var(--panel-text); box-shadow:var(--shadow); backdrop-filter: blur(16px); transition:opacity .12s ease; z-index:5; }
-    .tooltip.show { opacity:1; }
-    .tooltip .m { font-size:12px; color:var(--muted); font-weight:900; letter-spacing:.08em; margin-bottom:8px; }
-    .tooltip .row { display:flex; justify-content:space-between; gap:16px; font-size:13px; margin-top:5px; }
-    .tooltip strong { font-variant-numeric:tabular-nums; }
-    .main { display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; }
-    .stack { display:grid; gap:18px; }
-    .section { padding: 22px; }
-    .section-head { display:flex; justify-content:space-between; gap:14px; align-items:end; margin-bottom:18px; }
-    .section-head h2 { font-size:22px; letter-spacing:-.02em; }
-    .section-head .hint { color:var(--muted); font-size:13px; }
-    table { width:100%; border-collapse: collapse; overflow:hidden; border-radius:16px; }
-    th, td { padding: 12px 13px; border-bottom: 1px solid var(--table-line); text-align:left; vertical-align:top; }
-    th { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.08em; background:var(--table-head); }
-    td { color:var(--panel-text); font-size:14px; }
-    td.num, th.num { text-align:right; font-variant-numeric: tabular-nums; }
-    tr:last-child td { border-bottom:0; }
-    .money { font-weight:900; color:var(--panel-text); }
-    .muted { color:var(--muted); }
-    .timeline { display:grid; gap:12px; }
-    .mile { display:grid; grid-template-columns: 72px 1fr auto; gap:14px; align-items:center; padding:14px; border-radius:16px; background:var(--panel-subtle); border:1px solid var(--panel-border); }
-    .month { color:var(--accent-b); font-weight:900; }
-    .mile strong { display:block; margin-bottom:4px; }
-    .mile p { color:var(--muted); font-size:13px; line-height:1.5; }
-    .pct { font-weight:900; color:var(--panel-text); }
-    .risk { display:grid; gap:12px; }
-    .risk-item { display:grid; grid-template-columns: 10px 1fr; gap:12px; padding:14px; border-radius:16px; background:var(--panel-subtle); border:1px solid var(--panel-border); }
-    .dot { width:10px; height:10px; border-radius:50%; margin-top:6px; }
-    .dot.accent { background: linear-gradient(135deg, var(--accent-a), var(--accent-b)); }
-    .risk-item strong { display:block; margin-bottom:5px; }
-    .risk-item p { color:var(--muted); line-height:1.55; font-size:13px; }
-    .paper { background: var(--panel-bg); color: var(--panel-text); border: 1px solid var(--panel-border); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); backdrop-filter: blur(16px); }
-    .paper h2 { color: var(--panel-text); }
-    .paper .hint, .paper .muted { color: var(--muted); }
-    .paper table th { background:var(--table-head); color:var(--muted); border-bottom:1px solid var(--table-line); }
-    .paper table td { color:var(--panel-text); border-bottom:1px solid var(--table-line); }
-    .paper .money { color: var(--panel-text); }
-    .tabs { margin-top: 18px; }
-    .tabbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 14px; }
-    .tab-btn { cursor:pointer; border:1px solid var(--panel-border); color:var(--pill-text); background:var(--pill-bg); border-radius:999px; padding:10px 14px; font-weight:800; font-size:13px; }
-    .tab-btn.active { background:linear-gradient(135deg, var(--accent-a), var(--accent-b)); color:#0f1419; border-color:transparent; }
-    .tab-panel { display:none; }
-    .tab-panel.active { display:block; }
-    .empty { padding:18px; border-radius:16px; background:var(--panel-subtle); color:var(--muted); line-height:1.65; border:1px solid var(--panel-border); }
-    .footer { margin-top:20px; color:var(--muted); font-size:13px; line-height:1.65; }
-    code { color:var(--accent-b); }
-    @media (max-width: 980px) { .hero, .main, .grid-4 { grid-template-columns: 1fr; } }
-    @media (max-width: 640px) { .shell{padding:18px 12px 30px;} .topbar{align-items:flex-start; flex-direction:column;} .mile{grid-template-columns:1fr;} th,td{padding:10px 8px; font-size:13px;} .line-chart{height:250px;} }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 34px 20px 54px; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 28px; }
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .mark { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-weight: 900; color: white; background: linear-gradient(135deg, var(--a), var(--b)); }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: 17px; letter-spacing: -.01em; }
+    .sub { color: var(--muted); font-size: 13px; margin-top: 3px; }
+    .chip { border: 1px solid var(--line); color: var(--muted); border-radius: 999px; padding: 9px 12px; font-size: 13px; background: var(--surface-2); white-space: nowrap; }
+    .hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 16px; margin-bottom: 16px; }
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(18px); }
+    .intro { padding: 32px; min-height: 300px; display: flex; flex-direction: column; justify-content: space-between; }
+    .eyebrow { color: var(--b); font-size: 12px; font-weight: 850; letter-spacing: .14em; text-transform: uppercase; }
+    .title { font-size: clamp(44px, 8vw, 92px); line-height: .92; letter-spacing: -.065em; margin: 14px 0 18px; max-width: 780px; }
+    .summary { color: var(--muted); font-size: 16px; line-height: 1.72; max-width: 680px; }
+    .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 28px; }
+    .fact { padding: 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface-2); }
+    .fact span { display: block; color: var(--muted); font-size: 12px; font-weight: 750; margin-bottom: 8px; }
+    .fact strong { font-size: 24px; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+    .status { padding: 26px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
+    .big { font-size: clamp(48px, 7vw, 84px); font-weight: 900; letter-spacing: -.065em; line-height: .92; }
+    .meter { height: 12px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+    .meter span { display:block; width:23.03%; height:100%; background: linear-gradient(90deg, var(--a), var(--b)); border-radius: inherit; }
+    .note { color: var(--muted); line-height: 1.65; font-size: 14px; }
+    .section { padding: 24px; margin-bottom: 16px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+    .section-head h2 { font-size: 22px; letter-spacing: -.03em; }
+    .section-head p { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .chart-wrap { position: relative; padding-top: 4px; }
+    svg { width: 100%; height: 310px; overflow: visible; display: block; }
+    .grid { stroke: var(--line); stroke-width: 1; }
+    .axis-label { fill: var(--muted); font-size: 12px; font-weight: 750; }
+    .planned { fill: none; stroke: url(#grad); stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; }
+    .actual { fill: none; stroke: var(--muted); stroke-width: 3; stroke-dasharray: 7 7; stroke-linecap: round; opacity: .75; }
+    .node { fill: var(--surface); stroke: var(--b); stroke-width: 4; cursor: pointer; }
+    .hit { fill: transparent; cursor: pointer; }
+    .pt:hover .node { r: 8; filter: drop-shadow(0 0 10px rgba(240,90,126,.42)); }
+    .tooltip { position: absolute; opacity: 0; pointer-events: none; transform: translate(-50%, -112%); min-width: 190px; padding: 12px 13px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); backdrop-filter: blur(18px); transition: opacity .12s ease; }
+    .tooltip.show { opacity: 1; }
+    .tooltip .m { color: var(--muted); font-size: 12px; font-weight: 850; letter-spacing: .08em; margin-bottom: 8px; }
+    .tooltip .r { display: flex; justify-content: space-between; gap: 14px; font-size: 13px; margin-top: 5px; }
+    .tooltip strong { font-variant-numeric: tabular-nums; }
+    .legend { display: flex; gap: 16px; flex-wrap: wrap; color: var(--muted); font-size: 13px; margin-top: 10px; }
+    .key { display:inline-flex; align-items:center; gap: 7px; }
+    .swatch { width: 24px; height: 4px; border-radius:999px; background:linear-gradient(90deg,var(--a),var(--b)); }
+    .swatch.actual { background: var(--muted); opacity: .75; }
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .tab { border: 1px solid var(--line); color: var(--muted); background: var(--surface-2); border-radius: 999px; padding: 9px 13px; cursor: pointer; font-weight: 760; }
+    .tab.active { color: white; border-color: transparent; background: linear-gradient(135deg, var(--a), var(--b)); }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 13px 12px; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 14px; }
+    th { color: var(--muted); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; background: var(--surface-2); }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    tr:last-child td { border-bottom: 0; }
+    .money { font-weight: 850; }
+    .download { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .link { color: var(--text); text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 9px 12px; background: var(--surface-2); font-size: 13px; }
+    .privacy { color: var(--muted); line-height: 1.7; }
+    footer { color: var(--muted); font-size: 13px; line-height: 1.7; margin-top: 20px; }
+    @media (max-width: 860px) { .hero, .facts { grid-template-columns: 1fr; } header { align-items: flex-start; flex-direction: column; } }
+    @media (max-width: 620px) { .wrap { padding: 22px 12px 38px; } .intro, .status, .section { padding: 20px; } th, td { padding: 10px 8px; font-size: 13px; } svg { height: 260px; } }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <header class="topbar">
+  <div class="wrap">
+    <header>
       <div class="brand">
         <div class="mark">WM</div>
-        <div>
-          <h1>智慧鼠文化｜SBIR 專案中控台</h1>
-          <p>1Z1141068・加密光伏光場鏡片・Phase 1</p>
-        </div>
+        <div><h1>智慧鼠文化｜SBIR 公開行政儀表板</h1><p class="sub">1Z1141068・Phase 1・公開資料版</p></div>
       </div>
-      <div class="pill">資料版本：2026/05/23・最後簽約版預算</div>
+      <div class="chip">資料版本 2026/05/23</div>
     </header>
 
     <section class="hero">
-      <div class="panel hero-main">
-        <div class="kicker">Project Finance Command Room</div>
-        <h2 class="hero-title">五月預估支出 NT$175,000</h2>
-        <p class="hero-copy">本頁整理 SBIR 專案目前的預算、預支、實支與查核點狀態。上方只呈現決策摘要，完整明細集中在下方標籤頁，避免同一組資料在頁面中重複出現或互相矛盾。</p>
+      <div class="card intro">
+        <div>
+          <div class="eyebrow">public finance dashboard</div>
+          <h2 class="title">一頁看懂<br>預算、支出、風險</h2>
+          <p class="summary">首頁只保留決策所需資訊。明細、CSV 與公開邊界集中在下方，不重複、不灌水、不公開個資。</p>
+        </div>
+        <div class="facts">
+          <div class="fact"><span>簽約總經費</span><strong>760,000</strong></div>
+          <div class="fact"><span>政府補助</span><strong>360,000</strong></div>
+          <div class="fact"><span>公司自籌</span><strong>400,000</strong></div>
+        </div>
       </div>
 
-      <aside class="panel fund-card">
-        <div class="fund-top">
-          <div>
-            <div class="kicker">May Estimated Expense</div>
-            <div class="amount">175,000<small>佔全案 23.0%</small></div>
-          </div>
-          <span class="pill">預估支出</span>
+      <aside class="card status">
+        <div>
+          <div class="eyebrow">May planned expense</div>
+          <div class="big">175,000</div>
+          <p class="sub">佔全案 23.0%</p>
         </div>
         <div class="meter"><span></span></div>
-        <p class="fund-note">五月包含：5 月人事投入、DSSC 首批材料、研發設備使用費與維護費。顧問費目前排在 7–8 月。</p>
+        <p class="note">五月規劃含人事、首批材料、設備使用與維護。實支目前尚未正式登錄。</p>
       </aside>
     </section>
 
-    <section class="grid-4">
-      <article class="panel metric"><div class="label">總經費</div><div class="value">760,000</div><div class="hint">最後簽約版：補助 360,000，自籌 400,000。</div></article>
-      <article class="panel metric"><div class="label">五月預估支出</div><div class="value">175,000</div><div class="hint">人事 95,000、材料 60,000、設備相關 20,000。</div></article>
-      <article class="panel metric"><div class="label">目前實支登錄</div><div class="value">0</div><div class="hint">Google Sheet 實支明細目前尚未登錄正式支出。</div></article>
-      <article class="panel metric"><div class="label">排程檢核</div><div class="value">OK</div><div class="hint">月度預支排程合計 760,000，對齊簽約版。</div></article>
-    </section>
-
-    <section class="panel market-strip">
-      <div class="market-head">
-        <div><h2>月度預估支出走勢</h2><p>像行情表一樣看每月資金需求與累計投入；完整表格仍放在下方「預支明細」。</p></div>
-        <div class="pill">May–Oct 2026</div>
+    <section class="card section">
+      <div class="section-head">
+        <div><h2>月度支出曲線</h2><p>滑過節點查看該月預估支出、實際支出與累計預估。</p></div>
+        <div class="chip">May–Oct 2026</div>
       </div>
-      <div class="line-chart-wrap" id="monthlyChartWrap">
-        <svg class="line-chart" viewBox="0 0 900 300" role="img" aria-label="月度預估支出與實際支出折線圖">
-          <defs>
-            <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#8b5cf6"></stop>
-              <stop offset="100%" stop-color="#f05a7e"></stop>
-            </linearGradient>
-          </defs>
-          <line class="grid-line" x1="60" y1="40" x2="860" y2="40"></line>
-          <line class="grid-line" x1="60" y1="105" x2="860" y2="105"></line>
-          <line class="grid-line" x1="60" y1="170" x2="860" y2="170"></line>
-          <line class="grid-line" x1="60" y1="235" x2="860" y2="235"></line>
-          <line class="axis" x1="60" y1="235" x2="860" y2="235"></line>
-          <text class="axis-label" x="18" y="44">175k</text>
-          <text class="axis-label" x="18" y="109">125k</text>
-          <text class="axis-label" x="24" y="174">75k</text>
-          <text class="axis-label" x="32" y="239">0</text>
-          <path class="line-estimated" d="M 70 40 L 228 105 L 386 72.5 L 544 111.5 L 702 144 L 860 144"></path>
-          <path class="line-actual" d="M 70 235 L 228 235 L 386 235 L 544 235 L 702 235 L 860 235"></path>
-          <g class="node-group" data-month="2026-05" data-estimated="175,000" data-actual="0" data-cumulative="175,000"><circle class="node" cx="70" cy="40" r="6"></circle><circle class="node-hit" cx="70" cy="40" r="24"></circle><text class="axis-label" x="45" y="268">May</text></g>
-          <g class="node-group" data-month="2026-06" data-estimated="125,000" data-actual="0" data-cumulative="300,000"><circle class="node" cx="228" cy="105" r="6"></circle><circle class="node-hit" cx="228" cy="105" r="24"></circle><text class="axis-label" x="205" y="268">Jun</text></g>
-          <g class="node-group" data-month="2026-07" data-estimated="150,000" data-actual="0" data-cumulative="450,000"><circle class="node" cx="386" cy="72.5" r="6"></circle><circle class="node-hit" cx="386" cy="72.5" r="24"></circle><text class="axis-label" x="366" y="268">Jul</text></g>
-          <g class="node-group" data-month="2026-08" data-estimated="120,000" data-actual="0" data-cumulative="570,000"><circle class="node" cx="544" cy="111.5" r="6"></circle><circle class="node-hit" cx="544" cy="111.5" r="24"></circle><text class="axis-label" x="520" y="268">Aug</text></g>
-          <g class="node-group" data-month="2026-09" data-estimated="95,000" data-actual="0" data-cumulative="665,000"><circle class="node" cx="702" cy="144" r="6"></circle><circle class="node-hit" cx="702" cy="144" r="24"></circle><text class="axis-label" x="680" y="268">Sep</text></g>
-          <g class="node-group" data-month="2026-10" data-estimated="95,000" data-actual="0" data-cumulative="760,000"><circle class="node" cx="860" cy="144" r="6"></circle><circle class="node-hit" cx="860" cy="144" r="24"></circle><text class="axis-label" x="838" y="268">Oct</text></g>
+      <div class="chart-wrap" id="chartWrap">
+        <svg viewBox="0 0 900 310" role="img" aria-label="月度預估支出與實際支出折線圖">
+          <defs><linearGradient id="grad" x1="0" x2="1"><stop offset="0%" stop-color="#8b5cf6"/><stop offset="100%" stop-color="#f05a7e"/></linearGradient></defs>
+          <line class="grid" x1="58" y1="40" x2="860" y2="40"/><line class="grid" x1="58" y1="105" x2="860" y2="105"/><line class="grid" x1="58" y1="170" x2="860" y2="170"/><line class="grid" x1="58" y1="235" x2="860" y2="235"/>
+          <text class="axis-label" x="16" y="44">175k</text><text class="axis-label" x="16" y="109">125k</text><text class="axis-label" x="23" y="174">75k</text><text class="axis-label" x="32" y="239">0</text>
+          <path class="planned" d="M70 40 L228 105 L386 72.5 L544 111.5 L702 144 L860 144"/>
+          <path class="actual" d="M70 235 L228 235 L386 235 L544 235 L702 235 L860 235"/>
+          <g class="pt" data-month="2026-05" data-planned="175,000" data-actual="0" data-cum="175,000"><circle class="node" cx="70" cy="40" r="6"/><circle class="hit" cx="70" cy="40" r="25"/><text class="axis-label" x="45" y="276">May</text></g>
+          <g class="pt" data-month="2026-06" data-planned="125,000" data-actual="0" data-cum="300,000"><circle class="node" cx="228" cy="105" r="6"/><circle class="hit" cx="228" cy="105" r="25"/><text class="axis-label" x="205" y="276">Jun</text></g>
+          <g class="pt" data-month="2026-07" data-planned="150,000" data-actual="0" data-cum="450,000"><circle class="node" cx="386" cy="72.5" r="6"/><circle class="hit" cx="386" cy="72.5" r="25"/><text class="axis-label" x="366" y="276">Jul</text></g>
+          <g class="pt" data-month="2026-08" data-planned="120,000" data-actual="0" data-cum="570,000"><circle class="node" cx="544" cy="111.5" r="6"/><circle class="hit" cx="544" cy="111.5" r="25"/><text class="axis-label" x="520" y="276">Aug</text></g>
+          <g class="pt" data-month="2026-09" data-planned="95,000" data-actual="0" data-cum="665,000"><circle class="node" cx="702" cy="144" r="6"/><circle class="hit" cx="702" cy="144" r="25"/><text class="axis-label" x="680" y="276">Sep</text></g>
+          <g class="pt" data-month="2026-10" data-planned="95,000" data-actual="0" data-cum="760,000"><circle class="node" cx="860" cy="144" r="6"/><circle class="hit" cx="860" cy="144" r="25"/><text class="axis-label" x="838" y="276">Oct</text></g>
         </svg>
-        <div class="tooltip" id="chartTooltip"></div>
-        <div class="chart-legend">
-          <span class="legend-key"><span class="legend-swatch"></span>預估支出</span>
-          <span class="legend-key"><span class="legend-swatch actual"></span>實際支出（目前尚未登錄）</span>
-        </div>
+        <div class="tooltip" id="tip"></div>
+        <div class="legend"><span class="key"><span class="swatch"></span>預估支出</span><span class="key"><span class="swatch actual"></span>實際支出</span></div>
       </div>
     </section>
 
-    <main class="main">
-      <div class="stack">
-        <section id="details" class="paper tabs">
-          <div class="section-head">
-            <div><h2>專案財務明細</h2><p class="hint">點選標籤查看，不在同頁重複攤開</p></div>
-            <div class="hint">NTD</div>
-          </div>
-          <div class="tabbar" role="tablist">
-            <button class="tab-btn active" data-tab="may">五月預估支出</button>
-            <button class="tab-btn" data-tab="budget">簽約版預算表</button>
-            <button class="tab-btn" data-tab="advance">預支明細</button>
-            <button class="tab-btn" data-tab="actual">實支明細</button>
-          </div>
-
-          <div class="tab-panel active" data-panel="may">
-            <table>
-              <thead><tr><th>項目</th><th>用途說明</th><th class="num">金額</th></tr></thead>
-              <tbody>
-                <tr><td>計畫主持人人事費</td><td>5 月研發、專案管理、DSSC-PUF 技術整合</td><td class="num money">50,000</td></tr>
-                <tr><td>待聘研發人員薪資</td><td>5 月實驗、資料集、區塊鏈/控制程式支援</td><td class="num money">45,000</td></tr>
-                <tr><td>消耗性器材及原材料費</td><td>DSSC 首批材料採購，支援待測樣本製作</td><td class="num money">60,000</td></tr>
-                <tr><td>研發設備使用費</td><td>實驗與量測設備使用，5 月一次編列</td><td class="num money">15,000</td></tr>
-                <tr><td>研發設備維護費</td><td>設備維護與測試前整備，5 月一次編列</td><td class="num money">5,000</td></tr>
-                <tr><td><strong>五月預估支出合計</strong></td><td class="muted">顧問費暫排 7–8 月，本月不列</td><td class="num money">175,000</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="tab-panel" data-panel="budget">
-            <table>
-              <thead><tr><th>會計科目</th><th class="num">政府補助款</th><th class="num">公司自籌款</th><th class="num">合計</th><th>備註</th></tr></thead>
-              <tbody>
-                <tr><td>人事費－研發人員</td><td class="num">280,000</td><td class="num">290,000</td><td class="num money">570,000</td><td>施惟捷 + 待聘研發人員</td></tr>
-                <tr><td>人事費－顧問</td><td class="num">14,000</td><td class="num">36,000</td><td class="num money">50,000</td><td>Edmond Jordan</td></tr>
-                <tr><td>人事費小計</td><td class="num">294,000</td><td class="num">326,000</td><td class="num money">620,000</td><td></td></tr>
-                <tr><td>消耗性器材及原材料費</td><td class="num">57,000</td><td class="num">63,000</td><td class="num money">120,000</td><td>DSSC 材料</td></tr>
-                <tr><td>研發設備使用費</td><td class="num">7,000</td><td class="num">8,000</td><td class="num money">15,000</td><td></td></tr>
-                <tr><td>研發設備維護費</td><td class="num">2,000</td><td class="num">3,000</td><td class="num money">5,000</td><td></td></tr>
-                <tr><td>技術移轉及委託費</td><td class="num">0</td><td class="num">0</td><td class="num money">0</td><td></td></tr>
-                <tr><td>國內差旅費</td><td class="num">0</td><td class="num">0</td><td class="num money">0</td><td></td></tr>
-                <tr><td><strong>合計</strong></td><td class="num money">360,000</td><td class="num money">400,000</td><td class="num money">760,000</td><td>政府 47.4%；自籌 52.6%</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="tab-panel" data-panel="advance">
-            <table>
-              <thead><tr><th>月份</th><th>預支/預估用途</th><th class="num">預支金額</th><th class="num">累計</th></tr></thead>
-              <tbody>
-                <tr><td>2026-05</td><td>人事、首批材料、設備使用與維護</td><td class="num money">175,000</td><td class="num">175,000</td></tr>
-                <tr><td>2026-06</td><td>待測樣本製作、材料補採購、人事</td><td class="num money">125,000</td><td class="num">300,000</td></tr>
-                <tr><td>2026-07</td><td>I–V 建模、資料庫建構、材料補採購、顧問第1期</td><td class="num money">150,000</td><td class="num">450,000</td></tr>
-                <tr><td>2026-08</td><td>PUF 測試、顧問第2期、人事</td><td class="num money">120,000</td><td class="num">570,000</td></tr>
-                <tr><td>2026-09</td><td>挑戰/回應流程測試、資料整理、人事</td><td class="num money">95,000</td><td class="num">665,000</td></tr>
-                <tr><td>2026-10</td><td>原型驗證、結案文件、查核點整理、人事</td><td class="num money">95,000</td><td class="num">760,000</td></tr>
-                <tr><td><strong>合計</strong></td><td class="muted">對齊最後簽約版總經費</td><td class="num money">760,000</td><td class="num money">760,000</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="tab-panel" data-panel="actual">
-            <div class="empty">目前 Google Sheet「月度實支」尚未登錄正式支出。等發票、薪資轉帳、顧問請款或材料付款資料進來後，這裡應改成逐筆列示：交易日期、會計科目、支出項目、供應商/收款人、含稅金額、經費來源、付款狀態與憑證連結。</div>
-            <table style="margin-top:14px;">
-              <thead><tr><th>交易日期</th><th>會計科目</th><th>支出項目</th><th>供應商/收款人</th><th class="num">含稅金額</th><th>狀態</th></tr></thead>
-              <tbody><tr><td colspan="6" class="muted">尚無實支資料</td></tr></tbody>
-            </table>
-          </div>
-        </section>
+    <section class="card section">
+      <div class="section-head"><div><h2>明細</h2><p>首頁不重複攤開；需要查核時從這裡進入。</p></div></div>
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="budget">簽約預算</button>
+        <button class="tab" data-tab="monthly">月度計畫</button>
+        <button class="tab" data-tab="actual">實支流水</button>
+        <button class="tab" data-tab="public">公開邊界</button>
       </div>
-
-      <div class="stack">
-        <section class="panel section">
-          <div class="section-head">
-            <div><h2>查核點路線圖</h2><p class="hint">資金使用要對應可驗收成果</p></div>
-            <div class="hint">A–E</div>
-          </div>
-          <div class="timeline">
-            <div class="mile"><div class="month">5月</div><div><strong>A. 專利調查與產品策略研判</strong><p>完成智慧財產檢索、競品/應用路徑整理，建立後續 FTO 與產品策略基礎。</p></div><div class="pct">10%</div></div>
-            <div class="mile"><div class="month">6月</div><div><strong>B. 待測樣本製作</strong><p>製作 6×6cm DSSC-PUF 待測樣本，確認材料與封裝流程。</p></div><div class="pct">20%</div></div>
-            <div class="mile"><div class="month">7–8月</div><div><strong>C. 電壓電流曲線建模與資料庫</strong><p>累積不同光照條件下的 I–V 曲線，建立身份重構資料基礎。</p></div><div class="pct">40%</div></div>
-            <div class="mile"><div class="month">9月</div><div><strong>D. PUF 挑戰與回應流程測試</strong><p>驗證裝置間分辨率與同裝置重構一致率，確認可驗證流程。</p></div><div class="pct">15%</div></div>
-            <div class="mile"><div class="month">10月</div><div><strong>E. 原型實測與驗證</strong><p>整合示範原型、結案成果與查核文件。</p></div><div class="pct">15%</div></div>
-          </div>
-        </section>
-
-        <section class="panel section">
-          <div class="section-head">
-            <div><h2>待確認事項</h2><p class="hint">避免預估、預支、實支混淆</p></div>
-            <div class="hint">Ops</div>
-          </div>
-          <div class="risk">
-            <div class="risk-item"><span class="dot accent"></span><div><strong>Simpany 實發薪資尚未確認</strong><p>目前使用簽約版編列額：主持人 50,000、待聘 45,000。若勞健保扣款後實發不同，需以薪資清冊/轉帳紀錄更新。</p></div></div>
-            <div class="risk-item"><span class="dot accent"></span><div><strong>5月設備費已集中</strong><p>研發設備使用費 15,000 與維護費 5,000 已全部挪至 5 月，需保存計算依據、使用紀錄與付款憑證。</p></div></div>
-            <div class="risk-item"><span class="dot accent"></span><div><strong>實支目前為 0</strong><p>本頁不把預估支出當成實支；實支明細需等付款與憑證資料登錄後再更新。</p></div></div>
-          </div>
-        </section>
+      <div class="panel active" data-panel="budget">
+        <table><thead><tr><th>科目</th><th class="num">補助</th><th class="num">自籌</th><th class="num">合計</th><th>備註</th></tr></thead><tbody>
+          <tr><td>研發人事費</td><td class="num">280,000</td><td class="num">290,000</td><td class="num money">570,000</td><td>專案級公開，不揭露個人薪資</td></tr>
+          <tr><td>顧問費</td><td class="num">14,000</td><td class="num">36,000</td><td class="num money">50,000</td><td>專案級公開</td></tr>
+          <tr><td>消耗性器材及原材料費</td><td class="num">57,000</td><td class="num">63,000</td><td class="num money">120,000</td><td>DSSC 材料</td></tr>
+          <tr><td>研發設備使用費</td><td class="num">7,000</td><td class="num">8,000</td><td class="num money">15,000</td><td>設備使用</td></tr>
+          <tr><td>研發設備維護費</td><td class="num">2,000</td><td class="num">3,000</td><td class="num money">5,000</td><td>設備維護</td></tr>
+          <tr><td><strong>合計</strong></td><td class="num money">360,000</td><td class="num money">400,000</td><td class="num money">760,000</td><td>簽約版</td></tr>
+        </tbody></table>
+        <div class="download"><a class="link" href="data/public/budget.csv">下載 budget.csv</a></div>
       </div>
-    </main>
+      <div class="panel" data-panel="monthly">
+        <table><thead><tr><th>月份</th><th class="num">預估</th><th class="num">實支</th><th class="num">累計預估</th><th>用途</th></tr></thead><tbody>
+          <tr><td>2026-05</td><td class="num money">175,000</td><td class="num">0</td><td class="num">175,000</td><td>人事、首批材料、設備使用與維護</td></tr>
+          <tr><td>2026-06</td><td class="num money">125,000</td><td class="num">0</td><td class="num">300,000</td><td>樣本製作、材料補採購、人事</td></tr>
+          <tr><td>2026-07</td><td class="num money">150,000</td><td class="num">0</td><td class="num">450,000</td><td>I-V 建模、資料庫、材料補採購、顧問第 1 期</td></tr>
+          <tr><td>2026-08</td><td class="num money">120,000</td><td class="num">0</td><td class="num">570,000</td><td>PUF 測試、顧問第 2 期、人事</td></tr>
+          <tr><td>2026-09</td><td class="num money">95,000</td><td class="num">0</td><td class="num">665,000</td><td>挑戰/回應流程測試、資料整理、人事</td></tr>
+          <tr><td>2026-10</td><td class="num money">95,000</td><td class="num">0</td><td class="num">760,000</td><td>期末整理、驗證、結案資料</td></tr>
+        </tbody></table>
+        <div class="download"><a class="link" href="data/public/monthly-plan.csv">下載 monthly-plan.csv</a></div>
+      </div>
+      <div class="panel" data-panel="actual">
+        <p class="privacy">目前尚無可公開的正式實支流水。未來只公開去識別化、專案級必要欄位；發票影本、個資、銀行資訊不放入 repo。</p>
+        <div class="download"><a class="link" href="data/public/actual-expenses.csv">下載 actual-expenses.csv</a></div>
+      </div>
+      <div class="panel" data-panel="public">
+        <p class="privacy">公開：預算科目、月度計畫、去識別化實支流水、行政狀態。不公開：個人薪資、Simpany 薪資明細、投保級距、身分證字號、銀行帳戶、登入截圖、cookie、內部合約與憑證。</p>
+        <div class="download"><a class="link" href="data/public/project.json">下載 project.json</a><a class="link" href="docs/public-transparency.md">查看公開邊界</a></div>
+      </div>
+    </section>
 
-    <p class="footer">下一步建議：把 Google Sheet 當外部備份，repo 內建立 <code>data/budget.yml</code>、<code>data/monthly-plan.csv</code>、<code>data/actual-expenses.csv</code>，再由資料自動產生本頁。</p>
+    <footer>設計原則：一頁摘要、單一紫紅視覺系、系統深淺色模式、明細可查、個資不公開。</footer>
   </div>
 
   <script>
-    const buttons = document.querySelectorAll('.tab-btn');
-    const panels = document.querySelectorAll('.tab-panel');
-    function activateTab(name) {
-      buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === name));
-      panels.forEach(panel => panel.classList.toggle('active', panel.dataset.panel === name));
-    }
-    buttons.forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.tab)));
-
-    const chartWrap = document.getElementById('monthlyChartWrap');
-    const tooltip = document.getElementById('chartTooltip');
-    document.querySelectorAll('.node-group').forEach(node => {
-      node.addEventListener('mousemove', event => {
-        const rect = chartWrap.getBoundingClientRect();
-        tooltip.innerHTML = `
-          <div class="m">${node.dataset.month}</div>
-          <div class="row"><span>預估支出</span><strong>NT$ ${node.dataset.estimated}</strong></div>
-          <div class="row"><span>實際支出</span><strong>NT$ ${node.dataset.actual}</strong></div>
-          <div class="row"><span>累計預估</span><strong>NT$ ${node.dataset.cumulative}</strong></div>
-        `;
-        tooltip.style.left = `${event.clientX - rect.left}px`;
-        tooltip.style.top = `${event.clientY - rect.top}px`;
-        tooltip.classList.add('show');
+    const tip = document.getElementById('tip');
+    const wrap = document.getElementById('chartWrap');
+    document.querySelectorAll('.pt').forEach(pt => {
+      pt.addEventListener('mousemove', e => {
+        const r = wrap.getBoundingClientRect();
+        tip.innerHTML = `<div class="m">${pt.dataset.month}</div><div class="r"><span>預估支出</span><strong>NT$ ${pt.dataset.planned}</strong></div><div class="r"><span>實際支出</span><strong>NT$ ${pt.dataset.actual}</strong></div><div class="r"><span>累計預估</span><strong>NT$ ${pt.dataset.cum}</strong></div>`;
+        tip.style.left = `${e.clientX - r.left}px`;
+        tip.style.top = `${e.clientY - r.top}px`;
+        tip.classList.add('show');
       });
-      node.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
-      node.addEventListener('focus', () => tooltip.classList.add('show'));
+      pt.addEventListener('mouseleave', () => tip.classList.remove('show'));
     });
+    document.querySelectorAll('.tab').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.dataset.panel === btn.dataset.tab));
+    }));
   </script>
 </body>
 </html>
