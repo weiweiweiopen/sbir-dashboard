@@ -43,46 +43,47 @@
     .wrap { max-width: 1240px; margin: 0 auto; padding: 26px 18px 44px; }
     header { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 18px; }
     h1, h2, h3, p { margin: 0; }
-    h1 { font-size: 17px; font-weight: 650; letter-spacing: -.01em; }
+    h1 { font-size:22.1px; font-weight: 650; letter-spacing: -.01em; }
     .sub, .muted { color: var(--muted); }
-    .sub { font-size: 13px; margin-top: 3px; }
-    .chip { border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); border-radius: 999px; padding: 7px 10px; font-size: 12px; white-space: nowrap; }
+    .sub { font-size:16.9px; margin-top: 3px; }
+    .chip { border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); border-radius: 999px; padding: 7px 10px; font-size:15.6px; white-space: nowrap; }
     .grid { display: grid; gap: 12px; }
     .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); backdrop-filter: blur(18px); }
     .section { padding: 18px; }
     .head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:14px; }
-    .head h2 { font-size: 15px; font-weight: 650; }
-    .head p { color: var(--muted); font-size: 12px; margin-top: 3px; line-height: 1.45; }
+    .head h2 { font-size:19.5px; font-weight: 650; }
+    .head p { color: var(--muted); font-size:15.6px; margin-top: 3px; line-height: 1.45; }
     .chart-wrap { position: relative; }
     svg { width:100%; height:280px; display:block; overflow:visible; }
     .axis { stroke: var(--line); stroke-width: 1; }
-    .axis-label { fill: var(--muted); font-size: 11px; font-weight: 560; }
+    .axis-label { fill: var(--muted); font-size:14.3px; font-weight: 560; }
     .planned { fill:none; stroke:url(#grad); stroke-width:3.5; stroke-linecap:round; stroke-linejoin:round; }
     .actual { fill:none; stroke:var(--muted); stroke-width:2.5; stroke-dasharray:6 7; opacity:.72; }
     .node { fill: var(--surface); stroke: var(--b); stroke-width:3; cursor:pointer; }
     .hit { fill: transparent; cursor:pointer; }
     .pt:hover .node { r: 7; }
-    .tip { position:absolute; opacity:0; pointer-events:none; min-width:230px; transform:translate(-50%,-112%); border:1px solid color-mix(in srgb, var(--line) 45%, transparent); background:color-mix(in srgb, var(--surface) 20%, transparent); border-radius:14px; padding:12px 13px; box-shadow:none; backdrop-filter:blur(10px); font-size:15.6px; }
+    .tip { position:absolute; opacity:0; pointer-events:none; min-width:230px; transform:translate(-50%,-112%); border:1px solid color-mix(in srgb, var(--line) 45%, transparent); background:color-mix(in srgb, var(--surface) 25%, transparent); border-radius:14px; padding:12px 13px; box-shadow:none; backdrop-filter:blur(10px); font-size:20.3px; }
     .tip.show { opacity:1; }
-    .tip .m { color:var(--muted); font-weight:650; margin-bottom:7px; font-size:15.6px; }
+    .tip.below { transform: translate(-50%, 18px); }
+    .tip .m { color:var(--muted); font-weight:650; margin-bottom:7px; font-size:20.3px; }
     .tip .r { display:flex; justify-content:space-between; gap:14px; margin-top:5px; }
     .tip .r span { color: var(--muted); }
     .tip .pct { color: var(--muted); font-weight: 560; margin-left: 6px; }
     .tabs { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:12px; }
     button { font: inherit; }
-    .tab { border:1px solid var(--line); background:var(--surface-2); color:var(--muted); border-radius:999px; padding:7px 10px; font-size:12px; cursor:pointer; }
+    .tab { border:1px solid var(--line); background:var(--surface-2); color:var(--muted); border-radius:999px; padding:7px 10px; font-size:15.6px; cursor:pointer; }
     .tab.active { color:white; border-color:transparent; background:linear-gradient(135deg,var(--a),var(--b)); }
     .panel { display:none; overflow:auto; }
     .panel.active { display:block; }
-    table { width:100%; border-collapse:collapse; min-width: 720px; }
-    th, td { padding:10px 10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; font-size:13px; line-height:1.4; }
-    th { color:var(--muted); font-size:11px; font-weight:650; background:var(--surface-2); }
+    table { width:auto; max-width:100%; border-collapse:collapse; min-width:0; }
+    th, td { padding:10px 10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; font-size:16.9px; line-height:1.4; }
+    th { color:var(--muted); font-size:14.3px; font-weight:650; background:var(--surface-2); }
     td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
     tr:last-child td { border-bottom:0; }
     .money { font-weight:650; }
     .links { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
-    a.link { color:var(--text); text-decoration:none; border:1px solid var(--line); background:var(--surface-2); border-radius:999px; padding:7px 10px; font-size:12px; }
-    footer { color:var(--muted); font-size:12px; margin-top:16px; line-height:1.6; }
+    a.link { color:var(--text); text-decoration:none; border:1px solid var(--line); background:var(--surface-2); border-radius:999px; padding:7px 10px; font-size:15.6px; }
+    footer { color:var(--muted); font-size:15.6px; margin-top:16px; line-height:1.6; }
     @media (max-width: 900px) { header { align-items:flex-start; flex-direction:column; } }
     @media (max-width: 620px) {
       .wrap { padding:18px 10px 32px; }
@@ -98,11 +99,11 @@
         width: auto;
         z-index: 20;
         pointer-events: none;
-        background: color-mix(in srgb, var(--surface) 20%, transparent);
+        background: color-mix(in srgb, var(--surface) 25%, transparent);
         border-color: color-mix(in srgb, var(--line) 45%, transparent);
         box-shadow: none;
         backdrop-filter: blur(10px);
-        font-size: 15.6px;
+        font-size:20.3px;
       }
     }
   </style>
@@ -138,9 +139,9 @@
     </section>
 
     <section class="card section" style="margin-top:12px">
-      <div class="head"><div><h2>明細</h2><p>預設收合為類別；需要時切換到細項。</p></div></div>
+      <div class="head"><div><h2>明細</h2></div></div>
       <div class="tabs">
-        <button class="tab active" data-tab="budget">預算</button>
+        <button class="tab active" data-tab="budget">預算明細</button>
         <button class="tab" data-tab="monthly">月度</button>
         <button class="tab" data-tab="personnel">人事</button>
         <button class="tab" data-tab="materials">材料</button>
@@ -151,7 +152,7 @@
       </div>
 
       <div class="panel active" data-panel="budget">
-        <table><thead><tr><th>科目</th><th class="num">補助</th><th class="num">自籌</th><th class="num">合計</th></tr></thead><tbody>
+        <table><thead><tr><th>預算明細</th><th class="num">補助</th><th class="num">自籌</th><th class="num">合計</th></tr></thead><tbody>
           <tr><td>研發人員</td><td class="num">280,000</td><td class="num">290,000</td><td class="num money">570,000</td></tr>
           <tr><td>顧問</td><td class="num">14,000</td><td class="num">36,000</td><td class="num money">50,000</td></tr>
           <tr><td>消耗性器材及原材料費</td><td class="num">57,000</td><td class="num">63,000</td><td class="num money">120,000</td></tr>
@@ -215,7 +216,6 @@
       <div class="panel" data-panel="actual"><p class="muted">目前尚無正式實支流水。</p><div class="links"><a class="link" href="data/public/actual-expenses.csv">actual-expenses.csv</a></div></div>
       <div class="panel" data-panel="public"><p class="muted">公開專案級預算、月度規劃、去識別化實支與研究摘要。不公開個人薪資細節、身分證字號、地址、電話、Email、銀行帳戶、登入截圖、cookie、token、合約影本與內部憑證。</p><div class="links"><a class="link" href="docs/public-transparency.md">public-transparency.md</a><a class="link" href="data/public/project.json">project.json</a></div></div>
     </section>
-    <footer>Source: 計劃資料表422(ignore) 擷取之公開可揭露欄位。<a class="link" href="llm-wiki/index.md">llm-wiki</a> <a class="link" href="llms.txt">llms.txt</a></footer>
   </div>
   <script>
     const wrap = document.getElementById('chartWrap'), tip = document.getElementById('tip');
@@ -227,9 +227,22 @@
         const fmt = value => `${value} <span class="pct">${(n(value) / total * 100).toFixed(1)}%</span>`;
         tip.innerHTML = `<div class="m">${pt.dataset.month}</div><div class="r"><span>預估</span><strong>${fmt(pt.dataset.planned)}</strong></div><div class="r"><span>人事</span><strong>${fmt(pt.dataset.personnel)}</strong></div><div class="r"><span>材料</span><strong>${fmt(pt.dataset.materials)}</strong></div><div class="r"><span>設備使用</span><strong>${fmt(pt.dataset.equipment)}</strong></div><div class="r"><span>設備維護</span><strong>${fmt(pt.dataset.maintenance)}</strong></div><div class="r"><span>補助款</span><strong>${fmt(pt.dataset.subsidy)}</strong></div><div class="r"><span>自籌款</span><strong>${fmt(pt.dataset.self)}</strong></div><div class="r"><span>實支</span><strong>${fmt(pt.dataset.actual)}</strong></div><div class="r"><span>累計預估</span><strong>${fmt(pt.dataset.cum)}</strong></div>`;
         const mobile = window.matchMedia('(max-width: 620px)').matches;
-        tip.style.left = mobile ? '' : `${Math.min(Math.max(e.clientX-r.left, 100), r.width-100)}px`;
-        tip.style.top = mobile ? '' : `${Math.max(e.clientY-r.top, 80)}px`;
+        tip.classList.remove('below');
         tip.classList.add('show');
+        if (!mobile) {
+          const localX = e.clientX - r.left;
+          const localY = e.clientY - r.top;
+          const tipWidth = tip.offsetWidth || 260;
+          const tipHeight = tip.offsetHeight || 220;
+          const left = Math.min(Math.max(localX, tipWidth / 2 + 8), r.width - tipWidth / 2 - 8);
+          const shouldOpenBelow = localY - tipHeight - 24 < 0;
+          tip.classList.toggle('below', shouldOpenBelow);
+          tip.style.left = `${left}px`;
+          tip.style.top = `${localY}px`;
+        } else {
+          tip.style.left = '';
+          tip.style.top = '';
+        }
       });
       pt.addEventListener('mouseleave', () => { if (!window.matchMedia('(max-width: 620px)').matches) tip.classList.remove('show'); });
       pt.addEventListener('click', e => { e.preventDefault(); pt.dispatchEvent(new MouseEvent('mousemove', {clientX:e.clientX, clientY:e.clientY, bubbles:true})); });
