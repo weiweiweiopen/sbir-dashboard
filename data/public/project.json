@@ -9,13 +9,13 @@
     "selfFunded": 400000,
     "total": 760000
   },
-  "actualExpensesTotal": 104500,
+  "actualExpensesTotal": 104700,
   "privacyBoundary": "公開資料僅揭露專案級預算、月度規劃與行政狀態；個人薪資明細、投保資料、身分證字號、銀行帳戶、登入截圖與內部憑證不公開。",
   "subsidyWithdrawal": {
     "asOf": "2026-05-30",
     "targetMonth": "2026-06",
-    "recommendedWithdrawal": 45988,
-    "basis": "已補憑證：5月薪資傳票75,500、Edmond Jordan顧問費第一期暫估25,000、導電玻璃4,000；依各科目補助比例計算，不含銀行手續費。",
-    "caution": "Edmond Jordan最終台幣入帳金額需以銀行扣款/匯率憑證確認；確認前建議不要超過45,988。"
+    "recommendedWithdrawal": 46083,
+    "basis": "已補憑證：5月薪資傳票75,500、Edmond Jordan顧問費第一期暫估25,000、導電玻璃發票含稅4,200；依各科目補助比例計算，不含銀行手續費。",
+    "caution": "Edmond Jordan最終台幣入帳金額需以銀行扣款/匯率憑證確認；確認前建議不要超過46,083。"
   }
 }
