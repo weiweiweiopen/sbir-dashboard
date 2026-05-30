@@ -25,3 +25,11 @@
 ## Greatcell quote WCO5526-1
 
 2026-05-27 Greatcell Solar Materials quote WCO5526-1 total AUD 887.01 is recorded as accrued pending invoice procurement. It is included in the June withdrawal control estimate at NT$20,023, but the invoice/payment proof must be attached before final reimbursement filing.
+## 2026-05-30 Materials variance / 材料費差異
+
+- Original May materials plan: NT$60,000.
+- Current recorded/accrued materials: NT$24,223 (conductive glass NT$4,200 + Greatcell quote WCO5526-1 estimated NT$20,023).
+- Variance: NT$35,777 under plan.
+- Subsidy impact: NT$16,994 less withdrawable subsidy than the original materials plan, using the 47.5% materials subsidy ratio.
+- Cause: the first-batch materials procurement is only partially completed/documented; Greatcell is accrued as a quote pending invoice/payment proof.
+

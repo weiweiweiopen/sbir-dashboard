@@ -64,6 +64,8 @@
       white-space: nowrap;
     }
     .lang-toggle { cursor: pointer; color: var(--text); }
+    html[lang="zh-Hant"] [data-en] { display: none !important; }
+    html[lang="en"] [data-zh] { display: none !important; }
     .card {
       position: relative;
       border: 1px solid var(--line);
@@ -199,13 +201,13 @@
     <header class="topbar">
       <div>
         <div class="eyebrow">SBIR Dashboard</div>
-        <h1>1Z1141068 計劃進度總覽</h1>
-        <p class="subtitle">加密光伏光場鏡片 · Phase 1 · 115/05/01–115/10/31</p>
+        <h1><span data-zh>1Z1141068 計劃進度總覽</span><span data-en>1Z1141068 Project Dashboard</span></h1>
+        <p class="subtitle"><span data-zh>加密光伏光場鏡片 · Phase 1 · 115/05/01–115/10/31</span><span data-en>Encrypted Photovoltaic Light-field Lens · Phase 1 · 2026/05/01–2026/10/31</span></p>
       </div>
       <div class="meta">
-        <span class="chip">資料版本 2026/05/30</span>
-        <a class="chip" href="#funding">資金動態</a>
-        <a class="chip" href="#details">資料明細</a>
+        <span class="chip"><span data-zh>資料版本 2026/05/30</span><span data-en>Data version 2026/05/30</span></span>
+        <a class="chip" href="#funding"><span data-zh>資金動態</span><span data-en>Funding</span></a>
+        <a class="chip" href="#details"><span data-zh>資料明細</span><span data-en>Details</span></a>
         <button class="chip lang-toggle" type="button" id="langToggle" aria-label="Switch language">EN</button>
       </div>
     </header>
@@ -215,26 +217,26 @@
         <div class="card stage section">
           <div>
             <div class="section-kicker">Layer 1 · Latest</div>
-            <h2>目前進度：2026-06 樣本製作與材料補採購</h2>
-            <p style="max-width: 760px; margin-top: 12px;">一打開頁面先看到計劃走到哪裡：已進入第 2 個月，累計規劃預算 300,000，占總預算 39.5%。目前已補公開實支摘要 124,723；六月建議由中信 SBIR 專戶提領補助款上限 55,594（含 Greatcell quote 待補發票），避免溢領。</p>
+            <h2><span data-zh>目前進度：2026-06 樣本製作與材料補採購</span><span data-en>Current status: 2026-06 sample fabrication and materials follow-up</span></h2>
+            <p style="max-width: 760px; margin-top: 12px;"><span data-zh>一打開頁面先看到計劃走到哪裡：已進入第 2 個月，累計規劃預算 300,000，占總預算 39.5%。目前已補公開實支摘要 124,723；六月建議由中信 SBIR 專戶提領補助款上限 55,594（含 Greatcell quote 待補發票），避免溢領。</span><span data-en>At a glance: the project is in month 2. Cumulative planned spending is 300,000, or 39.5% of the total budget. Public actual/accrued spending is 124,723; the recommended June withdrawal from the CTBC SBIR account is capped at 55,594, including the Greatcell quote pending invoice, to avoid over-withdrawal.</span></p>
           </div>
           <div class="latest-grid">
-            <div class="metric js-tip" tabindex="0" data-tip-title="計劃月份" data-tip="Phase 1 共 6 個月，目前主視角設定為 2026-06，方便檢視現在計劃走到哪裡。"><span class="label">目前月份</span><strong class="value">M2 / 6</strong><small>2026-06</small></div>
-            <div class="metric js-tip" tabindex="0" data-tip-title="本月預估" data-tip="2026-06 規劃 125,000，占總預算 16.4%，用途為樣本製作、材料補採購與人事。"><span class="label">本月預估</span><strong class="value">125,000</strong><small>16.4% of total</small></div>
-            <div class="metric js-tip" tabindex="0" data-tip-title="累計規劃" data-tip="截至 2026-06，累計預估 300,000，占總預算 39.5%。"><span class="label">累計規劃</span><strong class="value">300,000</strong><small>39.5% of total</small></div>
-            <div class="metric js-tip" tabindex="0" data-tip-title="公開實支" data-tip="已補 5 月薪資、Edmond Jordan 顧問費第一期、導電玻璃材料費之去識別化實支摘要。"><span class="label">公開實支</span><strong class="value">124,723</strong><small>已補/待補 4 筆</small></div>
+            <div class="metric js-tip" tabindex="0" data-tip-title="計劃月份" data-tip="Phase 1 共 6 個月，目前主視角設定為 2026-06，方便檢視現在計劃走到哪裡。"><span class="label"><span data-zh>目前月份</span><span data-en>Current month</span></span><strong class="value">M2 / 6</strong><small>2026-06</small></div>
+            <div class="metric js-tip" tabindex="0" data-tip-title="本月預估" data-tip="2026-06 規劃 125,000，占總預算 16.4%，用途為樣本製作、材料補採購與人事。"><span class="label"><span data-zh>本月預估</span><span data-en>Planned this month</span></span><strong class="value">125,000</strong><small>16.4% of total</small></div>
+            <div class="metric js-tip" tabindex="0" data-tip-title="累計規劃" data-tip="截至 2026-06，累計預估 300,000，占總預算 39.5%。"><span class="label"><span data-zh>累計規劃</span><span data-en>Cumulative plan</span></span><strong class="value">300,000</strong><small>39.5% of total</small></div>
+            <div class="metric js-tip" tabindex="0" data-tip-title="公開實支" data-tip="已補 5 月薪資、Edmond Jordan 顧問費第一期、導電玻璃材料費之去識別化實支摘要。"><span class="label"><span data-zh>公開實支</span><span data-en>Public actual/accrued</span></span><strong class="value">124,723</strong><small><span data-zh>已補/待補 4 筆</span><span data-en>4 recorded / pending items</span></small></div>
           </div>
         </div>
         <aside class="card status-card">
           <div>
             <div class="now-badge"><span class="pulse"></span>Current Plan Position</div>
-            <h2 style="margin-top: 12px;">115/06 執行中</h2>
-            <p style="margin-top: 8px;">重點：樣本製作、材料補採購、人事投入；本月可提領補助款建議上限 55,594。</p>
+            <h2 style="margin-top: 12px;"><span data-zh>115/06 執行中</span><span data-en>2026-06 in progress</span></h2>
+            <p style="margin-top: 8px;"><span data-zh>重點：樣本製作、材料補採購、人事投入；本月可提領補助款建議上限 55,594。</span><span data-en>Focus: sample fabrication, materials follow-up, and R&D labor. Recommended withdrawal cap this month: 55,594.</span></p>
           </div>
           <div>
-            <div class="label">總期程完成感</div>
+            <div class="label"><span data-zh>總期程完成感</span><span data-en>Overall timeline progress</span></div>
             <div class="progress-bar" style="margin-top: 8px;"><span></span></div>
-            <p style="font-size: 12px; margin-top: 8px;">以月份節點估算：第 2 月 / 共 6 月。</p>
+            <p style="font-size: 12px; margin-top: 8px;"><span data-zh>以月份節點估算：第 2 月 / 共 6 月。</span><span data-en>Month-based estimate: month 2 of 6.</span></p>
           </div>
           <div class="timeline" aria-label="計劃月份位置">
             <div class="timeline-row active"><span>May</span><div class="timeline-track"><span style="width:100%"></span></div></div>
@@ -251,10 +253,10 @@
         <div class="section-head">
           <div>
             <div class="section-kicker">Layer 2 · Monthly Funding</div>
-            <h2>月度資金動態折線圖</h2>
-            <p>滑過或點擊每個月份節點，會同步更新下方 KPI 與主要重點；觸控裝置點一下即可停留。</p>
+            <h2><span data-zh>月度資金動態折線圖</span><span data-en>Monthly funding trend</span></h2>
+            <p><span data-zh>滑過或點擊每個月份節點，會同步更新下方 KPI 與主要重點；觸控裝置點一下即可停留。</span><span data-en>Hover or tap a monthly node to update the KPI and key focus below. On touch devices, tap once to keep the month selected.</span></p>
           </div>
-          <span class="chip">總預算 760,000 TWD</span>
+          <span class="chip"><span data-zh>總預算 760,000 TWD</span><span data-en>Total budget 760,000 TWD</span></span>
         </div>
         <div class="chart-shell" id="chartShell">
           <svg viewBox="0 0 920 320" aria-label="月度預估與實支折線圖">
@@ -276,25 +278,43 @@
         <div class="chart-meta" id="chartMeta"></div>
       </section>
 
+
+      <section class="card section" id="materials-variance">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Layer 2 · Materials variance</div>
+            <h2><span data-zh>材料費差異</span><span data-en>Materials variance</span></h2>
+            <p><span data-zh>5 月材料費原預估 60,000；目前列入導電玻璃與 Greatcell quote 共 24,223，差異 35,777。材料可提領補助因此比原預估少 16,994。</span><span data-en>May materials were originally planned at 60,000. Current recorded/accrued materials are conductive glass plus the Greatcell quote, totaling 24,223. The variance is 35,777, reducing withdrawable materials subsidy by 16,994 versus the original plan.</span></p>
+          </div>
+          <span class="chip"><span data-zh>材料補助比例 47.5%</span><span data-en>Materials subsidy ratio 47.5%</span></span>
+        </div>
+        <table><thead><tr><th><span data-zh>項目</span><span data-en>Item</span></th><th class="num"><span data-zh>原預估</span><span data-en>Original plan</span></th><th class="num"><span data-zh>目前列入</span><span data-en>Current recorded/accrued</span></th><th class="num"><span data-zh>差異</span><span data-en>Variance</span></th><th><span data-zh>原因</span><span data-en>Reason</span></th></tr></thead><tbody>
+          <tr><td><span data-zh>導電玻璃</span><span data-en>Conductive glass</span></td><td class="num">—</td><td class="num money">4,200</td><td class="num">—</td><td><span data-zh>已收到發票 BN02880855，含稅總額。</span><span data-en>Invoice BN02880855 received; tax-inclusive amount.</span></td></tr>
+          <tr><td><span data-zh>Greatcell 材料</span><span data-en>Greatcell materials</span></td><td class="num">—</td><td class="num money">20,023</td><td class="num">—</td><td><span data-zh>Quote WCO5526-1 暫估入帳；發票/付款證明待補。</span><span data-en>Quote WCO5526-1 accrued as an estimate; invoice/payment proof pending.</span></td></tr>
+          <tr><td><strong><span data-zh>材料費合計</span><span data-en>Materials total</span></strong></td><td class="num money">60,000</td><td class="num money">24,223</td><td class="num money">-35,777</td><td><span data-zh>首批材料尚未全數採購或尚未補齊憑證。</span><span data-en>The first-batch materials have not all been purchased or documented yet.</span></td></tr>
+          <tr><td><strong><span data-zh>可提領補助影響</span><span data-en>Withdrawable subsidy impact</span></strong></td><td class="num money">28,500</td><td class="num money">11,506</td><td class="num money">-16,994</td><td><span data-zh>以材料補助比例 57,000 / 120,000 = 47.5% 計算。</span><span data-en>Calculated using the materials subsidy ratio: 57,000 / 120,000 = 47.5%.</span></td></tr>
+        </tbody></table>
+      </section>
+
       <section class="card section" id="details">
         <div class="section-head">
           <div>
             <div class="section-kicker">Details</div>
-            <h2>計劃所有資料細節與入口</h2>
-            <p>完整預算、月度規劃、材料、人事、設備、公開邊界與檔案連結都集中在此，方便往下追資料來源。</p>
+            <h2><span data-zh>計劃所有資料細節與入口</span><span data-en>Project data details and files</span></h2>
+            <p><span data-zh>完整預算、月度規劃、材料、人事、設備、公開邊界與檔案連結都集中在此，方便往下追資料來源。</span><span data-en>Budget, monthly plan, materials, personnel, equipment, disclosure boundaries, and source file links are collected here for traceability.</span></p>
           </div>
-          <span class="chip">公開可揭露資料</span>
+          <span class="chip"><span data-zh>公開可揭露資料</span><span data-en>Publicly shareable data</span></span>
         </div>
         <div class="details-layout">
           <div class="tabs" role="tablist" aria-label="資料分類">
-            <button class="tab active" data-tab="monthly" role="tab">月度規劃</button>
-            <button class="tab" data-tab="budget" role="tab">預算</button>
-            <button class="tab" data-tab="personnel" role="tab">人事</button>
-            <button class="tab" data-tab="materials" role="tab">材料</button>
-            <button class="tab" data-tab="equipment" role="tab">設備使用</button>
-            <button class="tab" data-tab="maintenance" role="tab">設備維護</button>
-            <button class="tab" data-tab="actual" role="tab">實支</button>
-            <button class="tab" data-tab="public" role="tab">公開邊界</button>
+            <button class="tab active" data-tab="monthly" role="tab"><span data-zh>月度規劃</span><span data-en>Monthly</span></button>
+            <button class="tab" data-tab="budget" role="tab"><span data-zh>預算</span><span data-en>Budget</span></button>
+            <button class="tab" data-tab="personnel" role="tab"><span data-zh>人事</span><span data-en>Personnel</span></button>
+            <button class="tab" data-tab="materials" role="tab"><span data-zh>材料</span><span data-en>Materials</span></button>
+            <button class="tab" data-tab="equipment" role="tab"><span data-zh>設備使用</span><span data-en>Equipment use</span></button>
+            <button class="tab" data-tab="maintenance" role="tab"><span data-zh>設備維護</span><span data-en>Maintenance</span></button>
+            <button class="tab" data-tab="actual" role="tab"><span data-zh>實支</span><span data-en>Actuals</span></button>
+            <button class="tab" data-tab="public" role="tab"><span data-zh>公開邊界</span><span data-en>Disclosure</span></button>
           </div>
 
           <div>
@@ -367,7 +387,7 @@
       </section>
     </main>
 
-    <footer>Source: 計劃資料表422(ignore) 與 2026-05-30 已補憑證之公開可揭露欄位。<a class="link" href="llm-wiki/index.md">llm-wiki</a> <a class="link" href="llms.txt">llms.txt</a></footer>
+    <footer><span data-zh>Source: 計劃資料表422(ignore) 與 2026-05-30 已補憑證之公開可揭露欄位。</span><span data-en>Source: public-safe fields from the signed plan data sheet and reimbursement evidence added on 2026-05-30.</span><a class="link" href="llm-wiki/index.md">llm-wiki</a> <a class="link" href="llms.txt">llms.txt</a></footer>
   </div>
   <div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
   <script>
@@ -380,8 +400,24 @@
     const toNumber = value => Number(String(value || '0').replace(/,/g, ''));
     const pct = value => `${(toNumber(value) / total * 100).toFixed(1)}%`;
     const money = value => value || '0';
+    const t = {
+      zh: { fallbackTitle: '重點', monthAria: '月度重點', planned: '本月預估', cumulative: '累計預估', cumulativeTip: '截至本月的累計規劃', subsidySelf: '補助 / 自籌', fundingSplit: '本月資金來源拆分', personnel: '人事費', personnelTip: '本月人事投入預估', materials: '材料費', materialsTip: '本月材料預估', equipment: '設備費', equipmentTip: '本月設備使用預估', maintenance: '維護', actual: '公開實支', switchToEnglish: 'Switch language', switchToChinese: '切換語言' },
+      en: { fallbackTitle: 'Note', monthAria: 'monthly focus', planned: 'Planned this month', cumulative: 'Cumulative plan', cumulativeTip: 'Cumulative planned spending through this month', subsidySelf: 'Subsidy / self-funded', fundingSplit: 'Funding source split for this month', personnel: 'Personnel', personnelTip: 'Planned personnel spending this month', materials: 'Materials', materialsTip: 'Planned materials spending this month', equipment: 'Equipment', equipmentTip: 'Planned equipment-use spending this month', maintenance: 'Maintenance', actual: 'Public actual/accrued', switchToEnglish: 'Switch language', switchToChinese: '切換語言' }
+    };
+    const locale = () => document.documentElement.lang === 'en' ? 'en' : 'zh';
+    const copy = key => t[locale()][key];
+    const enPoints = {
+      '2026-05': { kpi: 'Procurement kickoff and baseline sample preparation', focus: 'Personnel, first-batch materials, equipment-use preparation and maintenance.', research: 'Set initial sample fabrication conditions and materials list; complete Phase 1 startup documentation.' },
+      '2026-06': { kpi: 'Sample fabrication in progress', focus: 'Sample fabrication, materials follow-up, and R&D labor.', research: 'Continue from May materials/equipment preparation and focus on sample fabrication plus R&D labor.' },
+      '2026-07': { kpi: 'I-V modeling and database', focus: 'I-V modeling, database build-out, materials follow-up, and first consultant checkpoint.', research: 'Move sample measurement results into I-V modeling/database work and start the first consultant review.' },
+      '2026-08': { kpi: 'PUF testing validation', focus: 'PUF testing, second consultant checkpoint, and personnel.', research: 'Build a PUF test process for photovoltaic light-field features and validate the method with the second consultant checkpoint.' },
+      '2026-09': { kpi: 'Challenge/response testing', focus: 'Challenge/response process testing, data organization, and personnel.', research: 'Organize PUF test data and validate challenge/response stability.' },
+      '2026-10': { kpi: 'Final validation and closeout documents', focus: 'Final organization, validation, and closeout materials.', research: 'Consolidate validation results, cost data, and closeout documents into traceable Phase 1 outcomes.' }
+    };
 
     function pointData(pt) {
+      const en = enPoints[pt.dataset.month] || {};
+      const isEn = locale() === 'en';
       return {
         month: pt.dataset.month,
         short: pt.dataset.short,
@@ -395,9 +431,9 @@
         materials: pt.dataset.materials,
         equipment: pt.dataset.equipment,
         maintenance: pt.dataset.maintenance,
-        focus: pt.dataset.focus,
-        kpi: pt.dataset.kpi,
-        research: pt.dataset.research
+        focus: isEn ? en.focus : pt.dataset.focus,
+        kpi: isEn ? en.kpi : pt.dataset.kpi,
+        research: isEn ? en.research : pt.dataset.research
       };
     }
 
@@ -414,14 +450,14 @@
       const rect = event?.target?.getBoundingClientRect ? event.target.getBoundingClientRect() : pt.getBoundingClientRect();
       const x = event?.clientX || rect.left + rect.width / 2;
       const y = event?.clientY || rect.top;
-      setTooltip(`<div class="tooltip-title">${data.month} · ${data.kpi}</div><div class="tooltip-body">${data.focus}</div><div class="tooltip-row"><span>本月預估</span><strong>${money(data.planned)} (${pct(data.planned)})</strong></div><div class="tooltip-row"><span>累計預估</span><strong>${money(data.cum)} (${pct(data.cum)})</strong></div><div class="tooltip-row"><span>補助</span><strong>${money(data.subsidy)} (${pct(data.subsidy)})</strong></div><div class="tooltip-row"><span>自籌</span><strong>${money(data.self)} (${pct(data.self)})</strong></div><div class="tooltip-row"><span>人事費</span><strong>${money(data.personnel)} (${pct(data.personnel)})</strong></div><div class="tooltip-row"><span>材料費</span><strong>${money(data.materials)} (${pct(data.materials)})</strong></div><div class="tooltip-row"><span>設備費</span><strong>${money(data.equipment)} (${pct(data.equipment)})</strong></div><div class="tooltip-row"><span>維護</span><strong>${money(data.maintenance)} (${pct(data.maintenance)})</strong></div><div class="tooltip-row"><span>公開實支</span><strong>${money(data.actual)}</strong></div>`, x, y);
+      setTooltip(`<div class="tooltip-title">${data.month} · ${data.kpi}</div><div class="tooltip-body">${data.focus}</div><div class="tooltip-row"><span>${copy('planned')}</span><strong>${money(data.planned)} (${pct(data.planned)})</strong></div><div class="tooltip-row"><span>${copy('cumulative')}</span><strong>${money(data.cum)} (${pct(data.cum)})</strong></div><div class="tooltip-row"><span>${copy('subsidySelf')}</span><strong>${money(data.subsidy)} / ${money(data.self)}</strong></div><div class="tooltip-row"><span>${copy('personnel')}</span><strong>${money(data.personnel)} (${pct(data.personnel)})</strong></div><div class="tooltip-row"><span>${copy('materials')}</span><strong>${money(data.materials)} (${pct(data.materials)})</strong></div><div class="tooltip-row"><span>${copy('equipment')}</span><strong>${money(data.equipment)} (${pct(data.equipment)})</strong></div><div class="tooltip-row"><span>${copy('maintenance')}</span><strong>${money(data.maintenance)} (${pct(data.maintenance)})</strong></div><div class="tooltip-row"><span>${copy('actual')}</span><strong>${money(data.actual)}</strong></div>`, x, y);
     }
 
     function showElementTip(el, event) {
       const rect = el.getBoundingClientRect();
       const x = event?.clientX || rect.left + rect.width / 2;
       const y = event?.clientY || rect.top;
-      setTooltip(`<div class="tooltip-title">${el.dataset.tipTitle || '重點'}</div><div class="tooltip-body">${el.dataset.tip || ''}</div>`, x, y);
+      setTooltip(`<div class="tooltip-title">${el.dataset[locale() === 'en' ? 'tipTitleEn' : 'tipTitle'] || copy('fallbackTitle')}</div><div class="tooltip-body">${el.dataset[locale() === 'en' ? 'tipEn' : 'tip'] || ''}</div>`, x, y);
     }
 
     function hideTooltip() {
@@ -432,13 +468,13 @@
       const data = pointData(pt);
       points.forEach(item => item.classList.toggle('active', item === pt));
       chartMeta.innerHTML = [
-        ['本月預估', `${data.planned} (${pct(data.planned)})`, data.focus],
-        ['累計預估', `${data.cum} (${pct(data.cum)})`, '截至本月的累計規劃'],
-        ['補助 / 自籌', `${data.subsidy} / ${data.self}`, '本月資金來源拆分'],
-        ['人事費', `${data.personnel} (${pct(data.personnel)})`, '本月人事投入預估'],
-        ['材料費', `${data.materials} (${pct(data.materials)})`, '本月材料預估'],
-        ['設備費', `${data.equipment} (${pct(data.equipment)})`, '本月設備使用預估']
-      ].map(([label, value, tip]) => `<div class="mini-card js-tip" tabindex="0" data-tip-title="${label}" data-tip="${tip}"><span class="label">${label}</span><strong class="value" style="font-size:24px">${value}</strong></div>`).join('');
+        [copy('planned'), `${data.planned} (${pct(data.planned)})`, data.focus],
+        [copy('cumulative'), `${data.cum} (${pct(data.cum)})`, copy('cumulativeTip')],
+        [copy('subsidySelf'), `${data.subsidy} / ${data.self}`, copy('fundingSplit')],
+        [copy('personnel'), `${data.personnel} (${pct(data.personnel)})`, copy('personnelTip')],
+        [copy('materials'), `${data.materials} (${pct(data.materials)})`, copy('materialsTip')],
+        [copy('equipment'), `${data.equipment} (${pct(data.equipment)})`, copy('equipmentTip')]
+      ].map(([label, value, tip]) => `<div class="mini-card js-tip" tabindex="0" data-tip-title="${label}" data-tip="${tip}" data-tip-title-en="${label}" data-tip-en="${tip}"><span class="label">${label}</span><strong class="value" style="font-size:24px">${value}</strong></div>`).join('');
       bindTips(document);
       if (keepTip) showPointTip(pt, event);
     }
@@ -457,7 +493,7 @@
     points.forEach(pt => {
       pt.setAttribute('tabindex', '0');
       pt.setAttribute('role', 'button');
-      pt.setAttribute('aria-label', `${pt.dataset.month} 月度重點`);
+      pt.setAttribute('aria-label', `${pt.dataset.month} ${copy('monthAria')}`);
       pt.addEventListener('pointerenter', event => selectMonth(pt, event));
       pt.addEventListener('pointermove', event => showPointTip(pt, event));
       pt.addEventListener('pointerleave', hideTooltip);
@@ -479,7 +515,9 @@
       const isEnglish = document.documentElement.lang === 'en';
       document.documentElement.lang = isEnglish ? 'zh-Hant' : 'en';
       langToggle.textContent = isEnglish ? 'EN' : '中';
-      langToggle.setAttribute('aria-label', isEnglish ? 'Switch language' : '切換語言');
+      langToggle.setAttribute('aria-label', isEnglish ? copy('switchToEnglish') : copy('switchToChinese'));
+      const activePoint = document.querySelector('.pt.active') || points[1];
+      selectMonth(activePoint, null, false);
     });
 
     document.addEventListener('pointerdown', event => {
