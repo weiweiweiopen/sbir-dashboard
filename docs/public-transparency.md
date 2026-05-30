@@ -21,3 +21,7 @@
 
 六月由中信 SBIR 專戶建議提領補助款上限：NT$46,083。計算排除銀行手續費；Edmond Jordan 顧問費最終仍需以銀行台幣扣款/匯率憑證確認。
 
+
+## Greatcell quote WCO5526-1
+
+2026-05-27 Greatcell Solar Materials quote WCO5526-1 total AUD 887.01 is recorded as a pending procurement quote only. It is not an invoice/payment proof yet and is excluded from the current June subsidy withdrawal calculation until paid and matched with remittance/card proof.
