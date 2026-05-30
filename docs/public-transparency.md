@@ -19,9 +19,9 @@
 
 已補 5 月薪資、Edmond Jordan 顧問費第一期、導電玻璃材料費之去識別化實支摘要（BN02880855，含稅 4,200）。公開頁僅揭露科目級金額與補助款提領試算；個人薪資明細、銀行帳號、匯款水單影本、合約影本與完整憑證留於內部核銷資料夾，不公開。
 
-六月由中信 SBIR 專戶建議提領補助款上限：NT$46,083。計算排除銀行手續費；Edmond Jordan 顧問費最終仍需以銀行台幣扣款/匯率憑證確認。
+六月由中信 SBIR 專戶建議提領補助款上限：NT$55,594（含 Greatcell quote WCO5526-1 暫估入帳）。若只提領憑證齊全項目，安全數仍為 NT$46,083。計算排除銀行手續費；Edmond Jordan 顧問費與 Greatcell 最終台幣金額仍需以銀行扣款/匯率憑證確認。
 
 
 ## Greatcell quote WCO5526-1
 
-2026-05-27 Greatcell Solar Materials quote WCO5526-1 total AUD 887.01 is recorded as a pending procurement quote only. It is not an invoice/payment proof yet and is excluded from the current June subsidy withdrawal calculation until paid and matched with remittance/card proof.
+2026-05-27 Greatcell Solar Materials quote WCO5526-1 total AUD 887.01 is recorded as accrued pending invoice procurement. It is included in the June withdrawal control estimate at NT$20,023, but the invoice/payment proof must be attached before final reimbursement filing.
