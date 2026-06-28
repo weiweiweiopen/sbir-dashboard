@@ -211,7 +211,7 @@
         <p class="subtitle"><span data-zh>加密光伏光場鏡片 · Phase 1 · 115/05/01–115/10/31</span><span data-en>Encrypted Photovoltaic Light-field Lens · Phase 1 · 2026/05/01–2026/10/31</span></p>
       </div>
       <div class="meta">
-        <span class="chip"><span data-zh>資料版本 2026/05/30</span><span data-en>Data version 2026/05/30</span></span>
+        <span class="chip"><span data-zh>資料版本 2026/06/28</span><span data-en>Data version 2026/06/28</span></span>
         <a class="chip" href="#funding"><span data-zh>資金動態</span><span data-en>Funding</span></a>
         <a class="chip" href="#details"><span data-zh>資料明細</span><span data-en>Details</span></a>
         <button class="chip lang-toggle" type="button" id="langToggle" aria-label="Switch language">EN</button>
@@ -320,6 +320,7 @@
             <button class="tab" data-tab="equipment" role="tab"><span data-zh>設備使用</span><span data-en>Equipment use</span></button>
             <button class="tab" data-tab="maintenance" role="tab"><span data-zh>設備維護</span><span data-en>Maintenance</span></button>
             <button class="tab" data-tab="actual" role="tab"><span data-zh>實支</span><span data-en>Actuals</span></button>
+            <button class="tab" data-tab="dssc-curves" role="tab"><span data-zh>DSSC 曲線</span><span data-en>DSSC curves</span></button>
             <button class="tab" data-tab="public" role="tab"><span data-zh>公開邊界</span><span data-en>Disclosure</span></button>
           </div>
 
@@ -387,6 +388,15 @@
               </tbody></table><div class="links"><a class="link" href="data/public/equipment-maintenance.csv">equipment-maintenance.csv</a></div>
             </div>
             <div class="panel" data-panel="actual" role="tabpanel"><table><thead><tr><th>日期</th><th>科目</th><th>範圍</th><th class="num">實支</th><th>公開備註</th></tr></thead><tbody><tr><td>2026-05-25</td><td>消耗性器材及原材料費</td><td>導電玻璃材料採購</td><td class="num money">4,200</td><td>發票 BN02880855：20×20×2.2 FTO 15歐姆 100片，含稅總額</td></tr><tr><td>2026-05-27</td><td>消耗性器材及原材料費</td><td>Greatcell Solar Materials quote WCO5526-1</td><td class="num money">20,023</td><td>AUD 887.01 暫估；發票/付款證明待補，先列支出預估</td></tr><tr><td>2026-05-29</td><td>顧問</td><td>Edmond Jordan 顧問費第一期</td><td class="num money">25,000</td><td>USD 793.80 暫估；最終以銀行台幣扣款/匯率憑證為準</td></tr><tr><td>2026-06-05</td><td>研發人員</td><td>5月份薪資支出</td><td class="num money">75,500</td><td>依 0605001 轉帳傳票；個人薪資明細不公開</td></tr><tr><td><strong>六月提領建議</strong></td><td>補助款</td><td>中信 SBIR 專戶</td><td class="num money">55,594</td><td>含 Greatcell quote 暫估；正式核銷需補發票/付款證明，不含銀行手續費</td></tr></tbody></table><div class="links"><a class="link" href="data/public/actual-expenses.csv">actual-expenses.csv</a><a class="link" href="data/public/subsidy-withdrawal.csv">subsidy-withdrawal.csv</a><a class="link" href="data/public/procurement-quotes.csv">procurement-quotes.csv</a></div></div>
+            <div class="panel" data-panel="dssc-curves" role="tabpanel">
+              <div style="padding:16px"><p><span data-zh>DSSC 三片樣本的 normalized I–V curve 資料已轉入公開表：每條曲線以 V_norm=V/Voc、I_norm=I/Isc 正規化，並在 0–1 電壓格點插值。LOOCV nearest-centroid 辨識結果為 13/13 = 100%。</span><span data-en>Normalized I–V curve data for the three DSSC boards has been added to the public tables. Each curve is normalized as V_norm=V/Voc and I_norm=I/Isc, then interpolated on a 0–1 voltage grid. LOOCV nearest-centroid identification: 13/13 = 100%.</span></p></div>
+              <table><thead><tr><th>Board</th><th class="num">n</th><th class="num">Voc avg (mV)</th><th class="num">Voc stdev</th><th class="num">Isc avg (mA)</th><th class="num">Isc stdev</th><th class="num">FF_norm avg</th><th class="num">Intra corr avg</th><th class="num">Intra RMSE avg</th><th class="num">Inter RMSE min</th></tr></thead><tbody>
+                <tr><td>0</td><td class="num">3</td><td class="num">683.004</td><td class="num">10.699</td><td class="num">5.450</td><td class="num">0.059</td><td class="num">0.326</td><td class="num">0.999876</td><td class="num">0.009568</td><td class="num">0.152444</td></tr>
+                <tr><td>1</td><td class="num">5</td><td class="num">664.127</td><td class="num">6.739</td><td class="num">6.975</td><td class="num">0.108</td><td class="num">0.584</td><td class="num">0.999772</td><td class="num">0.006210</td><td class="num">0.097052</td></tr>
+                <tr><td>2</td><td class="num">5</td><td class="num">671.142</td><td class="num">6.212</td><td class="num">7.586</td><td class="num">0.100</td><td class="num">0.473</td><td class="num">0.999890</td><td class="num">0.006144</td><td class="num">0.097052</td></tr>
+              </tbody></table>
+              <div class="links"><a class="link" href="data/public/dssc-curve-summary.csv">dssc-curve-summary.csv</a><a class="link" href="data/public/dssc-normalized-curves.csv">dssc-normalized-curves.csv</a><a class="link" href="data/public/dssc-pairwise-metrics.csv">dssc-pairwise-metrics.csv</a><a class="link" href="data/public/dssc-global-shape-metrics.csv">dssc-global-shape-metrics.csv</a></div>
+            </div>
             <div class="panel" data-panel="public" role="tabpanel"><div style="padding:16px"><p>公開專案級預算、月度規劃、去識別化實支與研究摘要。不公開個人薪資細節、身分證字號、地址、電話、Email、銀行帳戶、登入截圖、cookie、token、合約影本與內部憑證。</p></div><div class="links"><a class="link" href="docs/public-transparency.md">public-transparency.md</a><a class="link" href="data/public/project.json">project.json</a></div></div>
           </div>
         </div>
