@@ -1,0 +1,6 @@
+Metric,Value
+Intra-board RMSE avg,0.006619
+Intra-board RMSE max,0.014185
+Inter-board RMSE avg,0.163732
+Inter-board RMSE min,0.097052
+Separation ratio: inter avg / intra avg,24.735351
