@@ -6,22 +6,22 @@
   <title>SBIR 1Z1141068</title>
   <style>
     :root {
-      color-scheme: dark;
-      --bg: #08090d;
-      --panel: rgba(19, 21, 29, .78);
-      --panel-2: rgba(255, 255, 255, .055);
-      --panel-3: rgba(255, 255, 255, .09);
-      --text: #f7f7fb;
-      --muted: #a7a9b5;
-      --soft: #747888;
-      --line: rgba(255, 255, 255, .13);
-      --line-2: rgba(255, 255, 255, .2);
-      --a: #7c5cff;
-      --b: #ff5478;
-      --c: #20d6b5;
-      --warn: #ffc857;
-      --shadow: 0 28px 90px rgba(0, 0, 0, .38);
-      --radius: 28px;
+      color-scheme: light;
+      --bg: #fcfaf5;
+      --panel: #fcfaf5;
+      --panel-2: rgba(255, 74, 28, .055);
+      --panel-3: rgba(255, 74, 28, .09);
+      --text: #271c17;
+      --muted: rgba(39, 28, 23, .68);
+      --soft: rgba(39, 28, 23, .52);
+      --line: rgba(255, 74, 28, .42);
+      --line-2: rgba(255, 74, 28, .66);
+      --a: #ff4a1c;
+      --b: #ff4a1c;
+      --c: #ff4a1c;
+      --warn: #ff4a1c;
+      --shadow: 0 12px 30px rgba(39, 28, 17, .12);
+      --radius: 0;
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -30,23 +30,25 @@
       min-height: 100vh;
       color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", "PingFang TC", system-ui, sans-serif;
-      background:
-        radial-gradient(circle at 14% 2%, rgba(124, 92, 255, .26), transparent 34%),
-        radial-gradient(circle at 86% 10%, rgba(255, 84, 120, .22), transparent 30%),
-        linear-gradient(180deg, #15101d 0%, #08090d 42%, #0b0d12 100%);
+      background: var(--bg);
     }
     body::before {
       content: "";
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image: linear-gradient(rgba(255,255,255,.032) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.032) 1px, transparent 1px);
+      background-image: linear-gradient(rgba(255,74,28,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,74,28,.12) 1px, transparent 1px);
       background-size: 42px 42px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,.8), transparent 70%);
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.55), transparent 72%);
     }
     h1, h2, h3, p { margin: 0; }
     button, input { font: inherit; }
     a { color: inherit; }
+
+    body, button, input, table { letter-spacing: -0.01em; }
+    .eyebrow, .section-kicker, .label, th { color: var(--a); text-transform: uppercase; }
+    .card, .metric, .mini-card, .detail-item, .month-card, .panel, .tooltip, .chip, .link, .tab { border-color: var(--line) !important; box-shadow: none !important; }
+    .chip, .link, .tab, button { border-radius: 0 !important; }
     .wrap { width: min(1440px, 100%); margin: 0 auto; padding: 28px 18px 54px; }
     .topbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; margin-bottom: 16px; }
     .eyebrow { color: var(--c); font-size: 12px; font-weight: 760; letter-spacing: .18em; text-transform: uppercase; }
@@ -55,9 +57,9 @@
     .meta { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
     .chip, .link, .tab {
       border: 1px solid var(--line);
-      background: rgba(255, 255, 255, .055);
+      background: transparent;
       color: var(--muted);
-      border-radius: 999px;
+      border-radius: 0;
       padding: 8px 12px;
       font-size: 12px;
       text-decoration: none;
@@ -69,10 +71,10 @@
     .card {
       position: relative;
       border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.088), rgba(255,255,255,.045));
+      background: var(--panel);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(22px);
+
       overflow: hidden;
     }
     .card::after {
@@ -81,7 +83,7 @@
       inset: 0;
       pointer-events: none;
       border-radius: inherit;
-      background: linear-gradient(135deg, rgba(255,255,255,.13), transparent 34%, rgba(255,255,255,.045));
+      background: transparent;
       opacity: .7;
     }
     .section { padding: clamp(18px, 3vw, 30px); margin-top: 14px; }
@@ -100,21 +102,21 @@
       right: -180px;
       top: -230px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,84,120,.35), transparent 64%);
+      background: radial-gradient(circle, rgba(255,74,28,.12), transparent 64%);
     }
     .latest-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 24px; }
     .metric, .mini-card, .detail-item, .month-card {
       border: 1px solid var(--line);
-      background: rgba(255, 255, 255, .055);
-      border-radius: 20px;
+      background: transparent;
+      border-radius: 0;
       padding: 14px;
       min-width: 0;
       transition: transform .18s ease, border-color .18s ease, background .18s ease;
     }
     .metric:hover, .metric:focus-visible, .mini-card:hover, .mini-card:focus-visible, .detail-item:hover, .detail-item:focus-visible, .month-card:hover, .month-card:focus-visible {
       transform: translateY(-2px);
-      border-color: rgba(32, 214, 181, .5);
-      background: rgba(255, 255, 255, .085);
+      border-color: var(--line-2);
+      background: rgba(255, 74, 28, .055);
       outline: none;
     }
     .label { color: var(--soft); font-size: 12px; font-weight: 680; }
@@ -123,33 +125,33 @@
     .status-card { padding: 24px; display: grid; gap: 16px; }
     .now-badge { display: inline-flex; align-items: center; gap: 8px; color: var(--c); font-weight: 800; }
     .pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 8px rgba(32,214,181,.12); }
-    .progress-bar { height: 12px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.1); border: 1px solid var(--line); }
-    .progress-bar span { display: block; width: 33.3%; height: 100%; background: linear-gradient(90deg, var(--c), var(--a), var(--b)); }
+    .progress-bar { height: 12px; border-radius: 0; overflow: hidden; background: rgba(255,74,28,.08); border: 1px solid var(--line); }
+    .progress-bar span { display: block; width: 33.3%; height: 100%; background: var(--a); }
     .timeline { display: grid; gap: 8px; }
     .timeline-row { display: grid; grid-template-columns: 56px 1fr; gap: 10px; align-items: center; color: var(--muted); font-size: 13px; }
     .timeline-row.active { color: var(--text); }
-    .timeline-track { position: relative; height: 8px; border-radius: 999px; background: rgba(255,255,255,.09); overflow: hidden; }
-    .timeline-track span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--a), var(--b)); }
+    .timeline-track { position: relative; height: 8px; border-radius: 0; background: rgba(255,74,28,.08); overflow: hidden; }
+    .timeline-track span { display: block; height: 100%; border-radius: inherit; background: var(--a); }
     .chart-shell { position: relative; padding-bottom: 4px; }
     svg { width: 100%; height: 330px; display: block; overflow: visible; touch-action: manipulation; }
     .axis { stroke: var(--line); stroke-width: 1; }
     .axis-label { fill: var(--muted); font-size: 12px; font-weight: 650; }
-    .planned { fill: none; stroke: url(#grad); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 12px 18px rgba(255,84,120,.18)); }
-    .actual { fill: none; stroke: rgba(255,255,255,.46); stroke-width: 3; stroke-dasharray: 7 8; }
-    .node { fill: #151721; stroke: var(--b); stroke-width: 4; cursor: pointer; transition: r .16s ease, fill .16s ease, stroke .16s ease; }
+    .planned { fill: none; stroke: url(#grad); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; filter: none; }
+    .actual { fill: none; stroke: rgba(39, 28, 23, .45); stroke-width: 3; stroke-dasharray: 7 8; }
+    .node { fill: var(--bg); stroke: var(--b); stroke-width: 4; cursor: pointer; transition: r .16s ease, fill .16s ease, stroke .16s ease; }
     .hit { fill: transparent; cursor: pointer; }
-    .pt.active .node, .pt:hover .node { r: 10; fill: var(--b); stroke: #ffd1dc; }
+    .pt.active .node, .pt:hover .node { r: 10; fill: var(--b); stroke: var(--text); }
     .chart-meta { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
     .details-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 14px; }
     .tabs { display: flex; flex-direction: column; gap: 8px; }
     .tab { width: 100%; text-align: left; cursor: pointer; }
-    .tab.active { color: white; border-color: transparent; background: linear-gradient(135deg, var(--a), var(--b)); }
-    .panel { display: none; overflow-x: auto; overflow-y: hidden; border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,.035); -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; scrollbar-gutter: stable; }
+    .tab.active { color: white; border-color: transparent; background: var(--a); }
+    .panel { display: none; overflow-x: auto; overflow-y: hidden; border: 1px solid var(--line); border-radius: 22px; background: rgba(252,250,245,.86); -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; scrollbar-gutter: stable; }
     .panel.active { display: block; }
     .panel table { width: max-content; min-width: 100%; }
     table { width: 100%; border-collapse: collapse; min-width: 760px; }
     th, td { padding: 13px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; font-size: 13px; line-height: 1.45; }
-    th { color: var(--muted); font-size: 11px; font-weight: 780; background: rgba(255,255,255,.055); letter-spacing: .04em; }
+    th { color: var(--muted); font-size: 11px; font-weight: 780; background: rgba(255,74,28,.07); letter-spacing: .04em; }
     td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
     tr:last-child td { border-bottom: 0; }
     .money { font-weight: 820; color: var(--text); }
@@ -162,11 +164,11 @@
       pointer-events: none;
       transform: translate(-50%, calc(-100% - 18px));
       border: 1px solid rgba(255,255,255,.18);
-      background: rgba(13, 15, 22, .92);
-      border-radius: 18px;
+      background: rgba(252, 250, 245, .96);
+      border-radius: 0;
       padding: 13px 14px;
       box-shadow: 0 18px 50px rgba(0,0,0,.36);
-      backdrop-filter: blur(18px);
+
       transition: opacity .14s ease;
     }
     .tooltip.show { opacity: 1; }
@@ -193,7 +195,7 @@
       svg { height: 270px; }
       .axis-label { font-size: 13px; }
       .panel { max-width: calc(100vw - 52px); touch-action: pan-x pan-y; }
-      .panel::after { content: "← scroll →"; position: sticky; left: 12px; bottom: 8px; display: inline-block; margin: 8px 0 10px 12px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: rgba(8,9,13,.72); font-size: 11px; pointer-events: none; }
+      .panel::after { content: "← scroll →"; position: sticky; left: 12px; bottom: 8px; display: inline-block; margin: 8px 0 10px 12px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 0; color: var(--muted); background: rgba(8,9,13,.72); font-size: 11px; pointer-events: none; }
       .panel table { min-width: 760px; }
       .panel[data-panel="monthly"] table { min-width: 940px; }
       .panel[data-panel="actual"] table { min-width: 1080px; }
@@ -224,20 +226,20 @@
           <div>
             <div class="section-kicker">Layer 1 · Latest</div>
             <h2><span data-zh>目前進度：2026-06 樣本製作與材料補採購</span><span data-en>Current status: 2026-06 sample fabrication and materials follow-up</span></h2>
-            <p style="max-width: 760px; margin-top: 12px;"><span data-zh>一打開頁面先看到計劃走到哪裡：已進入第 2 個月，累計規劃預算 300,000，占總預算 39.5%。目前已補公開實支摘要 124,723；其中 5 月人事費為薪資傳票 75,500（計畫主持人 50,000＋研發人員約 25,000，待薪資明細最終核對），另列 Edmond Jordan 顧問費第一期 25,000。六月建議由中信 SBIR 專戶提領補助款上限 55,594（含 Greatcell quote 待補發票），避免溢領。</span><span data-en>At a glance: the project is in month 2. Cumulative planned spending is 300,000, or 39.5% of the total budget. Public actual/accrued spending is 124,723. May personnel is recorded as a 75,500 payroll voucher (project lead 50,000 + R&D staff about 25,000, pending final payroll reconciliation), with Edmond Jordan consultant fee phase 1 recorded separately at 25,000. The recommended June withdrawal from the CTBC SBIR account is capped at 55,594, including the Greatcell quote pending invoice, to avoid over-withdrawal.</span></p>
+            <p style="max-width: 760px; margin-top: 12px;"><span data-zh>一打開頁面先看到計劃走到哪裡：已進入第 2 個月，累計規劃預算 300,000，占總預算 39.5%。目前已補公開實支摘要 125,466；其中新增 6/26 材料耗材發票 743。發票品項與原預算細項有出入沒關係，先列入耗材實支，後續在耗材項目申請變更。六月建議由中信 SBIR 專戶提領補助款上限 55,947（含 Greatcell quote 待補發票），避免溢領。</span><span data-en>At a glance: the project is in month 2. Cumulative planned spending is 300,000, or 39.5% of the total budget. Public actual/accrued spending is 125,466, including the newly recorded 6/26 materials invoice of 743. The invoice item differs from the original budget detail; it is recorded first under consumable materials and will be adjusted later through a materials budget-change note. The recommended June withdrawal from the CTBC SBIR account is capped at 55,947, including the Greatcell quote pending invoice, to avoid over-withdrawal.</span></p>
           </div>
           <div class="latest-grid">
             <div class="metric js-tip" tabindex="0" data-tip-title="計劃月份" data-tip="Phase 1 共 6 個月，目前主視角設定為 2026-06，方便檢視現在計劃走到哪裡。"><span class="label"><span data-zh>目前月份</span><span data-en>Current month</span></span><strong class="value">M2 / 6</strong><small>2026-06</small></div>
             <div class="metric js-tip" tabindex="0" data-tip-title="本月預估" data-tip="2026-06 規劃 125,000，占總預算 16.4%，用途為樣本製作、材料補採購與人事。"><span class="label"><span data-zh>本月預估</span><span data-en>Planned this month</span></span><strong class="value">125,000</strong><small>16.4% of total</small></div>
             <div class="metric js-tip" tabindex="0" data-tip-title="累計規劃" data-tip="截至 2026-06，累計預估 300,000，占總預算 39.5%。"><span class="label"><span data-zh>累計規劃</span><span data-en>Cumulative plan</span></span><strong class="value">300,000</strong><small>39.5% of total</small></div>
-            <div class="metric js-tip" tabindex="0" data-tip-title="公開實支" data-tip="已補 5 月薪資 75,500（50,000＋約25,000待核）、Edmond Jordan 顧問費第一期 25,000、導電玻璃材料費與 Greatcell quote 暫估。"><span class="label"><span data-zh>公開實支</span><span data-en>Public actual/accrued</span></span><strong class="value">124,723</strong><small><span data-zh>已補/待補 4 筆</span><span data-en>4 recorded / pending items</span></small></div>
+            <div class="metric js-tip" tabindex="0" data-tip-title="公開實支" data-tip="已補薪資、顧問費、導電玻璃、Greatcell quote 暫估與 6/26 材料耗材發票。"><span class="label"><span data-zh>公開實支</span><span data-en>Public actual/accrued</span></span><strong class="value">125,466</strong><small><span data-zh>已補/待補 5 筆</span><span data-en>5 recorded / pending items</span></small></div>
           </div>
         </div>
         <aside class="card status-card">
           <div>
             <div class="now-badge"><span class="pulse"></span>Current Plan Position</div>
             <h2 style="margin-top: 12px;"><span data-zh>115/06 執行中</span><span data-en>2026-06 in progress</span></h2>
-            <p style="margin-top: 8px;"><span data-zh>重點：樣本製作、材料補採購、人事投入；本月可提領補助款建議上限 55,594。</span><span data-en>Focus: sample fabrication, materials follow-up, and R&D labor. Recommended withdrawal cap this month: 55,594.</span></p>
+            <p style="margin-top: 8px;"><span data-zh>重點：樣本製作、材料補採購、人事投入；本月可提領補助款建議上限 55,947。</span><span data-en>Focus: sample fabrication, materials follow-up, and R&D labor. Recommended withdrawal cap this month: 55,947.</span></p>
           </div>
           <div>
             <div class="label"><span data-zh>總期程完成感</span><span data-en>Overall timeline progress</span></div>
@@ -274,7 +276,7 @@
             <path class="planned" d="M76 46 L236 116 L396 81 L556 123 L716 158 L876 158"/>
             <path class="actual" d="M76 131 L236 256 L396 256 L556 256 L716 256 L876 256"/>
             <g class="pt" data-month="2026-05" data-short="May" data-index="1" data-subsidy="55,594" data-self="69,129" data-personnel="75,500" data-consultant="25,000" data-materials="24,223" data-equipment="0" data-maintenance="0" data-planned="175,000" data-actual="124,723" data-cum="175,000" data-focus="人事、首批材料、設備使用與維護" data-kpi="啟動採購與基礎樣本準備" data-research="建立樣本製作條件與初始材料清單，完成 Phase 1 啟動資料整理。"><circle class="node" cx="76" cy="46" r="6"/><circle class="hit" cx="76" cy="46" r="28"/><text class="axis-label" x="52" y="297">May</text></g>
-            <g class="pt" data-month="2026-06" data-short="Jun" data-index="2" data-subsidy="59,211" data-self="65,789" data-personnel="95,000" data-consultant="0" data-materials="30,000" data-equipment="0" data-maintenance="0" data-planned="125,000" data-actual="0" data-cum="300,000" data-focus="樣本製作、材料補採購、人事" data-kpi="樣本製作節點執行中" data-research="延續 5 月材料與設備準備，聚焦樣本製作、材料補採購與研發人力投入。"><circle class="node" cx="236" cy="116" r="6"/><circle class="hit" cx="236" cy="116" r="28"/><text class="axis-label" x="213" y="297">Jun</text></g>
+            <g class="pt" data-month="2026-06" data-short="Jun" data-index="2" data-subsidy="59,211" data-self="65,789" data-personnel="95,000" data-consultant="0" data-materials="743" data-equipment="0" data-maintenance="0" data-planned="125,000" data-actual="743" data-cum="300,000" data-focus="樣本製作、材料補採購、人事" data-kpi="樣本製作節點執行中" data-research="延續 5 月材料與設備準備，聚焦樣本製作、材料補採購與研發人力投入。"><circle class="node" cx="236" cy="116" r="6"/><circle class="hit" cx="236" cy="116" r="28"/><text class="axis-label" x="213" y="297">Jun</text></g>
             <g class="pt" data-month="2026-07" data-short="Jul" data-index="3" data-subsidy="71,053" data-self="78,947" data-personnel="95,000" data-consultant="25,000" data-materials="30,000" data-equipment="0" data-maintenance="0" data-planned="150,000" data-actual="0" data-cum="450,000" data-focus="I-V 建模、資料庫、材料補採購、顧問第 1 期" data-kpi="I-V 建模與資料庫" data-research="將樣本量測結果轉入 I-V 建模與資料庫整理，並啟動顧問第一期檢核。"><circle class="node" cx="396" cy="81" r="6"/><circle class="hit" cx="396" cy="81" r="28"/><text class="axis-label" x="378" y="297">Jul</text></g>
             <g class="pt" data-month="2026-08" data-short="Aug" data-index="4" data-subsidy="56,842" data-self="63,158" data-personnel="95,000" data-consultant="25,000" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="120,000" data-actual="0" data-cum="570,000" data-focus="PUF 測試、顧問第 2 期、人事" data-kpi="PUF 測試驗證" data-research="針對光伏光場特徵建立 PUF 測試流程，並由顧問第二期協助驗證方法。"><circle class="node" cx="556" cy="123" r="6"/><circle class="hit" cx="556" cy="123" r="28"/><text class="axis-label" x="532" y="297">Aug</text></g>
             <g class="pt" data-month="2026-09" data-short="Sep" data-index="5" data-subsidy="45,000" data-self="50,000" data-personnel="95,000" data-consultant="0" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="95,000" data-actual="0" data-cum="665,000" data-focus="挑戰/回應流程測試、資料整理、人事" data-kpi="Challenge / Response 測試" data-research="整理 PUF 測試資料，驗證挑戰/回應流程與資料穩定性。"><circle class="node" cx="716" cy="158" r="6"/><circle class="hit" cx="716" cy="158" r="28"/><text class="axis-label" x="693" y="297">Sep</text></g>
@@ -328,7 +330,7 @@
             <div class="panel active" data-panel="monthly" role="tabpanel">
               <table><thead><tr><th>月份</th><th class="num">預估</th><th class="num">實支</th><th class="num">累計預估</th><th>KPI / 用途</th></tr></thead><tbody>
                 <tr><td>2026-05</td><td class="num money">175,000</td><td class="num">124,723</td><td class="num">175,000</td><td>人事薪資 75,500（50,000＋約25,000待核）、Edmond Jordan 顧問第一期 25,000、導電玻璃材料憑證，Greatcell 材料 quote 先列支出預估</td></tr>
-                <tr><td>2026-06</td><td class="num money">125,000</td><td class="num">0</td><td class="num">300,000</td><td>樣本製作、材料補採購、人事；樣本製作節點執行中</td></tr>
+                <tr><td>2026-06</td><td class="num money">125,000</td><td class="num">743</td><td class="num">300,000</td><td>新增 6/26 材料耗材發票 743；品項與原預算細項出入先記錄，後續於耗材項目申請變更</td></tr>
                 <tr><td>2026-07</td><td class="num money">150,000</td><td class="num">0</td><td class="num">450,000</td><td>I-V 建模、資料庫、材料補採購、顧問第 1 期</td></tr>
                 <tr><td>2026-08</td><td class="num money">120,000</td><td class="num">0</td><td class="num">570,000</td><td>PUF 測試、顧問第 2 期、人事</td></tr>
                 <tr><td>2026-09</td><td class="num money">95,000</td><td class="num">0</td><td class="num">665,000</td><td>挑戰/回應流程測試、資料整理、人事</td></tr>
@@ -387,7 +389,7 @@
                 <tr><td>自動溫控玻璃窯（內腔65x45x10cm）</td><td>M001</td><td class="num">10.5</td><td class="num">1</td><td class="num money">3</td></tr>
               </tbody></table><div class="links"><a class="link" href="data/public/equipment-maintenance.csv">equipment-maintenance.csv</a></div>
             </div>
-            <div class="panel" data-panel="actual" role="tabpanel"><table><thead><tr><th>日期</th><th>科目</th><th>範圍</th><th class="num">實支</th><th>公開備註</th></tr></thead><tbody><tr><td>2026-05-25</td><td>消耗性器材及原材料費</td><td>導電玻璃材料採購</td><td class="num money">4,200</td><td>發票 BN02880855：20×20×2.2 FTO 15歐姆 100片，含稅總額</td></tr><tr><td>2026-05-27</td><td>消耗性器材及原材料費</td><td>Greatcell Solar Materials quote WCO5526-1</td><td class="num money">20,023</td><td>AUD 887.01 暫估；發票/付款證明待補，先列支出預估</td></tr><tr><td>2026-05-29</td><td>顧問</td><td>Edmond Jordan 顧問費第一期</td><td class="num money">25,000</td><td>USD 793.80 暫估；最終以銀行台幣扣款/匯率憑證為準</td></tr><tr><td>2026-06-05</td><td>研發人員薪資</td><td>5月份薪資支出</td><td class="num money">75,500</td><td>薪資傳票合計；拆分暫註記為計畫主持人 50,000＋研發人員約 25,000，待薪資明細/銀行紀錄最終核對</td></tr><tr><td><strong>六月提領建議</strong></td><td>補助款</td><td>中信 SBIR 專戶</td><td class="num money">55,594</td><td>含 Greatcell quote 暫估；正式核銷需補發票/付款證明，不含銀行手續費</td></tr></tbody></table><div class="links"><a class="link" href="data/public/actual-expenses.csv">actual-expenses.csv</a><a class="link" href="data/public/subsidy-withdrawal.csv">subsidy-withdrawal.csv</a><a class="link" href="data/public/procurement-quotes.csv">procurement-quotes.csv</a></div></div>
+            <div class="panel" data-panel="actual" role="tabpanel"><table><thead><tr><th>日期</th><th>科目</th><th>範圍</th><th class="num">實支</th><th>公開備註</th></tr></thead><tbody><tr><td>2026-05-25</td><td>消耗性器材及原材料費</td><td>導電玻璃材料採購</td><td class="num money">4,200</td><td>電子發票明細 BN02880855：20×20×2.2 FTO 15歐姆 100片，含稅總額</td></tr><tr><td>2026-05-27</td><td>消耗性器材及原材料費</td><td>Greatcell Solar Materials quote WCO5526-1</td><td class="num money">20,023</td><td>AUD 887.01 暫估；發票/付款證明待補，先列支出預估</td></tr><tr><td>2026-05-29</td><td>顧問</td><td>Edmond Jordan 顧問費第一期</td><td class="num money">25,000</td><td>USD 793.80 暫估；最終以銀行台幣扣款/匯率憑證為準</td></tr><tr><td>2026-06-05</td><td>研發人員薪資</td><td>5月份薪資支出</td><td class="num money">75,500</td><td>薪資傳票合計；拆分暫註記為計畫主持人 50,000＋研發人員約 25,000，待薪資明細/銀行紀錄最終核對</td></tr><tr><td>2026-06-26</td><td>消耗性器材及原材料費</td><td>材料耗材採購（統一發票 57488065）</td><td class="num money">743</td><td>品項手寫辨識不完整；先列耗材實支，後續耗材項目申請變更</td></tr><tr><td><strong>六月提領建議</strong></td><td>補助款</td><td>中信 SBIR 專戶</td><td class="num money">55,947</td><td>含 Greatcell quote 暫估與 6/26 耗材發票；正式核銷需補發票/付款證明，不含銀行手續費</td></tr></tbody></table><div class="links"><a class="link" href="data/public/actual-expenses.csv">actual-expenses.csv</a><a class="link" href="data/public/subsidy-withdrawal.csv">subsidy-withdrawal.csv</a><a class="link" href="data/public/procurement-quotes.csv">procurement-quotes.csv</a></div></div>
             <div class="panel" data-panel="dssc-curves" role="tabpanel">
               <div style="padding:16px"><p><span data-zh>DSSC 三片樣本的 normalized I–V curve 資料已轉入公開表：每條曲線以 V_norm=V/Voc、I_norm=I/Isc 正規化，並在 0–1 電壓格點插值。LOOCV nearest-centroid 辨識結果為 13/13 = 100%。</span><span data-en>Normalized I–V curve data for the three DSSC boards has been added to the public tables. Each curve is normalized as V_norm=V/Voc and I_norm=I/Isc, then interpolated on a 0–1 voltage grid. LOOCV nearest-centroid identification: 13/13 = 100%.</span></p></div>
               <table><thead><tr><th>Board</th><th class="num">n</th><th class="num">Voc avg (mV)</th><th class="num">Voc stdev</th><th class="num">Isc avg (mA)</th><th class="num">Isc stdev</th><th class="num">FF_norm avg</th><th class="num">Intra corr avg</th><th class="num">Intra RMSE avg</th><th class="num">Inter RMSE min</th></tr></thead><tbody>
