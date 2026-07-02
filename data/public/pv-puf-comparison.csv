@@ -1,0 +1,7 @@
+item,PAR solar-cell PUF,SBIR/Solar Oracle DSSC direction
+cell_type,"Monocrystalline/single-crystalline silicon solar cells from the same batch","Handmade/patterned dye-sensitized solar cells (DSSC)"
+fabrication_role,"Cells are selected as nominally identical manufactured parts; paper does not fabricate the PV cells","Fabrication variability is part of the research object: FTO glass, TiO2/blocking layers, dye, electrolyte, Pt counter electrode, Surlyn/seal assembly"
+measurement,"Open-circuit voltage (Voc) read by microcontroller ADC","Full I-V curve / normalized curve / material voiceprint features"
+PUF_entropy,"Random manufacturing variation affects saturation current and Voc","Handmade DSSC morphology, dye loading, electrolyte distribution, interfaces and patterning affect electrical response"
+system,"8 cells connected to Tiva TM4C123GH6PM ADC; 128-bit response from pair/group comparisons","DSSC measurement database plus candidate PUF/voiceprint extraction; Solar Oracle Walkman may sign/store reports on-chain as an art-tech prototype"
+boundary,"Prior art / comparison reference","Shared research language only; SBIR accounting remains separate from Solar Oracle Walkman art budget"
