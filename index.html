@@ -1,570 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SBIR 1Z1141068</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SBIR 核銷台帳</title>
   <style>
-    :root {
-      color-scheme: light;
-      --bg: #fcfaf5;
-      --panel: #fcfaf5;
-      --panel-2: rgba(255, 74, 28, .055);
-      --panel-3: rgba(255, 74, 28, .09);
-      --text: #271c17;
-      --muted: rgba(39, 28, 23, .68);
-      --soft: rgba(39, 28, 23, .52);
-      --line: rgba(255, 74, 28, .42);
-      --line-2: rgba(255, 74, 28, .66);
-      --a: #ff4a1c;
-      --b: #ff4a1c;
-      --c: #ff4a1c;
-      --warn: #ff4a1c;
-      --shadow: 0 12px 30px rgba(39, 28, 17, .12);
-      --radius: 0;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    html, body { margin: 0; overflow-x: hidden; }
-    body {
-      min-height: 100vh;
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans TC", "PingFang TC", system-ui, sans-serif;
-      background: var(--bg);
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image: linear-gradient(rgba(255,74,28,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,74,28,.12) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,.55), transparent 72%);
-    }
-    h1, h2, h3, p { margin: 0; }
-    button, input { font: inherit; }
-    a { color: inherit; }
-
-    body, button, input, table { letter-spacing: -0.01em; }
-    .eyebrow, .section-kicker, .label, th { color: var(--a); text-transform: uppercase; }
-    .card, .metric, .mini-card, .detail-item, .month-card, .panel, .tooltip, .chip, .link, .tab { border-color: var(--line) !important; box-shadow: none !important; }
-    .chip, .link, .tab, button { border-radius: 0 !important; }
-    .wrap { width: min(1440px, 100%); margin: 0 auto; padding: 28px 18px 54px; }
-    .topbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; margin-bottom: 16px; }
-    .eyebrow { color: var(--c); font-size: 12px; font-weight: 760; letter-spacing: .18em; text-transform: uppercase; }
-    h1 { margin-top: 7px; font-size: clamp(26px, 4vw, 54px); line-height: 1; letter-spacing: -.055em; }
-    .subtitle { color: var(--muted); font-size: clamp(14px, 1.8vw, 18px); margin-top: 12px; line-height: 1.55; }
-    .meta { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
-    .chip, .link, .tab {
-      border: 1px solid var(--line);
-      background: transparent;
-      color: var(--muted);
-      border-radius: 0;
-      padding: 8px 12px;
-      font-size: 12px;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-    .lang-toggle { cursor: pointer; color: var(--text); }
-    html[lang="zh-Hant"] [data-en] { display: none !important; }
-    html[lang="en"] [data-zh] { display: none !important; }
-    .card {
-      position: relative;
-      border: 1px solid var(--line);
-      background: var(--panel);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-
-      overflow: hidden;
-    }
-    .card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      border-radius: inherit;
-      background: transparent;
-      opacity: .7;
-    }
-    .section { padding: clamp(18px, 3vw, 30px); margin-top: 14px; }
-    .section > * { position: relative; z-index: 1; }
-    .section-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; margin-bottom: 18px; }
-    .section-kicker { color: var(--soft); font-size: 12px; font-weight: 760; letter-spacing: .14em; text-transform: uppercase; }
-    .section h2 { font-size: clamp(19px, 2.4vw, 28px); margin-top: 5px; letter-spacing: -.03em; }
-    .section p { color: var(--muted); line-height: 1.55; }
-    .hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); gap: 14px; }
-    .stage { min-height: 360px; padding: clamp(22px, 4vw, 38px); display: grid; align-content: space-between; }
-    .stage::before {
-      content: "";
-      position: absolute;
-      width: 520px;
-      height: 520px;
-      right: -180px;
-      top: -230px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,74,28,.12), transparent 64%);
-    }
-    .latest-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 24px; }
-    .metric, .mini-card, .detail-item, .month-card {
-      border: 1px solid var(--line);
-      background: transparent;
-      border-radius: 0;
-      padding: 14px;
-      min-width: 0;
-      transition: transform .18s ease, border-color .18s ease, background .18s ease;
-    }
-    .metric:hover, .metric:focus-visible, .mini-card:hover, .mini-card:focus-visible, .detail-item:hover, .detail-item:focus-visible, .month-card:hover, .month-card:focus-visible {
-      transform: translateY(-2px);
-      border-color: var(--line-2);
-      background: rgba(255, 74, 28, .055);
-      outline: none;
-    }
-    .label { color: var(--soft); font-size: 12px; font-weight: 680; }
-    .value { display: block; margin-top: 6px; font-size: clamp(20px, 2.7vw, 34px); font-weight: 820; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
-    .metric small, .mini-card small, .month-card small { display: block; color: var(--muted); margin-top: 7px; line-height: 1.45; }
-    .status-card { padding: 24px; display: grid; gap: 16px; }
-    .now-badge { display: inline-flex; align-items: center; gap: 8px; color: var(--c); font-weight: 800; }
-    .pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 8px rgba(32,214,181,.12); }
-    .progress-bar { height: 12px; border-radius: 0; overflow: hidden; background: rgba(255,74,28,.08); border: 1px solid var(--line); }
-    .progress-bar span { display: block; width: 33.3%; height: 100%; background: var(--a); }
-    .timeline { display: grid; gap: 8px; }
-    .timeline-row { display: grid; grid-template-columns: 56px 1fr; gap: 10px; align-items: center; color: var(--muted); font-size: 13px; }
-    .timeline-row.active { color: var(--text); }
-    .timeline-track { position: relative; height: 8px; border-radius: 0; background: rgba(255,74,28,.08); overflow: hidden; }
-    .timeline-track span { display: block; height: 100%; border-radius: inherit; background: var(--a); }
-    .chart-shell { position: relative; padding-bottom: 4px; }
-    svg { width: 100%; height: 330px; display: block; overflow: visible; touch-action: manipulation; }
-    .axis { stroke: var(--line); stroke-width: 1; }
-    .axis-label { fill: var(--muted); font-size: 12px; font-weight: 650; }
-    .planned { fill: none; stroke: url(#grad); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; filter: none; }
-    .actual { fill: none; stroke: rgba(39, 28, 23, .45); stroke-width: 3; stroke-dasharray: 7 8; }
-    .node { fill: var(--bg); stroke: var(--b); stroke-width: 4; cursor: pointer; transition: r .16s ease, fill .16s ease, stroke .16s ease; }
-    .hit { fill: transparent; cursor: pointer; }
-    .pt.active .node, .pt:hover .node { r: 10; fill: var(--b); stroke: var(--text); }
-    .chart-meta { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
-    .details-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 14px; }
-    .tabs { display: flex; flex-direction: column; gap: 8px; }
-    .tab { width: 100%; text-align: left; cursor: pointer; }
-    .tab.active { color: white; border-color: transparent; background: var(--a); }
-    .panel { display: none; overflow-x: auto; overflow-y: hidden; border: 1px solid var(--line); border-radius: 22px; background: rgba(252,250,245,.86); -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; scrollbar-gutter: stable; }
-    .panel.active { display: block; }
-    .panel table { width: max-content; min-width: 100%; }
-    table { width: 100%; border-collapse: collapse; min-width: 760px; }
-    th, td { padding: 13px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; font-size: 13px; line-height: 1.45; }
-    th { color: var(--muted); font-size: 11px; font-weight: 780; background: rgba(255,74,28,.07); letter-spacing: .04em; }
-    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-    tr:last-child td { border-bottom: 0; }
-    .money { font-weight: 820; color: var(--text); }
-    .links { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; border-top: 1px solid var(--line); }
-    .tooltip {
-      position: fixed;
-      z-index: 40;
-      width: min(380px, calc(100vw - 28px));
-      opacity: 0;
-      pointer-events: none;
-      transform: translate(-50%, calc(-100% - 18px));
-      border: 1px solid rgba(255,255,255,.18);
-      background: rgba(252, 250, 245, .96);
-      border-radius: 0;
-      padding: 13px 14px;
-      box-shadow: 0 18px 50px rgba(0,0,0,.36);
-
-      transition: opacity .14s ease;
-    }
-    .tooltip.show { opacity: 1; }
-    .tooltip-title { color: var(--text); font-weight: 820; margin-bottom: 7px; }
-    .tooltip-body { color: var(--muted); font-size: 13px; line-height: 1.5; }
-    .tooltip-row { display: flex; justify-content: space-between; gap: 14px; margin-top: 6px; font-size: 13px; }
-    .tooltip-row span { color: var(--muted); }
-    .tooltip-row strong { font-variant-numeric: tabular-nums; }
-    footer { color: var(--muted); font-size: 12px; line-height: 1.65; margin-top: 16px; }
-    @media (max-width: 980px) {
-      .topbar, .section-head { flex-direction: column; }
-      .meta { justify-content: flex-start; }
-      .hero, .details-layout { grid-template-columns: 1fr; }
-      .latest-grid, .chart-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .tabs { flex-direction: row; flex-wrap: wrap; }
-      .tab { width: auto; }
-    }
-    @media (max-width: 640px) {
-      .wrap { padding: 18px 10px 38px; }
-      .section { padding: 16px; border-radius: 22px; }
-      .stage { min-height: auto; }
-      .latest-grid, .chart-meta { grid-template-columns: 1fr; }
-      .chip, .link, .tab { white-space: normal; }
-      svg { height: 270px; }
-      .axis-label { font-size: 13px; }
-      .panel { max-width: calc(100vw - 52px); touch-action: pan-x pan-y; }
-      .panel::after { content: "← scroll →"; position: sticky; left: 12px; bottom: 8px; display: inline-block; margin: 8px 0 10px 12px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 0; color: var(--muted); background: rgba(8,9,13,.72); font-size: 11px; pointer-events: none; }
-      .panel table { min-width: 760px; }
-      .panel[data-panel="monthly"] table { min-width: 940px; }
-      .panel[data-panel="actual"] table { min-width: 1080px; }
-      th, td { padding: 12px 18px; }
-      .tooltip { transform: translate(-50%, calc(-100% - 12px)); }
-    }
+    :root { color-scheme: light; --bg:#f5f5f7; --card:#fff; --text:#1d1d1f; --muted:#6e6e73; --line:#d2d2d7; --accent:#0a84ff; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","Segoe UI",sans-serif; background:var(--bg); color:var(--text); }
+    main { max-width:1120px; margin:0 auto; padding:28px 18px 56px; }
+    h1 { font-size:28px; margin:0 0 6px; }
+    h2 { font-size:18px; margin:26px 0 10px; }
+    p { color:var(--muted); line-height:1.55; margin:6px 0; }
+    .date { color:var(--muted); font-size:13px; margin-bottom:8px; }
+    .cards { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin:20px 0; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; box-shadow:0 1px 2px rgba(0,0,0,.04); }
+    .label { color:var(--muted); font-size:13px; }
+    .value { font-size:28px; font-weight:700; margin-top:6px; }
+    .note { font-size:13px; color:var(--muted); margin-top:6px; }
+    table { width:100%; border-collapse:separate; border-spacing:0; background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+    th,td { padding:11px 12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+    th { font-size:13px; color:var(--muted); background:#fbfbfd; font-weight:600; }
+    tr:last-child td { border-bottom:0; }
+    .num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .total td { font-weight:700; background:#fbfbfd; }
+    .zero { color:#9a9aa0; }
+    .links { margin-top:12px; display:flex; flex-wrap:wrap; gap:8px; }
+    a { color:var(--accent); text-decoration:none; }
+    @media (max-width:800px) { .cards { grid-template-columns:1fr 1fr; } table { font-size:14px; } th,td { padding:9px 8px; } }
+    @media (max-width:520px) { .cards { grid-template-columns:1fr; } .scroll { overflow-x:auto; } table { min-width:720px; } }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="topbar">
-      <div>
-        <div class="eyebrow">SBIR Dashboard</div>
-        <h1><span data-zh>1Z1141068 計劃進度總覽</span><span data-en>1Z1141068 Project Dashboard</span></h1>
-        <p class="subtitle"><span data-zh>加密光伏光場鏡片 · Phase 1 · 115/05/01–115/10/31</span><span data-en>Encrypted Photovoltaic Light-field Lens · Phase 1 · 2026/05/01–2026/10/31</span></p>
-      </div>
-      <div class="meta">
-        <span class="chip"><span data-zh>資料版本 2026/07/02</span><span data-en>Data version 2026/07/02</span></span>
-        <a class="chip" href="#funding"><span data-zh>資金動態</span><span data-en>Funding</span></a>
-        <a class="chip" href="#details"><span data-zh>資料明細</span><span data-en>Details</span></a>
-        <a class="chip" href="#parallel-project"><span data-zh>平行計畫</span><span data-en>Parallel project</span></a>
-        <button class="chip lang-toggle" type="button" id="langToggle" aria-label="Switch language">EN</button>
-      </div>
-    </header>
+<main>
+  <div class="date">2026-07-15</div>
+  <h1>SBIR 核銷台帳</h1>
+  <p>智慧鼠文化股份有限公司｜加密光伏光場鏡片 Phase 1</p>
 
-    <main>
-      <section class="hero" aria-label="本計劃最新進度">
-        <div class="card stage section">
-          <div>
-            <div class="section-kicker">Layer 1 · Latest</div>
-            <h2><span data-zh>目前進度：2026-07 I–V 建模與跨計畫資料對齊</span><span data-en>Current status: 2026-07 I–V modeling and cross-project alignment</span></h2>
-            <p style="max-width: 760px; margin-top: 12px;"><span data-zh>一打開頁面先看到計劃走到哪裡：已進入第 3 個月，累計規劃預算 450,000，占總預算 59.2%。七月主軸是把 6 月完成的 DSSC I–V curve 量測整理成資料庫、特徵比對與 PUF 驗證邏輯。Solar Oracle Walkman 的公開資料也補進來，但標成「平行藝術計畫」：它可以共用 DSSC、I–V voiceprint 與鏈上 oracle 的研究語言，不能混在經濟部 SBIR 的補助款、核銷與成果歸屬裡。</span><span data-en>At a glance: the project is in month 3. Cumulative planned spending is 450,000, or 59.2% of the total budget. July work turns the June DSSC I–V measurements into a database, feature comparison, and PUF validation logic. Solar Oracle Walkman is now listed as a parallel art project: it may share DSSC, I–V voiceprint, and on-chain oracle research language, but it must not be mixed into MOEA SBIR subsidy accounting, reimbursement, or formal deliverable ownership.</span></p>
-          </div>
-          <div class="latest-grid">
-            <div class="metric js-tip" tabindex="0" data-tip-title="計劃月份" data-tip="Phase 1 共 6 個月，目前主視角設定為 2026-07，方便檢視現在計劃走到哪裡。"><span class="label"><span data-zh>目前月份</span><span data-en>Current month</span></span><strong class="value">M3 / 6</strong><small>2026-07</small></div>
-            <div class="metric js-tip" tabindex="0" data-tip-title="本月預估" data-tip="2026-07 規劃 150,000，占總預算 19.7%，用途為 I–V 建模、資料庫、材料補採購與顧問檢核。"><span class="label"><span data-zh>本月預估</span><span data-en>Planned this month</span></span><strong class="value">150,000</strong><small>19.7% of total</small></div>
-            <div class="metric js-tip" tabindex="0" data-tip-title="累計規劃" data-tip="截至 2026-07，累計預估 450,000，占總預算 59.2%。"><span class="label"><span data-zh>累計規劃</span><span data-en>Cumulative plan</span></span><strong class="value">450,000</strong><small>59.2% of total</small></div>
-            <div class="metric js-tip" tabindex="0" data-tip-title="公開實支" data-tip="已補薪資、顧問費、導電玻璃、Greatcell quote 暫估與 6/26 材料耗材發票；7 月尚未新增可公開核銷實支。"><span class="label"><span data-zh>公開實支</span><span data-en>Public actual/accrued</span></span><strong class="value">125,466</strong><small><span data-zh>已補/待補 5 筆</span><span data-en>5 recorded / pending items</span></small></div>
-          </div>
-        </div>
-        <aside class="card status-card">
-          <div>
-            <div class="now-badge"><span class="pulse"></span>Current Plan Position</div>
-            <h2 style="margin-top: 12px;"><span data-zh>115/07 執行中</span><span data-en>2026-07 in progress</span></h2>
-            <p style="margin-top: 8px;"><span data-zh>重點：I–V 建模、資料庫、材料補採購與顧問檢核；補助提領仍以憑證齊全與專戶餘額保守控管。</span><span data-en>Focus: I–V modeling, database work, materials follow-up, and consultant review. Subsidy withdrawals remain conservative and evidence-based.</span></p>
-          </div>
-          <div>
-            <div class="label"><span data-zh>總期程完成感</span><span data-en>Overall timeline progress</span></div>
-            <div class="progress-bar" style="margin-top: 8px;"><span style="width:50%"></span></div>
-            <p style="font-size: 12px; margin-top: 8px;"><span data-zh>以月份節點估算：第 3 月 / 共 6 月。</span><span data-en>Month-based estimate: month 3 of 6.</span></p>
-          </div>
-          <div class="timeline" aria-label="計劃月份位置">
-            <div class="timeline-row active"><span>May</span><div class="timeline-track"><span style="width:100%"></span></div></div>
-            <div class="timeline-row active"><span>Jun</span><div class="timeline-track"><span style="width:42%"></span></div></div>
-            <div class="timeline-row active"><span>Jul</span><div class="timeline-track"><span style="width:18%"></span></div></div>
-            <div class="timeline-row"><span>Aug</span><div class="timeline-track"><span style="width:0%"></span></div></div>
-            <div class="timeline-row"><span>Sep</span><div class="timeline-track"><span style="width:0%"></span></div></div>
-            <div class="timeline-row"><span>Oct</span><div class="timeline-track"><span style="width:0%"></span></div></div>
-          </div>
-        </aside>
-      </section>
+  <section class="cards" aria-label="summary">
+    <div class="card"><div class="label">實支累計</div><div class="value">199,700</div><div class="note">五月 104,700｜六月 95,000</div></div>
+    <div class="card"><div class="label">補助款已提領</div><div class="value">44,000</div><div class="note">五月 0｜六月 44,000</div></div>
+    <div class="card"><div class="label">補助款餘額</div><div class="value">316,000</div><div class="note">核定補助 360,000</div></div>
+    <div class="card"><div class="label">可核算未提領</div><div class="value">48,750</div><div class="note">可核算 92,750｜已提領 44,000</div></div>
+  </section>
 
-      <section class="card section" id="funding">
-        <div class="section-head">
-          <div>
-            <div class="section-kicker">Layer 2 · Monthly Funding</div>
-            <h2><span data-zh>月度資金動態折線圖</span><span data-en>Monthly funding trend</span></h2>
-            <p><span data-zh>滑過或點擊每個月份節點，會同步更新下方 KPI 與主要重點；觸控裝置點一下即可停留。</span><span data-en>Hover or tap a monthly node to update the KPI and key focus below. On touch devices, tap once to keep the month selected.</span></p>
-          </div>
-          <span class="chip"><span data-zh>總預算 760,000 TWD</span><span data-en>Total budget 760,000 TWD</span></span>
-        </div>
-        <div class="chart-shell" id="chartShell">
-          <svg viewBox="0 0 920 320" aria-label="月度預估與實支折線圖">
-            <defs>
-              <linearGradient id="grad" x1="0" x2="1"><stop offset="0%" stop-color="#7c5cff"/><stop offset="55%" stop-color="#c85cff"/><stop offset="100%" stop-color="#ff5478"/></linearGradient>
-            </defs>
-            <line class="axis" x1="64" y1="46" x2="876" y2="46"/><line class="axis" x1="64" y1="116" x2="876" y2="116"/><line class="axis" x1="64" y1="186" x2="876" y2="186"/><line class="axis" x1="64" y1="256" x2="876" y2="256"/>
-            <text class="axis-label" x="16" y="50">175k</text><text class="axis-label" x="16" y="120">125k</text><text class="axis-label" x="25" y="190">75k</text><text class="axis-label" x="35" y="260">0</text>
-            <path class="planned" d="M76 46 L236 116 L396 81 L556 123 L716 158 L876 158"/>
-            <path class="actual" d="M76 131 L236 256 L396 256 L556 256 L716 256 L876 256"/>
-            <g class="pt" data-month="2026-05" data-short="May" data-index="1" data-subsidy="55,594" data-self="69,129" data-personnel="75,500" data-consultant="25,000" data-materials="24,223" data-equipment="0" data-maintenance="0" data-planned="175,000" data-actual="124,723" data-cum="175,000" data-focus="人事、首批材料、設備使用與維護" data-kpi="啟動採購與基礎樣本準備" data-research="建立樣本製作條件與初始材料清單，完成 Phase 1 啟動資料整理。"><circle class="node" cx="76" cy="46" r="6"/><circle class="hit" cx="76" cy="46" r="28"/><text class="axis-label" x="52" y="297">May</text></g>
-            <g class="pt" data-month="2026-06" data-short="Jun" data-index="2" data-subsidy="59,211" data-self="65,789" data-personnel="95,000" data-consultant="0" data-materials="743" data-equipment="0" data-maintenance="0" data-planned="125,000" data-actual="743" data-cum="300,000" data-focus="樣本製作、材料補採購、人事" data-kpi="樣本製作節點執行中" data-research="延續 5 月材料與設備準備，聚焦樣本製作、材料補採購與研發人力投入。"><circle class="node" cx="236" cy="116" r="6"/><circle class="hit" cx="236" cy="116" r="28"/><text class="axis-label" x="213" y="297">Jun</text></g>
-            <g class="pt" data-month="2026-07" data-short="Jul" data-index="3" data-subsidy="71,053" data-self="78,947" data-personnel="95,000" data-consultant="25,000" data-materials="30,000" data-equipment="0" data-maintenance="0" data-planned="150,000" data-actual="0" data-cum="450,000" data-focus="I-V 建模、資料庫、材料補採購、顧問第 1 期" data-kpi="I-V 建模與資料庫" data-research="將樣本量測結果轉入 I-V 建模與資料庫整理，並啟動顧問第一期檢核。"><circle class="node" cx="396" cy="81" r="6"/><circle class="hit" cx="396" cy="81" r="28"/><text class="axis-label" x="378" y="297">Jul</text></g>
-            <g class="pt" data-month="2026-08" data-short="Aug" data-index="4" data-subsidy="56,842" data-self="63,158" data-personnel="95,000" data-consultant="25,000" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="120,000" data-actual="0" data-cum="570,000" data-focus="PUF 測試、顧問第 2 期、人事" data-kpi="PUF 測試驗證" data-research="針對光伏光場特徵建立 PUF 測試流程，並由顧問第二期協助驗證方法。"><circle class="node" cx="556" cy="123" r="6"/><circle class="hit" cx="556" cy="123" r="28"/><text class="axis-label" x="532" y="297">Aug</text></g>
-            <g class="pt" data-month="2026-09" data-short="Sep" data-index="5" data-subsidy="45,000" data-self="50,000" data-personnel="95,000" data-consultant="0" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="95,000" data-actual="0" data-cum="665,000" data-focus="挑戰/回應流程測試、資料整理、人事" data-kpi="Challenge / Response 測試" data-research="整理 PUF 測試資料，驗證挑戰/回應流程與資料穩定性。"><circle class="node" cx="716" cy="158" r="6"/><circle class="hit" cx="716" cy="158" r="28"/><text class="axis-label" x="693" y="297">Sep</text></g>
-            <g class="pt" data-month="2026-10" data-short="Oct" data-index="6" data-subsidy="45,000" data-self="50,000" data-personnel="95,000" data-consultant="0" data-materials="0" data-equipment="0" data-maintenance="0" data-planned="95,000" data-actual="0" data-cum="760,000" data-focus="期末整理、驗證、結案資料" data-kpi="結案驗證與文件" data-research="彙整驗證結果、成本資料與結案文件，形成 Phase 1 可追溯成果。"><circle class="node" cx="876" cy="158" r="6"/><circle class="hit" cx="876" cy="158" r="28"/><text class="axis-label" x="854" y="297">Oct</text></g>
-          </svg>
-        </div>
-        <div class="chart-meta" id="chartMeta"></div>
-      </section>
+  <h2>月別實支</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>月份</th><th class="num">薪資人事費</th><th class="num">材料費</th><th class="num">顧問費</th><th class="num">其他</th><th class="num">合計</th><th>摘要</th></tr></thead>
+    <tbody>
+      <tr><td>2026-05</td><td class="num">75,500</td><td class="num">4,200</td><td class="num">25,000</td><td class="num zero">0</td><td class="num">104,700</td><td>薪資人事費、材料費、顧問費</td></tr>
+      <tr><td>2026-06</td><td class="num">95,000</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td><td class="num">95,000</td><td>薪資人事費</td></tr>
+      <tr><td>2026-07</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td><td></td></tr>
+      <tr><td>2026-08</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td><td></td></tr>
+      <tr><td>2026-09</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td><td></td></tr>
+      <tr><td>2026-10</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td><td class="num zero">0</td><td></td></tr>
+      <tr class="total"><td>合計</td><td class="num">170,500</td><td class="num">4,200</td><td class="num">25,000</td><td class="num zero">0</td><td class="num">199,700</td><td></td></tr>
+    </tbody>
+  </table></div>
 
+  <h2>補助款</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>月份</th><th class="num">可核算補助</th><th class="num">實際提領</th><th class="num">提領後餘額</th><th>摘要</th></tr></thead>
+    <tbody>
+      <tr><td>2026-05</td><td class="num">46,083</td><td class="num zero">0</td><td class="num">360,000</td><td>薪資人事費、材料費、顧問費</td></tr>
+      <tr><td>2026-06</td><td class="num">46,667</td><td class="num">44,000</td><td class="num">316,000</td><td>薪資人事費</td></tr>
+      <tr class="total"><td>合計</td><td class="num">92,750</td><td class="num">44,000</td><td class="num">316,000</td><td>可核算未提領 48,750</td></tr>
+    </tbody>
+  </table></div>
 
-      <section class="card section" id="materials-variance">
-        <div class="section-head">
-          <div>
-            <div class="section-kicker">Layer 2 · Materials variance</div>
-            <h2><span data-zh>材料費差異</span><span data-en>Materials variance</span></h2>
-            <p><span data-zh>5 月材料費原預估 60,000；目前列入導電玻璃與 Greatcell quote 共 24,223，差異 35,777。材料可提領補助因此比原預估少 16,994。</span><span data-en>May materials were originally planned at 60,000. Current recorded/accrued materials are conductive glass plus the Greatcell quote, totaling 24,223. The variance is 35,777, reducing withdrawable materials subsidy by 16,994 versus the original plan.</span></p>
-          </div>
-          <span class="chip"><span data-zh>材料補助比例 47.5%</span><span data-en>Materials subsidy ratio 47.5%</span></span>
-        </div>
-        <table><thead><tr><th><span data-zh>項目</span><span data-en>Item</span></th><th class="num"><span data-zh>原預估</span><span data-en>Original plan</span></th><th class="num"><span data-zh>目前列入</span><span data-en>Current recorded/accrued</span></th><th class="num"><span data-zh>差異</span><span data-en>Variance</span></th><th><span data-zh>原因</span><span data-en>Reason</span></th></tr></thead><tbody>
-          <tr><td><span data-zh>導電玻璃</span><span data-en>Conductive glass</span></td><td class="num">—</td><td class="num money">4,200</td><td class="num">—</td><td><span data-zh>已收到發票 BN02880855，含稅總額。</span><span data-en>Invoice BN02880855 received; tax-inclusive amount.</span></td></tr>
-          <tr><td><span data-zh>Greatcell 材料</span><span data-en>Greatcell materials</span></td><td class="num">—</td><td class="num money">20,023</td><td class="num">—</td><td><span data-zh>Quote WCO5526-1 暫估入帳；發票/付款證明待補。</span><span data-en>Quote WCO5526-1 accrued as an estimate; invoice/payment proof pending.</span></td></tr>
-          <tr><td><strong><span data-zh>材料費合計</span><span data-en>Materials total</span></strong></td><td class="num money">60,000</td><td class="num money">24,223</td><td class="num money">-35,777</td><td><span data-zh>首批材料尚未全數採購或尚未補齊憑證。</span><span data-en>The first-batch materials have not all been purchased or documented yet.</span></td></tr>
-          <tr><td><strong><span data-zh>可提領補助影響</span><span data-en>Withdrawable subsidy impact</span></strong></td><td class="num money">28,500</td><td class="num money">11,506</td><td class="num money">-16,994</td><td><span data-zh>以材料補助比例 57,000 / 120,000 = 47.5% 計算。</span><span data-en>Calculated using the materials subsidy ratio: 57,000 / 120,000 = 47.5%.</span></td></tr>
-        </tbody></table>
-      </section>
+  <h2>實支明細</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>日期</th><th>歸屬月份</th><th>科目</th><th>範圍</th><th class="num">實支</th><th class="num">可核算補助</th></tr></thead>
+    <tbody>
+      <tr><td>2026-06-05</td><td>2026-05</td><td>薪資人事費</td><td>5月份薪資支出</td><td class="num">75,500</td><td class="num">37,088</td></tr>
+      <tr><td>2026-05-25</td><td>2026-05</td><td>材料費</td><td>導電玻璃材料採購</td><td class="num">4,200</td><td class="num">1,995</td></tr>
+      <tr><td>2026-05-29</td><td>2026-05</td><td>顧問費</td><td>Edmond Jordan 顧問費第一期</td><td class="num">25,000</td><td class="num">7,000</td></tr>
+      <tr><td>2026-07-03</td><td>2026-06</td><td>薪資人事費</td><td>6月份薪資支出</td><td class="num">95,000</td><td class="num">46,667</td></tr>
+    </tbody>
+  </table></div>
 
-      <section class="card section" id="parallel-project">
-        <div class="section-head">
-          <div>
-            <div class="section-kicker">Layer 2 · Parallel research boundary</div>
-            <h2><span data-zh>Solar Oracle Walkman：可共用研究語言，但不可混同核銷</span><span data-en>Solar Oracle Walkman: shared research language, separate accounting</span></h2>
-            <p><span data-zh>SBIR 是經濟部研發補助計畫；Solar Oracle Walkman 是平行藝術／鏈上 oracle 原型。兩者都圍繞 DSSC、I–V curve、material voiceprint/PUF，但 SBIR dashboard 只把它列為參照與公開脈絡，不把藝術計畫預算或鏈上部署費用放進 SBIR 補助款。</span><span data-en>SBIR is an MOEA R&D subsidy project; Solar Oracle Walkman is a parallel art / on-chain oracle prototype. They share DSSC, I–V curve, material voiceprint, and PUF language, but this SBIR dashboard lists the art project only as context and does not mix its budget or chain deployment costs into SBIR subsidy accounting.</span></p>
-          </div>
-          <span class="chip"><span data-zh>邊界已標註</span><span data-en>Boundary marked</span></span>
-        </div>
-        <table><thead><tr><th><span data-zh>項目</span><span data-en>Project</span></th><th><span data-zh>性質</span><span data-en>Type</span></th><th><span data-zh>可共用</span><span data-en>Shared</span></th><th><span data-zh>不可混同</span><span data-en>Keep separate</span></th></tr></thead><tbody>
-          <tr><td>SBIR 1Z1141068</td><td><span data-zh>經濟部研發補助</span><span data-en>MOEA R&D subsidy</span></td><td>DSSC fabrication, I–V database, PUF validation</td><td><span data-zh>補助款、核銷憑證、政府成果文件</span><span data-en>subsidy funds, reimbursement evidence, official deliverables</span></td></tr>
-          <tr><td>Solar Oracle Walkman</td><td><span data-zh>藝術計畫／公開原型</span><span data-en>art project / public prototype</span></td><td>DIY DSSC, IV voiceprint, oracle-signed records, public storytelling</td><td><span data-zh>國藝會預算、鏈上部署、展演敘事不得併入 SBIR 核銷</span><span data-en>NCAF/art budget, chain deployment, exhibition narrative stay outside SBIR reimbursement</span></td></tr>
-        </tbody></table>
-        <div class="links"><a class="link" href="data/public/linked-projects.csv">linked-projects.csv</a><a class="link" href="data/public/pv-puf-comparison.csv">pv-puf-comparison.csv</a><a class="link" href="https://github.com/weiweiweiopen/solar-oracle-walkman">Solar Oracle Walkman repo</a></div>
-      </section>
-
-      <section class="card section" id="details">
-        <div class="section-head">
-          <div>
-            <div class="section-kicker">Details</div>
-            <h2><span data-zh>計劃所有資料細節與入口</span><span data-en>Project data details and files</span></h2>
-            <p><span data-zh>完整預算、月度規劃、材料、人事、設備、公開邊界與檔案連結都集中在此，方便往下追資料來源。</span><span data-en>Budget, monthly plan, materials, personnel, equipment, disclosure boundaries, and source file links are collected here for traceability.</span></p>
-          </div>
-          <span class="chip"><span data-zh>公開可揭露資料</span><span data-en>Publicly shareable data</span></span>
-        </div>
-        <div class="details-layout">
-          <div class="tabs" role="tablist" aria-label="資料分類">
-            <button class="tab active" data-tab="monthly" role="tab"><span data-zh>月度規劃</span><span data-en>Monthly</span></button>
-            <button class="tab" data-tab="budget" role="tab"><span data-zh>預算</span><span data-en>Budget</span></button>
-            <button class="tab" data-tab="personnel" role="tab"><span data-zh>人事</span><span data-en>Personnel</span></button>
-            <button class="tab" data-tab="materials" role="tab"><span data-zh>材料</span><span data-en>Materials</span></button>
-            <button class="tab" data-tab="equipment" role="tab"><span data-zh>設備使用</span><span data-en>Equipment use</span></button>
-            <button class="tab" data-tab="maintenance" role="tab"><span data-zh>設備維護</span><span data-en>Maintenance</span></button>
-            <button class="tab" data-tab="actual" role="tab"><span data-zh>實支</span><span data-en>Actuals</span></button>
-            <button class="tab" data-tab="dssc-curves" role="tab"><span data-zh>DSSC 曲線</span><span data-en>DSSC curves</span></button>
-            <button class="tab" data-tab="linked-projects" role="tab"><span data-zh>平行計畫</span><span data-en>Parallel projects</span></button>
-            <button class="tab" data-tab="public" role="tab"><span data-zh>公開邊界</span><span data-en>Disclosure</span></button>
-          </div>
-
-          <div>
-            <div class="panel active" data-panel="monthly" role="tabpanel">
-              <table><thead><tr><th>月份</th><th class="num">預估</th><th class="num">實支</th><th class="num">累計預估</th><th>KPI / 用途</th></tr></thead><tbody>
-                <tr><td>2026-05</td><td class="num money">175,000</td><td class="num">124,723</td><td class="num">175,000</td><td>人事薪資 75,500（50,000＋約25,000待核）、Edmond Jordan 顧問第一期 25,000、導電玻璃材料憑證，Greatcell 材料 quote 先列支出預估</td></tr>
-                <tr><td>2026-06</td><td class="num money">125,000</td><td class="num">743</td><td class="num">300,000</td><td>新增 6/26 材料耗材發票 743；品項與原預算細項出入先記錄，後續於耗材項目申請變更</td></tr>
-                <tr><td>2026-07</td><td class="num money">150,000</td><td class="num">0</td><td class="num">450,000</td><td>I–V 建模、資料庫、材料補採購、顧問第 1 期；補充 Solar Oracle Walkman 為平行藝術計畫參照，不併入 SBIR 核銷</td></tr>
-                <tr><td>2026-08</td><td class="num money">120,000</td><td class="num">0</td><td class="num">570,000</td><td>PUF 測試、顧問第 2 期、人事</td></tr>
-                <tr><td>2026-09</td><td class="num money">95,000</td><td class="num">0</td><td class="num">665,000</td><td>挑戰/回應流程測試、資料整理、人事</td></tr>
-                <tr><td>2026-10</td><td class="num money">95,000</td><td class="num">0</td><td class="num">760,000</td><td>期末整理、驗證、結案資料</td></tr>
-              </tbody></table><div class="links"><a class="link" href="data/public/monthly-plan.csv">monthly-plan.csv</a></div>
-            </div>
-            <div class="panel" data-panel="budget" role="tabpanel">
-              <table><thead><tr><th>科目</th><th class="num">補助</th><th class="num">自籌</th><th class="num">合計</th></tr></thead><tbody>
-                <tr><td>研發人員</td><td class="num">280,000</td><td class="num">290,000</td><td class="num money">570,000</td></tr>
-                <tr><td>顧問</td><td class="num">14,000</td><td class="num">36,000</td><td class="num money">50,000</td></tr>
-                <tr><td>消耗性器材及原材料費</td><td class="num">57,000</td><td class="num">63,000</td><td class="num money">120,000</td></tr>
-                <tr><td>研發設備使用費</td><td class="num">7,000</td><td class="num">8,000</td><td class="num money">15,000</td></tr>
-                <tr><td>研發設備維護費</td><td class="num">2,000</td><td class="num">3,000</td><td class="num money">5,000</td></tr>
-                <tr><td>技術移轉及委託費</td><td class="num">0</td><td class="num">0</td><td class="num money">0</td></tr>
-                <tr><td>國內差旅費</td><td class="num">0</td><td class="num">0</td><td class="num money">0</td></tr>
-                <tr><td><strong>合計</strong></td><td class="num money">360,000</td><td class="num money">400,000</td><td class="num money">760,000</td></tr>
-              </tbody></table><div class="links"><a class="link" href="data/public/budget.csv">budget.csv</a></div>
-            </div>
-            <div class="panel" data-panel="personnel" role="tabpanel">
-              <table><thead><tr><th>角色</th><th>職級</th><th class="num">月薪概算</th><th class="num">人月</th><th class="num">概算</th></tr></thead><tbody>
-                <tr><td>計畫主持人</td><td>計畫主持人</td><td class="num">50,000</td><td class="num">6</td><td class="num money">300,000</td></tr>
-                <tr><td>待聘研發人員</td><td>助理研究員級</td><td class="num">45,000</td><td class="num">6</td><td class="num money">270,000</td></tr>
-                <tr><td>顧問</td><td>顧問</td><td class="num">25,000</td><td class="num">2</td><td class="num money">50,000</td></tr>
-              </tbody></table>
-            </div>
-            <div class="panel" data-panel="materials" role="tabpanel">
-              <table><thead><tr><th>項目</th><th>單位</th><th class="num">數量</th><th class="num">單價千元</th><th class="num">合計千元</th></tr></thead><tbody>
-                <tr><td>Surlyn film 60um 熱封沙林膜</td><td>張</td><td class="num">5</td><td class="num">3</td><td class="num money">15</td></tr>
-                <tr><td>TiO2 paste 18NR-T 二氧化鈦漿料</td><td>100g</td><td class="num">1</td><td class="num">5</td><td class="num money">5</td></tr>
-                <tr><td>Pt paste PT-1 鉑漿料</td><td>100g</td><td class="num">1</td><td class="num">3.4</td><td class="num money">3.4</td></tr>
-                <tr><td>二氧化鈦阻檔層漿料</td><td>100g</td><td class="num">1</td><td class="num">4.6</td><td class="num money">4.6</td></tr>
-                <tr><td>N719 染料</td><td>1g</td><td class="num">1</td><td class="num">7</td><td class="num money">7</td></tr>
-                <tr><td>EL-HSE 電解液</td><td>50ml</td><td class="num">5</td><td class="num">2.6</td><td class="num money">13</td></tr>
-                <tr><td>zibra tube 班馬條 100x3x5mm 0.2 ohm</td><td>條</td><td class="num">16</td><td class="num">0.25</td><td class="num money">4</td></tr>
-                <tr><td>FTO glass 20x20mm TEC15</td><td>100片</td><td class="num">1</td><td class="num">3</td><td class="num money">3</td></tr>
-                <tr><td>FTO glass 60x60mm TEC15</td><td>50片</td><td class="num">1</td><td class="num">3</td><td class="num money">3</td></tr>
-                <tr><td>FTO glass 104x147x1.6mm TEC15</td><td>50片</td><td class="num">1</td><td class="num">6</td><td class="num money">6</td></tr>
-                <tr><td>D149 染料</td><td>500mg</td><td class="num">1</td><td class="num">21</td><td class="num money">21</td></tr>
-                <tr><td>導電銀漿 耐熱500ºC</td><td>500g</td><td class="num">1</td><td class="num">30</td><td class="num money">30</td></tr>
-                <tr><td>染料溶劑</td><td>1L</td><td class="num">1</td><td class="num">5</td><td class="num money">5</td></tr>
-              </tbody></table><div class="links"><a class="link" href="data/public/materials.csv">materials.csv</a></div>
-            </div>
-            <div class="panel" data-panel="equipment" role="tabpanel">
-              <table><thead><tr><th>類型</th><th>設備</th><th>財產編號</th><th class="num">月使用費千元</th><th class="num">月數</th><th class="num">使用費千元</th></tr></thead><tbody>
-                <tr><td>已有</td><td>自動溫控玻璃窯</td><td>M001</td><td class="num">0.556</td><td class="num">6</td><td class="num money">3.336</td></tr>
-                <tr><td>已有</td><td>示波器</td><td>M004</td><td class="num">0.667</td><td class="num">6</td><td class="num money">4.002</td></tr>
-                <tr><td>已有</td><td>405nm 雷射振鏡掃描系統</td><td>M005</td><td class="num">0.556</td><td class="num">6</td><td class="num money">3.336</td></tr>
-                <tr><td>新增</td><td>熱壓封裝電池機</td><td>M007</td><td class="num">0.167</td><td class="num">6</td><td class="num money">1.002</td></tr>
-                <tr><td>新增</td><td>三目顯微鏡（含500×）</td><td>M009</td><td class="num">0.250</td><td class="num">6</td><td class="num money">1.500</td></tr>
-                <tr><td>新增</td><td>電子負載</td><td>M010</td><td class="num">0.278</td><td class="num">6</td><td class="num money">1.668</td></tr>
-              </tbody></table><div class="links"><a class="link" href="data/public/equipment-use.csv">equipment-use.csv</a></div>
-            </div>
-            <div class="panel" data-panel="maintenance" role="tabpanel">
-              <table><thead><tr><th>設備</th><th>財產編號</th><th class="num">原購置金額千元</th><th class="num">套數</th><th class="num">維護費千元</th></tr></thead><tbody>
-                <tr><td>示波器年度校正</td><td>M004</td><td class="num">60</td><td class="num">1</td><td class="num money">2</td></tr>
-                <tr><td>自動溫控玻璃窯（內腔65x45x10cm）</td><td>M001</td><td class="num">10.5</td><td class="num">1</td><td class="num money">3</td></tr>
-              </tbody></table><div class="links"><a class="link" href="data/public/equipment-maintenance.csv">equipment-maintenance.csv</a></div>
-            </div>
-            <div class="panel" data-panel="actual" role="tabpanel"><table><thead><tr><th>日期</th><th>科目</th><th>範圍</th><th class="num">實支</th><th>公開備註</th></tr></thead><tbody><tr><td>2026-05-25</td><td>消耗性器材及原材料費</td><td>導電玻璃材料採購</td><td class="num money">4,200</td><td>電子發票明細 BN02880855：20×20×2.2 FTO 15歐姆 100片，含稅總額</td></tr><tr><td>2026-05-27</td><td>消耗性器材及原材料費</td><td>Greatcell Solar Materials quote WCO5526-1</td><td class="num money">20,023</td><td>AUD 887.01 暫估；發票/付款證明待補，先列支出預估</td></tr><tr><td>2026-05-29</td><td>顧問</td><td>Edmond Jordan 顧問費第一期</td><td class="num money">25,000</td><td>USD 793.80 暫估；最終以銀行台幣扣款/匯率憑證為準</td></tr><tr><td>2026-06-05</td><td>研發人員薪資</td><td>5月份薪資支出</td><td class="num money">75,500</td><td>薪資傳票合計；拆分暫註記為計畫主持人 50,000＋研發人員約 25,000，待薪資明細/銀行紀錄最終核對</td></tr><tr><td>2026-06-26</td><td>消耗性器材及原材料費</td><td>材料耗材採購（統一發票 57488065）</td><td class="num money">743</td><td>品項手寫辨識不完整；先列耗材實支，後續耗材項目申請變更</td></tr><tr><td><strong>六月提領建議</strong></td><td>補助款</td><td>中信 SBIR 專戶</td><td class="num money">55,947</td><td>含 Greatcell quote 暫估與 6/26 耗材發票；正式核銷需補發票/付款證明，不含銀行手續費</td></tr></tbody></table><div class="links"><a class="link" href="data/public/actual-expenses.csv">actual-expenses.csv</a><a class="link" href="data/public/subsidy-withdrawal.csv">subsidy-withdrawal.csv</a><a class="link" href="data/public/procurement-quotes.csv">procurement-quotes.csv</a></div></div>
-            <div class="panel" data-panel="dssc-curves" role="tabpanel">
-              <div style="padding:16px"><p><span data-zh>DSSC 三片樣本的 normalized I–V curve 資料已轉入公開表：每條曲線以 V_norm=V/Voc、I_norm=I/Isc 正規化，並在 0–1 電壓格點插值。LOOCV nearest-centroid 辨識結果為 13/13 = 100%。</span><span data-en>Normalized I–V curve data for the three DSSC boards has been added to the public tables. Each curve is normalized as V_norm=V/Voc and I_norm=I/Isc, then interpolated on a 0–1 voltage grid. LOOCV nearest-centroid identification: 13/13 = 100%.</span></p></div>
-              <table><thead><tr><th>Board</th><th class="num">n</th><th class="num">Voc avg (mV)</th><th class="num">Voc stdev</th><th class="num">Isc avg (mA)</th><th class="num">Isc stdev</th><th class="num">FF_norm avg</th><th class="num">Intra corr avg</th><th class="num">Intra RMSE avg</th><th class="num">Inter RMSE min</th></tr></thead><tbody>
-                <tr><td>0</td><td class="num">3</td><td class="num">683.004</td><td class="num">10.699</td><td class="num">5.450</td><td class="num">0.059</td><td class="num">0.326</td><td class="num">0.999876</td><td class="num">0.009568</td><td class="num">0.152444</td></tr>
-                <tr><td>1</td><td class="num">5</td><td class="num">664.127</td><td class="num">6.739</td><td class="num">6.975</td><td class="num">0.108</td><td class="num">0.584</td><td class="num">0.999772</td><td class="num">0.006210</td><td class="num">0.097052</td></tr>
-                <tr><td>2</td><td class="num">5</td><td class="num">671.142</td><td class="num">6.212</td><td class="num">7.586</td><td class="num">0.100</td><td class="num">0.473</td><td class="num">0.999890</td><td class="num">0.006144</td><td class="num">0.097052</td></tr>
-              </tbody></table>
-              <div class="links"><a class="link" href="data/public/dssc-curve-summary.csv">dssc-curve-summary.csv</a><a class="link" href="data/public/dssc-normalized-curves.csv">dssc-normalized-curves.csv</a><a class="link" href="data/public/dssc-pairwise-metrics.csv">dssc-pairwise-metrics.csv</a><a class="link" href="data/public/dssc-global-shape-metrics.csv">dssc-global-shape-metrics.csv</a></div>
-            </div>
-            <div class="panel" data-panel="linked-projects" role="tabpanel"><table><thead><tr><th>Project</th><th>Type</th><th>Shared research layer</th><th>Boundary</th></tr></thead><tbody><tr><td>SBIR 1Z1141068</td><td>MOEA R&D subsidy</td><td>DSSC fabrication, I–V measurement database, PUF validation</td><td>Use only SBIR-approved budget, evidence and deliverables for subsidy accounting.</td></tr><tr><td>Solar Oracle Walkman</td><td>Parallel art / oracle prototype</td><td>DIY DSSC, IV voiceprint smart contract, oracle-signed on-chain records</td><td>Public context only here; do not mix art-project budget or chain costs into SBIR reimbursement.</td></tr><tr><td>PAR paper 10072584</td><td>Prior-art reference</td><td>Solar-cell PUF using Voc variation</td><td>Uses off-the-shelf monocrystalline silicon cells; different from handmade DSSC full I–V voiceprint approach.</td></tr></tbody></table><div class="links"><a class="link" href="data/public/linked-projects.csv">linked-projects.csv</a><a class="link" href="data/public/pv-puf-comparison.csv">pv-puf-comparison.csv</a></div></div>
-            <div class="panel" data-panel="public" role="tabpanel"><div style="padding:16px"><p>公開專案級預算、月度規劃、去識別化實支與研究摘要。不公開個人薪資細節、身分證字號、地址、電話、Email、銀行帳戶、登入截圖、cookie、token、合約影本與內部憑證。</p></div><div class="links"><a class="link" href="docs/public-transparency.md">public-transparency.md</a><a class="link" href="data/public/project.json">project.json</a></div></div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer><span data-zh>Source: 計劃資料表422(ignore) 與 2026-05-30 已補憑證之公開可揭露欄位。</span><span data-en>Source: public-safe fields from the signed plan data sheet and reimbursement evidence added on 2026-05-30.</span><a class="link" href="llm-wiki/index.md">llm-wiki</a> <a class="link" href="llms.txt">llms.txt</a></footer>
+  <div class="links">
+    <a href="data/public/actual-expenses.csv">actual-expenses.csv</a>
+    <a href="data/public/monthly-plan.csv">monthly-plan.csv</a>
+    <a href="data/public/subsidy-withdrawal.csv">subsidy-withdrawal.csv</a>
+    <a href="data/public/project.json">project.json</a>
   </div>
-  <div class="tooltip" id="tooltip" role="status" aria-live="polite"></div>
-  <script>
-    const total = 760000;
-    const tooltip = document.getElementById('tooltip');
-    const chartMeta = document.getElementById('chartMeta');
-    const langToggle = document.getElementById('langToggle');
-    const points = [...document.querySelectorAll('.pt')];
-
-    const toNumber = value => Number(String(value || '0').replace(/,/g, ''));
-    const pct = value => `${(toNumber(value) / total * 100).toFixed(1)}%`;
-    const money = value => value || '0';
-    const t = {
-      zh: { fallbackTitle: '重點', monthAria: '月度重點', planned: '本月預估', cumulative: '累計預估', cumulativeTip: '截至本月的累計規劃', subsidySelf: '補助 / 自籌', fundingSplit: '本月資金來源拆分', personnel: '人事薪資', personnelTip: '本月薪資投入預估，不含顧問費', consultant: '顧問費', consultantTip: '顧問費另列，不併入人事薪資', materials: '材料費', materialsTip: '本月材料預估', equipment: '設備費', equipmentTip: '本月設備使用預估', maintenance: '維護', actual: '公開實支', switchToEnglish: 'Switch language', switchToChinese: '切換語言' },
-      en: { fallbackTitle: 'Note', monthAria: 'monthly focus', planned: 'Planned this month', cumulative: 'Cumulative plan', cumulativeTip: 'Cumulative planned spending through this month', subsidySelf: 'Subsidy / self-funded', fundingSplit: 'Funding source split for this month', personnel: 'Payroll', personnelTip: 'Planned payroll spending this month, excluding consultant fees', consultant: 'Consultant', materials: 'Materials', materialsTip: 'Planned materials spending this month', equipment: 'Equipment', equipmentTip: 'Planned equipment-use spending this month', maintenance: 'Maintenance', actual: 'Public actual/accrued', switchToEnglish: 'Switch language', switchToChinese: '切換語言' }
-    };
-    const locale = () => document.documentElement.lang === 'en' ? 'en' : 'zh';
-    const copy = key => t[locale()][key];
-    const enPoints = {
-      '2026-05': { kpi: 'Procurement kickoff and baseline sample preparation', focus: 'Personnel, first-batch materials, equipment-use preparation and maintenance.', research: 'Set initial sample fabrication conditions and materials list; complete Phase 1 startup documentation.' },
-      '2026-06': { kpi: 'Sample fabrication in progress', focus: 'Sample fabrication, materials follow-up, and R&D labor.', research: 'Continue from May materials/equipment preparation and focus on sample fabrication plus R&D labor.' },
-      '2026-07': { kpi: 'I-V modeling and database', focus: 'I-V modeling, database build-out, materials follow-up, and first consultant checkpoint.', research: 'Move sample measurement results into I-V modeling/database work and start the first consultant review.' },
-      '2026-08': { kpi: 'PUF testing validation', focus: 'PUF testing, second consultant checkpoint, and personnel.', research: 'Build a PUF test process for photovoltaic light-field features and validate the method with the second consultant checkpoint.' },
-      '2026-09': { kpi: 'Challenge/response testing', focus: 'Challenge/response process testing, data organization, and personnel.', research: 'Organize PUF test data and validate challenge/response stability.' },
-      '2026-10': { kpi: 'Final validation and closeout documents', focus: 'Final organization, validation, and closeout materials.', research: 'Consolidate validation results, cost data, and closeout documents into traceable Phase 1 outcomes.' }
-    };
-
-    function pointData(pt) {
-      const en = enPoints[pt.dataset.month] || {};
-      const isEn = locale() === 'en';
-      return {
-        month: pt.dataset.month,
-        short: pt.dataset.short,
-        index: pt.dataset.index,
-        planned: pt.dataset.planned,
-        actual: pt.dataset.actual,
-        cum: pt.dataset.cum,
-        subsidy: pt.dataset.subsidy,
-        self: pt.dataset.self,
-        personnel: pt.dataset.personnel,
-        consultant: pt.dataset.consultant || '0',
-        materials: pt.dataset.materials,
-        equipment: pt.dataset.equipment,
-        maintenance: pt.dataset.maintenance,
-        focus: isEn ? en.focus : pt.dataset.focus,
-        kpi: isEn ? en.kpi : pt.dataset.kpi,
-        research: isEn ? en.research : pt.dataset.research
-      };
-    }
-
-    function setTooltip(content, x, y) {
-      tooltip.innerHTML = content;
-      const width = Math.min(380, window.innerWidth - 28);
-      tooltip.style.left = `${Math.min(Math.max(x, width / 2 + 10), window.innerWidth - width / 2 - 10)}px`;
-      tooltip.style.top = `${Math.max(y, 104)}px`;
-      tooltip.classList.add('show');
-    }
-
-    function showPointTip(pt, event) {
-      const data = pointData(pt);
-      const rect = event?.target?.getBoundingClientRect ? event.target.getBoundingClientRect() : pt.getBoundingClientRect();
-      const x = event?.clientX || rect.left + rect.width / 2;
-      const y = event?.clientY || rect.top;
-      setTooltip(`<div class="tooltip-title">${data.month} · ${data.kpi}</div><div class="tooltip-body">${data.focus}</div><div class="tooltip-row"><span>${copy('planned')}</span><strong>${money(data.planned)} (${pct(data.planned)})</strong></div><div class="tooltip-row"><span>${copy('cumulative')}</span><strong>${money(data.cum)} (${pct(data.cum)})</strong></div><div class="tooltip-row"><span>${copy('subsidySelf')}</span><strong>${money(data.subsidy)} / ${money(data.self)}</strong></div><div class="tooltip-row"><span>${copy('personnel')}</span><strong>${money(data.personnel)} (${pct(data.personnel)})</strong></div><div class="tooltip-row"><span>${copy('consultant')}</span><strong>${money(data.consultant)} (${pct(data.consultant)})</strong></div><div class="tooltip-row"><span>${copy('materials')}</span><strong>${money(data.materials)} (${pct(data.materials)})</strong></div><div class="tooltip-row"><span>${copy('equipment')}</span><strong>${money(data.equipment)} (${pct(data.equipment)})</strong></div><div class="tooltip-row"><span>${copy('maintenance')}</span><strong>${money(data.maintenance)} (${pct(data.maintenance)})</strong></div><div class="tooltip-row"><span>${copy('actual')}</span><strong>${money(data.actual)}</strong></div>`, x, y);
-    }
-
-    function showElementTip(el, event) {
-      const rect = el.getBoundingClientRect();
-      const x = event?.clientX || rect.left + rect.width / 2;
-      const y = event?.clientY || rect.top;
-      setTooltip(`<div class="tooltip-title">${el.dataset[locale() === 'en' ? 'tipTitleEn' : 'tipTitle'] || copy('fallbackTitle')}</div><div class="tooltip-body">${el.dataset[locale() === 'en' ? 'tipEn' : 'tip'] || ''}</div>`, x, y);
-    }
-
-    function hideTooltip() {
-      tooltip.classList.remove('show');
-    }
-
-    function selectMonth(pt, event, keepTip = true) {
-      const data = pointData(pt);
-      points.forEach(item => item.classList.toggle('active', item === pt));
-      chartMeta.innerHTML = [
-        [copy('planned'), `${data.planned} (${pct(data.planned)})`, data.focus],
-        [copy('cumulative'), `${data.cum} (${pct(data.cum)})`, copy('cumulativeTip')],
-        [copy('subsidySelf'), `${data.subsidy} / ${data.self}`, copy('fundingSplit')],
-        [copy('personnel'), `${data.personnel} (${pct(data.personnel)})`, copy('personnelTip')],
-        [copy('consultant'), `${data.consultant} (${pct(data.consultant)})`, copy('consultantTip') || '顧問費另列，不併入人事薪資'],
-        [copy('materials'), `${data.materials} (${pct(data.materials)})`, copy('materialsTip')],
-        [copy('equipment'), `${data.equipment} (${pct(data.equipment)})`, copy('equipmentTip')]
-      ].map(([label, value, tip]) => `<div class="mini-card js-tip" tabindex="0" data-tip-title="${label}" data-tip="${tip}" data-tip-title-en="${label}" data-tip-en="${tip}"><span class="label">${label}</span><strong class="value" style="font-size:24px">${value}</strong></div>`).join('');
-      bindTips(document);
-      if (keepTip) showPointTip(pt, event);
-    }
-
-    function bindTips(root) {
-      root.querySelectorAll('.js-tip:not([data-tip-bound])').forEach(el => {
-        el.dataset.tipBound = '1';
-        el.addEventListener('pointerenter', event => showElementTip(el, event));
-        el.addEventListener('pointermove', event => showElementTip(el, event));
-        el.addEventListener('pointerleave', hideTooltip);
-        el.addEventListener('focus', event => showElementTip(el, event));
-        el.addEventListener('blur', hideTooltip);
-      });
-    }
-
-    points.forEach(pt => {
-      pt.setAttribute('tabindex', '0');
-      pt.setAttribute('role', 'button');
-      pt.setAttribute('aria-label', `${pt.dataset.month} ${copy('monthAria')}`);
-      pt.addEventListener('pointerenter', event => selectMonth(pt, event));
-      pt.addEventListener('pointermove', event => showPointTip(pt, event));
-      pt.addEventListener('pointerleave', hideTooltip);
-      pt.addEventListener('click', event => { event.preventDefault(); selectMonth(pt, event); });
-      pt.addEventListener('keydown', event => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          selectMonth(pt, null);
-        }
-      });
-    });
-
-    document.querySelectorAll('.tab').forEach(btn => btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(item => item.classList.toggle('active', item === btn));
-      document.querySelectorAll('.panel').forEach(panel => panel.classList.toggle('active', panel.dataset.panel === btn.dataset.tab));
-    }));
-
-    langToggle.addEventListener('click', () => {
-      const isEnglish = document.documentElement.lang === 'en';
-      document.documentElement.lang = isEnglish ? 'zh-Hant' : 'en';
-      langToggle.textContent = isEnglish ? 'EN' : '中';
-      langToggle.setAttribute('aria-label', isEnglish ? copy('switchToEnglish') : copy('switchToChinese'));
-      const activePoint = document.querySelector('.pt.active') || points[2];
-      selectMonth(activePoint, null, false);
-    });
-
-    document.addEventListener('pointerdown', event => {
-      if (!event.target.closest('.pt') && !event.target.closest('.js-tip')) hideTooltip();
-    });
-    window.addEventListener('scroll', hideTooltip, { passive: true });
-    bindTips(document);
-    selectMonth(points[2], null, false);
-  </script>
+</main>
 </body>
 </html>

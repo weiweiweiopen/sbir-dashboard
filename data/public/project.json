@@ -1,36 +1,90 @@
 {
   "projectId": "1Z1141068",
-  "projectName": "加密光伏光場鏡片 SBIR Phase 1",
+  "projectName": "加密光伏光場鏡片 Phase 1",
   "owner": "智慧鼠文化股份有限公司",
   "currency": "TWD",
-  "versionDate": "2026-07-02",
+  "updatedAt": "2026-07-15",
   "budget": {
     "subsidy": 360000,
     "selfFunded": 400000,
     "total": 760000
   },
-  "actualExpensesTotal": 125466,
-  "privacyBoundary": "公開資料僅揭露專案級預算、月度規劃與行政狀態；個人薪資明細、投保資料、身分證字號、銀行帳戶、登入截圖與內部憑證不公開。",
-  "subsidyWithdrawal": {
-    "asOf": "2026-07-01",
-    "targetMonth": "2026-06",
-    "recommendedWithdrawal": 55947,
-    "basis": "已補/待補憑證：5月薪資傳票75,500（計畫主持人50,000＋研發人員約25,000，待薪資明細/銀行紀錄最終核對）、Edmond Jordan顧問費第一期暫估25,000、導電玻璃發票 BN02880855 含稅4,200、Greatcell材料quote WCO5526-1 暫估20,023、6/26 材料耗材發票57488065含稅743；依各科目補助比例計算，不含銀行手續費。",
-    "caution": "Greatcell目前為quote且發票/付款證明待補；Edmond Jordan最終台幣入帳金額需以銀行扣款/匯率憑證確認。6/26 材料發票品項與原預算細項有出入，先列耗材實支，後續於耗材項目申請變更。若只提領憑證齊全項目，安全數約為46,436；含Greatcell預估上限為55,947。"
-  },
-  "currentMonth": "2026-07",
-  "parallelProjects": [
-    {
-      "name": "Solar Oracle Walkman",
-      "type": "parallel art/oracle prototype",
-      "sharedResearchLayer": "DSSC, I-V voiceprint, oracle-signed records",
-      "boundary": "Context only; not included in SBIR reimbursement or subsidy accounting"
+  "actualExpensesTotal": 199700,
+  "actualExpensesByMonth": {
+    "2026-05": {
+      "personnel": 75500,
+      "materials": 4200,
+      "consultant": 25000,
+      "equipment": 0,
+      "maintenance": 0,
+      "other": 0,
+      "total": 104700
     },
-    {
-      "name": "PAR 10072584 Solar Cell Based PUF",
-      "type": "prior-art reference",
-      "sharedResearchLayer": "solar-cell PUF from Voc variation",
-      "boundary": "Monocrystalline silicon cell reference; distinct from handmade DSSC full I-V approach"
+    "2026-06": {
+      "personnel": 95000,
+      "materials": 0,
+      "consultant": 0,
+      "equipment": 0,
+      "maintenance": 0,
+      "other": 0,
+      "total": 95000
+    },
+    "2026-07": {
+      "personnel": 0,
+      "materials": 0,
+      "consultant": 0,
+      "equipment": 0,
+      "maintenance": 0,
+      "other": 0,
+      "total": 0
+    },
+    "2026-08": {
+      "personnel": 0,
+      "materials": 0,
+      "consultant": 0,
+      "equipment": 0,
+      "maintenance": 0,
+      "other": 0,
+      "total": 0
+    },
+    "2026-09": {
+      "personnel": 0,
+      "materials": 0,
+      "consultant": 0,
+      "equipment": 0,
+      "maintenance": 0,
+      "other": 0,
+      "total": 0
+    },
+    "2026-10": {
+      "personnel": 0,
+      "materials": 0,
+      "consultant": 0,
+      "equipment": 0,
+      "maintenance": 0,
+      "other": 0,
+      "total": 0
     }
-  ]
+  },
+  "subsidyLedger": {
+    "totalSubsidyBudget": 360000,
+    "claimableFromActuals": 92750,
+    "actualWithdrawnTotal": 44000,
+    "remainingSubsidyBalance": 316000,
+    "claimableNotYetWithdrawn": 48750,
+    "monthly": [
+      {
+        "month": "2026-05",
+        "claimableSubsidy": 46083,
+        "actualWithdrawal": 0,
+        "balanceAfterWithdrawal": 360000
+      },
+      {
+        "month": "2026-06",
+        "claimableSubsidy": 46667,
+        "actualWithdrawal": 44000,
+        "balanceAfterWithdrawal": 316000
+      }
+    ]
+  }
 }
