@@ -68,18 +68,18 @@
   },
   "subsidyLedger": {
     "totalSubsidyBudget": 360000,
-    "actualWithdrawnTotal": 44000,
-    "remainingSubsidyBalance": 316000,
+    "actualWithdrawnTotal": 99000,
+    "remainingSubsidyBalance": 261000,
     "monthly": [
       {
         "month": "2026-05",
-        "actualWithdrawal": 0,
-        "balanceAfterWithdrawal": 360000
+        "actualWithdrawal": 55000,
+        "balanceAfterWithdrawal": 305000
       },
       {
         "month": "2026-06",
         "actualWithdrawal": 44000,
-        "balanceAfterWithdrawal": 316000
+        "balanceAfterWithdrawal": 261000
       }
     ]
   }
