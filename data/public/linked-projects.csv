@@ -1,0 +1,4 @@
+project,type,shared_research_layer,boundary,public_reference
+SBIR 1Z1141068,MOEA R&D subsidy,"DSSC fabrication; I-V measurement database; PUF validation","Only SBIR-approved budget/evidence/deliverables are used for subsidy accounting",https://github.com/weiweiweiopen/sbir-dashboard
+Solar Oracle Walkman,Parallel art/oracle prototype,"DIY DSSC; IV voiceprint smart contract; oracle-signed on-chain records","Public context only; NCAF/art budget, chain deployment and exhibition narrative stay outside SBIR reimbursement",https://github.com/weiweiweiopen/solar-oracle-walkman
+PAR 10072584 prior art,Academic prior-art reference,"Solar-cell PUF using Voc variation","Off-the-shelf monocrystalline silicon PV cells; not handmade DSSC fabrication",https://par.nsf.gov/servlets/purl/10072584
