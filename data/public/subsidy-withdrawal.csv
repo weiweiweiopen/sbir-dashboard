@@ -1,4 +1,4 @@
-month,personnel_claimable,materials_claimable,consultant_claimable,total_claimable_subsidy,actual_subsidy_withdrawal,subsidy_balance_after_withdrawal,note
-2026-05,37088,1995,7000,46083,0,360000,"薪資人事費、材料費、顧問費"
-2026-06,46667,0,0,46667,44000,316000,"薪資人事費；實際提領 44,000"
-合計,83755,1995,7000,92750,44000,316000,"可核算補助 92,750；已提領 44,000；可核算未提領 48,750"
+month,actual_subsidy_withdrawal,subsidy_balance_after_withdrawal,note
+2026-05,0,360000,
+2026-06,44000,316000,
+合計,44000,316000,
